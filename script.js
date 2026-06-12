@@ -466,10 +466,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Pause auto-cycle while hovering the card
     const sqlCard = document.getElementById("card-sql");
-    if (sqlCard) {
-        sqlCard.addEventListener("mouseenter", () => { if (sqlCycleStarted) stopCycle(); });
-        sqlCard.addEventListener("mouseleave", () => { if (sqlCycleStarted) startCycle(); });
-    }
 
     // Kick off when demo scrolls into view
     const sqlObserver = new IntersectionObserver((entries) => {
@@ -480,6 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 startCycle();
             } else if (!entry.isIntersecting && sqlCycleStarted) {
                 stopCycle();
+                sqlCycleStarted = false;
             }
         });
     }, { threshold: 0.3 });
