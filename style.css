@@ -533,6 +533,38 @@ html, body {
     border-radius: 6px;
 }
 
+/* Partnership logos (WorldLink × Citi) */
+.exp-partnership-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.exp-partner-divider {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+}
+
+.exp-partner-divider::before,
+.exp-partner-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+}
+
+.exp-partner-x {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
 .exp-date-badge {
     font-family: var(--font-heading);
     font-size: 11px;
