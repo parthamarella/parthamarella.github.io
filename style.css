@@ -41,7 +41,7 @@
 html, body {
     width: 100%;
     overflow-x: hidden;
-    background-color: var(--bg-black);
+    background-color: #000000;
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
@@ -212,6 +212,7 @@ html, body {
     overflow: hidden;
     padding: 0 40px;
     text-align: center;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0, 113, 227, 0.06) 0%, #000000 60%);
 }
 
 #hero-canvas {
@@ -350,8 +351,7 @@ html, body {
 
 #about {
     padding: 120px 0;
-    background-color: var(--bg-dark-gray);
-    border-top: 1px solid rgba(255, 255, 255, 0.02);
+    background: linear-gradient(to bottom, #000000 0%, #0a0a0c 12%, #0a0a0c 88%, #000000 100%);
 }
 
 .about-grid {
@@ -472,7 +472,7 @@ html, body {
 
 #experience {
     padding: 120px 0;
-    background-color: var(--bg-black);
+    background: #000000;
 }
 
 .experience-list {
@@ -650,8 +650,7 @@ html, body {
 
 #projects {
     padding: 120px 0;
-    background-color: var(--bg-dark-gray);
-    border-top: 1px solid rgba(255,255,255,0.02);
+    background: linear-gradient(to bottom, #000000 0%, #0a0a0c 10%, #0a0a0c 90%, #000000 100%);
 }
 
 .product-cards-grid {
@@ -1422,9 +1421,7 @@ html, body {
 
 #technical-ecosystem {
     padding: 120px 0;
-    background-color: var(--bg-dark-gray);
-    border-top: 1px solid rgba(255, 255, 255, 0.02);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    background: linear-gradient(to bottom, #000000 0%, #0a0a0c 10%, #0a0a0c 90%, #000000 100%);
 }
 
 .canvas-container {
@@ -1481,7 +1478,7 @@ html, body {
 
 #impact {
     padding: 120px 0;
-    background-color: var(--bg-black);
+    background: #000000;
 }
 
 .metrics-grid {
@@ -1532,9 +1529,7 @@ html, body {
 
 #testimonials {
     padding: 120px 0;
-    background-color: var(--bg-dark-gray);
-    border-top: 1px solid rgba(255, 255, 255, 0.02);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    background: linear-gradient(to bottom, #000000 0%, #0a0a0c 10%, #0a0a0c 90%, #000000 100%);
 }
 
 .testimonials-grid {
@@ -1645,7 +1640,7 @@ html, body {
 
 #education {
     padding: 120px 0;
-    background-color: var(--bg-black);
+    background: #000000;
     position: relative;
 }
 
@@ -1861,7 +1856,7 @@ html, body {
 
 #contact {
     padding: 120px 0;
-    background-color: var(--bg-dark-gray);
+    background: linear-gradient(to bottom, #000000 0%, #0a0a0c 10%, #0a0a0c 90%, #000000 100%);
 }
 
 .contact-container {
@@ -1990,7 +1985,7 @@ html, body {
 #site-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.03);
     padding: 60px 0;
-    background-color: var(--bg-black);
+    background: #000000;
 }
 
 .footer-container {
