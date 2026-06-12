@@ -1610,11 +1610,7 @@ html, body {
 
 /* Animations for each track */
 .track-1 {
-    animation: scroll-left 40s linear infinite;
-}
-
-.track-2 {
-    animation: scroll-right 45s linear infinite;
+    animation: scroll-left 80s linear infinite;
 }
 
 /* Pause on hover */
