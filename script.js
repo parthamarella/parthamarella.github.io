@@ -973,19 +973,25 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Simulate secure API response
+        // Create mailto link
+        const subject = encodeURIComponent(`Contact Form Submission from ${nameVal}`);
+        const body = encodeURIComponent(`Name: ${nameVal}\nEmail: ${emailVal}\n\nMessage:\n${messageVal}`);
+        const mailtoLink = `mailto:marellapartha7c@gmail.com?subject=${subject}&body=${body}`;
+
+        // Open email client
+        window.location.href = mailtoLink;
+
+        // Update UI
+        formStatus.className = "form-status-msg success";
+        formStatus.textContent = "Opening your email client...";
+        contactForm.reset();
+        submitSpan.textContent = "Send Message";
+        submitBtn.disabled = false;
+
+        // Clean up status after 5s
         setTimeout(() => {
-            formStatus.className = "form-status-msg success";
-            formStatus.textContent = "Thank you, Partha! Your message was sent successfully.";
-            contactForm.reset();
-            submitSpan.textContent = "Send Message";
-            submitBtn.disabled = false;
-            
-            // Clean up status after 5s
-            setTimeout(() => {
-                formStatus.textContent = "";
-            }, 5000);
-        }, 1200);
+            formStatus.textContent = "";
+        }, 5000);
     });
 });
 
