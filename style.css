@@ -1581,11 +1581,63 @@ html, body {
     background: linear-gradient(to bottom, #000000 0%, #0a0a0c 10%, #0a0a0c 90%, #000000 100%);
 }
 
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+.testimonials-marquee-wrapper {
     margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px; /* Space between the two tracks */
+    overflow: hidden;
+    position: relative;
+    /* Optional fade at edges */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.testimonials-marquee {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+
+.marquee-track {
+    display: flex;
+    gap: 32px;
+    /* ensure there is a gap at the end to match the gap between cards */
+    padding-right: 32px;
+    width: max-content;
+    will-change: transform;
+}
+
+/* Animations for each track */
+.track-1 {
+    animation: scroll-left 40s linear infinite;
+}
+
+.track-2 {
+    animation: scroll-right 45s linear infinite;
+}
+
+/* Pause on hover */
+.testimonials-marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scroll-right {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 .testimonial-card {
@@ -1593,6 +1645,22 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 600px; /* Fixed width for consistent scrolling */
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .testimonial-card {
+        width: 350px;
+        padding: 30px;
+    }
+    .testimonials-marquee-wrapper {
+        gap: 24px;
+    }
+    .marquee-track {
+        gap: 24px;
+        padding-right: 24px;
+    }
 }
 
 .testimonial-header {
