@@ -519,9 +519,9 @@ html, body {
 }
 
 .exp-logo {
-    height: 36px;
-    width: auto;
-    max-width: 120px;
+    height: 44px;
+    width: 100%;
+    max-width: 160px;
     object-fit: contain;
     filter: brightness(0) invert(1);
     opacity: 0.85;
@@ -1731,9 +1731,9 @@ html, body {
 }
 
 .testimonial-brand-logo {
-    max-height: 32px;
-    width: auto;
-    max-width: 80px;
+    height: 44px;
+    width: 100%;
+    max-width: 160px;
     object-fit: contain;
     filter: brightness(0) invert(1);
     opacity: 0.6;
@@ -1742,13 +1742,15 @@ html, body {
 }
 
 .testimonial-brand-logo-png {
-    max-height: 32px;
-    width: auto;
-    max-width: 80px;
+    height: 44px;
+    width: 100%;
+    max-width: 160px;
     object-fit: contain;
     filter: none;
     opacity: 0.9;
     border-radius: 4px;
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 /* ==========================================================================
@@ -1835,7 +1837,7 @@ html, body {
 .edu-card-logo,
 .edu-card-logo-png {
     height: 44px;
-    width: auto;
+    width: 100%;
     max-width: 160px;
     object-fit: contain;
     object-position: center;
@@ -1845,12 +1847,6 @@ html, body {
     margin-bottom: 0;
     display: block;
     flex-shrink: 0;
-}
-
-/* CMU is a perfect square (1:1) — needs more height so visual area matches wide logos */
-.edu-logo-box img[alt="CMU Logo"] {
-    height: 56px;
-    max-width: 56px;
 }
 
 /* ==========================================================================
