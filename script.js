@@ -156,9 +156,9 @@ document.addEventListener("DOMContentLoaded", () => {
             .to(".hero-cta", { opacity: 1, y: 0, duration: 0.8, ease: "power4.out" }, "-=0.6")
             .to(".scroll-indicator", { opacity: 0.7, duration: 0.5 }, "-=0.2");
 
-        // Section 2 - Narrative Story Highlight Reveal
-        const storyParas = gsap.utils.toArray(".scroll-reveal-text");
-        storyParas.forEach((para) => {
+        // Section 2 - About Me: Bio paragraph scroll-reveal highlight
+        const aboutParas = gsap.utils.toArray(".scroll-reveal-text");
+        aboutParas.forEach((para) => {
             gsap.fromTo(para, 
                 { color: "rgba(161, 161, 170, 0.15)" }, 
                 {
@@ -173,32 +173,57 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         });
 
-        // Story Section Timeline Node Activation Sync
-        const timelineNodes = gsap.utils.toArray(".timeline-node");
-        timelineNodes.forEach((node, index) => {
-            ScrollTrigger.create({
-                trigger: node,
-                start: "top 75%",
-                end: "bottom 25%",
-                onEnter: () => activateTimelineNode(index),
-                onEnterBack: () => activateTimelineNode(index),
+        // About section highlight cards stagger in
+        const highlightCards = gsap.utils.toArray(".about-highlight-card");
+        highlightCards.forEach((card, i) => {
+            gsap.from(card, {
+                x: 30,
+                opacity: 0,
+                duration: 0.7,
+                delay: i * 0.1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 70%",
+                    toggleActions: "play none none reverse"
+                }
             });
         });
 
-        function activateTimelineNode(activeIndex) {
-            timelineNodes.forEach((node, idx) => {
-                if (idx <= activeIndex) {
-                    node.classList.add("active");
-                } else {
-                    node.classList.remove("active");
+        // Section 3 - Experience cards slide up
+        const expCards = gsap.utils.toArray(".exp-card");
+        expCards.forEach((card, i) => {
+            gsap.from(card, {
+                y: 60,
+                opacity: 0,
+                duration: 0.9,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 88%",
+                    toggleActions: "play none none reverse"
                 }
             });
-            // Update progress line length
-            const progressPercent = (activeIndex / (timelineNodes.length - 1)) * 100;
-            document.querySelector(".timeline-progress").style.height = `${progressPercent}%`;
-        }
+        });
 
-        // Section 3 - What I Build Card Reveal (Apple Reveal Slide Up)
+        // Section 4 - Education cards slide up
+        const eduCards2 = gsap.utils.toArray(".education-card");
+        eduCards2.forEach((card, i) => {
+            gsap.from(card, {
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.12,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#education",
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Section 5 - Projects Card Reveal (slide up)
         const productCards = gsap.utils.toArray(".product-card");
         productCards.forEach((card) => {
             gsap.from(card, {
@@ -215,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // Section 5 - Impact Metrics Number Counter Trigger
+        // Section 7 - Impact Metrics Number Counter Trigger
         ScrollTrigger.create({
             trigger: "#impact",
             start: "top 75%",
@@ -233,22 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     trigger: card,
                     start: "top 90%",
                     toggleActions: "play none none reverse"
-                }
-            });
-        });
-
-        // Section 8 - Philosophy Slides Stagger
-        const philosophySlides = gsap.utils.toArray(".philosophy-slide");
-        philosophySlides.forEach((slide) => {
-            gsap.from(slide, {
-                opacity: 0.1,
-                x: -50,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: slide,
-                    start: "top 80%",
-                    end: "top 40%",
-                    scrub: true,
                 }
             });
         });
@@ -310,7 +319,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!data) return;
 
         const portalGrid = document.getElementById("portal-grid-content");
-        const loadingOverlay = document.getElementById("portal-loading-overlay");
         const personaTag = document.getElementById("portal-persona-tag");
 
         // Sync personas
@@ -335,82 +343,70 @@ document.addEventListener("DOMContentLoaded", () => {
             fakeInput.style.color = "rgba(255,255,255,0.7)";
         }
 
-        // Show Loading Overlay
-        if (loadingOverlay) {
-            loadingOverlay.classList.add("active");
-        }
+        // Build bars HTML immediately — no loading delay
+        let barsHtml = "";
+        data.chartBars.forEach(b => {
+            barsHtml += `
+                <div class="chart-row">
+                     <span class="chart-label">${b.label}</span>
+                     <div class="chart-bar-wrapper">
+                         <div class="chart-bar-fill ${b.color}" data-width="${b.pct}"></div>
+                     </div>
+                     <span class="chart-value">${b.val}</span>
+                </div>
+            `;
+        });
 
-        setTimeout(() => {
-            // Hide Overlay
-            if (loadingOverlay) {
-                loadingOverlay.classList.remove("active");
-            }
-
-            // Build bars HTML
-            let barsHtml = "";
-            data.chartBars.forEach(b => {
-                barsHtml += `
-                    <div class="chart-row">
-                         <span class="chart-label">${b.label}</span>
-                         <div class="chart-bar-wrapper">
-                             <div class="chart-bar-fill ${b.color}" data-width="${b.pct}"></div>
-                         </div>
-                         <span class="chart-value">${b.val}</span>
+        // Populate dashboard panel content instantly
+        if (portalGrid) {
+            portalGrid.innerHTML = `
+                <div class="portal-panel panel-left">
+                    <div class="panel-section">
+                        <span class="panel-section-label">User Query</span>
+                        <div class="active-query-text">"${data.prompt}"</div>
                     </div>
-                `;
+                    
+                    <div class="panel-section">
+                        <span class="panel-section-label">Compiled Starburst SQL</span>
+                        <pre class="sql-code-block"><code>${data.sql}</code></pre>
+                    </div>
+                    
+                    <div class="panel-section-metadata">
+                        <div><span>Access:</span> <span class="meta-badge success">PASSED</span></div>
+                        <div><span>Audit Log:</span> <span>RECORDED</span></div>
+                        <div><span>Latency:</span> <span>${data.time}</span></div>
+                    </div>
+                </div>
+
+                <div class="portal-panel panel-right">
+                    <div class="panel-section">
+                        <span class="panel-section-label">Real-time Visualization</span>
+                        <div class="chart-container">
+                            <div class="chart-title">${data.chartTitle}</div>
+                            <div class="chart-bars-list">
+                                ${barsHtml}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-section" style="flex-grow: 1;">
+                        <span class="panel-section-label">Semantic Insight</span>
+                        <div class="ai-insight">
+                            ${data.insight}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Animate bars after a single frame (CSS transition needs a paint cycle)
+            requestAnimationFrame(() => {
+                const fills = portalGrid.querySelectorAll(".chart-bar-fill");
+                fills.forEach(f => {
+                    const pct = f.getAttribute("data-width");
+                    f.style.width = `${pct}%`;
+                });
             });
-
-            // Populate dashboard panel content
-            if (portalGrid) {
-                portalGrid.innerHTML = `
-                    <div class="portal-panel panel-left">
-                        <div class="panel-section">
-                            <span class="panel-section-label">User Query</span>
-                            <div class="active-query-text">"${data.prompt}"</div>
-                        </div>
-                        
-                        <div class="panel-section">
-                            <span class="panel-section-label">Compiled Starburst SQL</span>
-                            <pre class="sql-code-block"><code>${data.sql}</code></pre>
-                        </div>
-                        
-                        <div class="panel-section-metadata">
-                            <div><span>Access:</span> <span class="meta-badge success">PASSED</span></div>
-                            <div><span>Audit Log:</span> <span>RECORDED</span></div>
-                            <div><span>Latency:</span> <span>${data.time}</span></div>
-                        </div>
-                    </div>
-
-                    <div class="portal-panel panel-right">
-                        <div class="panel-section">
-                            <span class="panel-section-label">Real-time Visualization</span>
-                            <div class="chart-container">
-                                <div class="chart-title">${data.chartTitle}</div>
-                                <div class="chart-bars-list">
-                                    ${barsHtml}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-section" style="flex-grow: 1;">
-                            <span class="panel-section-label">Semantic Insight</span>
-                            <div class="ai-insight">
-                                ${data.insight}
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // Animate bars
-                setTimeout(() => {
-                    const fills = portalGrid.querySelectorAll(".chart-bar-fill");
-                    fills.forEach(f => {
-                        const pct = f.getAttribute("data-width");
-                        f.style.width = `${pct}%`;
-                    });
-                }, 50);
-            }
-        }, 550);
+        }
     }
 
     // Trigger default query simulation on load

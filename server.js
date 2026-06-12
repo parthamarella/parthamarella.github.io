@@ -2,12 +2,12 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 8000;
+const PORT = 3001;
 
 http.createServer((req, res) => {
     let filePath = '.' + req.url;
     if (filePath === './') {
-        filePath = './reader.html';
+        filePath = './index.html';
     }
 
     filePath = path.resolve(filePath);
