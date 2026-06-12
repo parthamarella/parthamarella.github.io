@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logo Processor via UPNG</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .logo-box {
+            border: 1px solid #333;
+            padding: 15px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            background-color: #111;
+            color: #88f;
+            border: 1px solid #444;
+            font-family: monospace;
+        }
+        img {
+            max-height: 100px;
+            background-color: #000;
+            border: 1px solid #444;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+    <!-- Load UPNG.js and pako for PNG decoding/encoding -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="https://unpkg.com/upng-js@2.1.0/UPNG.js"></script>
+</head>
+<body>
+    <h1>UPNG Logo Image Processor</h1>
+    <div class="container" id="outputContainer">Processing...</div>
+
+    <script>
+        const outputContainer = document.getElementById('outputContainer');
+        const imagesToProcess = [
+            {
+                name: 'cumberlands',
+                src: 'images/cumberlands_uploaded.png'
+            },
+            {
+                name: 'worldlink',
+                src: 'images/worldlink_uploaded.png'
+            },
+            {
+                name: 'pes',
+                src: 'images/pes_uploaded.png'
+            },
+            {
+                name: 'merkle',
+                src: 'images/merkle_uploaded.png'
+            }
+        ];
+
+        let processedCount = 0;
+        outputContainer.innerHTML = '';
+
+        async function startProcessing() {
+            for (const item of imagesToProcess) {
+                try {
+                    const response = await fetch(item.src);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const arrayBuffer = await response.arrayBuffer();
+                    
+                    // Decode PNG
+                    const img = UPNG.decode(arrayBuffer);
+                    const width = img.width;
+                    const height = img.height;
+                    const rgba = new Uint8Array(UPNG.toRGBA8(img)[0]);
+
+                    // Manipulate pixels
+                    for (let i = 0; i < rgba.length; i += 4) {
+                        const r = rgba[i];
+                        const g = rgba[i+1];
+                        const b = rgba[i+2];
+                        const a = rgba[i+3];
+
+                        // White background detection
+                        const isWhite = (r > 220 && g > 220 && b > 220);
+
+                        if (item.name === 'cumberlands') {
+                            if (isWhite) {
+                                rgba[i+3] = 0; // Make transparent
+                            } else if (r < 110 && g < 110 && b < 110) {
+                                // Change black text to white
+                                rgba[i] = 255;
+                                rgba[i+1] = 255;
+                                rgba[i+2] = 255;
+                            }
+                        } else if (item.name === 'worldlink') {
+                            if (isWhite) {
+                                rgba[i+3] = 0; // Make transparent
+                            } else if (r < 100 && g < 100 && b < 100) {
+                                // Change black text to white
+                                rgba[i] = 255;
+                                rgba[i+1] = 255;
+                                rgba[i+2] = 255;
+                            }
+                        } else if (item.name === 'pes') {
+                            if (isWhite) {
+                                rgba[i+3] = 0; // Make transparent
+                            } else if (r < 100 && b > 80) {
+                                // Change blue parts to white
+                                rgba[i] = 255;
+                                rgba[i+1] = 255;
+                                rgba[i+2] = 255;
+                            }
+                        } else if (item.name === 'merkle') {
+                            if (isWhite) {
+                                rgba[i+3] = 0; // Make transparent
+                            } else if (r < 100 && b > 85) {
+                                // Change blue MERKLE to white
+                                rgba[i] = 255;
+                                rgba[i+1] = 255;
+                                rgba[i+2] = 255;
+                            } else if (Math.abs(r - g) < 20 && Math.abs(g - b) < 20 && r < 180) {
+                                // Change grey text to light grey
+                                rgba[i] = 200;
+                                rgba[i+1] = 200;
+                                rgba[i+2] = 200;
+                            }
+                        }
+                    }
+
+                    // Encode back to PNG
+                    const outBuffer = UPNG.encode([rgba.buffer], width, height, 0);
+                    
+                    // Convert to base64
+                    const base64 = btoa(String.fromCharCode.apply(null, new Uint8Array(outBuffer)));
+                    const dataUrl = `data:image/png;base64,${base64}`;
+
+                    // Display results
+                    const box = document.createElement('div');
+                    box.className = 'logo-box';
+                    box.innerHTML = `<h3>Processed: ${item.name}</h3>`;
+                    
+                    const resultImg = document.createElement('img');
+                    resultImg.src = dataUrl;
+                    box.appendChild(resultImg);
+
+                    const textarea = document.createElement('textarea');
+                    textarea.id = `base64-${item.name}`;
+                    textarea.value = dataUrl;
+                    box.appendChild(textarea);
+
+                    outputContainer.appendChild(box);
+                } catch (err) {
+                    console.error('Error processing ' + item.name + ':', err);
+                    const errorBox = document.createElement('div');
+                    errorBox.className = 'logo-box';
+                    errorBox.innerHTML = `<h3 style="color: red;">Error: ${item.name}</h3><p>${err.message}</p>`;
+                    outputContainer.appendChild(errorBox);
+                }
+                processedCount++;
+            }
+
+            const doneIndicator = document.createElement('div');
+            doneIndicator.id = 'processing-complete';
+            doneIndicator.style.display = 'none';
+            document.body.appendChild(doneIndicator);
+        }
+
+        startProcessing();
+    </script>
+</body>
+</html>
