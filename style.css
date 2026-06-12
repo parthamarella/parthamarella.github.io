@@ -1473,52 +1473,72 @@ html, body {
     background: linear-gradient(to bottom, #000000 0%, #0a0a0c 10%, #0a0a0c 90%, #000000 100%);
 }
 
-.canvas-container {
-    width: 100%;
-    height: 500px;
-    background-color: #050507;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    border-radius: 24px;
+.ecosystem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
     margin-top: 40px;
-    position: relative;
-    overflow: hidden;
 }
 
-#ecosystem-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-    cursor: grab;
-}
-#ecosystem-canvas:active {
-    cursor: grabbing;
+.eco-category {
+    padding: 24px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    display: flex;
+    flex-direction: column;
 }
 
-#tooltip {
-    position: absolute;
-    pointer-events: none;
+.eco-category-title {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.eco-category-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.eco-items-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: auto;
+}
+
+.eco-item {
     padding: 16px;
-    width: 260px;
-    z-index: 10;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    background-color: rgba(10,10,12,0.85);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-#tooltip-title {
+.eco-item-title {
     font-family: var(--font-heading);
     font-size: 14px;
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: var(--text-primary);
 }
 
-#tooltip-desc {
+.eco-item-desc {
     font-size: 12px;
-    line-height: 1.4;
     color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+    .ecosystem-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .eco-items-list {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ==========================================================================

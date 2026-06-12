@@ -658,14 +658,100 @@
             <div class="container">
                 <span class="section-indicator">05 / STACK ORCHESTRATION</span>
                 <h2 class="section-title">Behind the Systems</h2>
-                <p class="section-subtitle">An interactive view of the technology nodes powering my enterprise
-                    architectures. Hover on nodes to inspect relations.</p>
+                <p class="section-subtitle">A comprehensive view of the technology stack powering my enterprise
+                    architectures.</p>
 
-                <div class="canvas-container">
-                    <canvas id="ecosystem-canvas"></canvas>
-                    <div id="tooltip" class="glass-element">
-                        <h4 id="tooltip-title">Technology</h4>
-                        <p id="tooltip-desc">Description of role in the system.</p>
+                <div class="ecosystem-grid">
+                    <!-- Enterprise GenAI -->
+                    <div class="eco-category glass-element" style="border-top-color: var(--accent-blue);">
+                        <h3 class="eco-category-title" style="color: var(--accent-blue);">Enterprise GenAI</h3>
+                        <p class="eco-category-desc">Building scalable retrieval and synthesis layer architectures for metric and document queries.</p>
+                        <div class="eco-items-list">
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Text-to-SQL</h4>
+                                <p class="eco-item-desc">Custom LLM compilers parsing plain English into sanitised relational databases metrics.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">RAG</h4>
+                                <p class="eco-item-desc">Retrieval Augmented Generation pipelines feeding real-time context directly into LLM prompts.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Vector Databases</h4>
+                                <p class="eco-item-desc">Storing and searching dense vector representations of high-dimensional metrics nodes.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">LLM Evaluation</h4>
+                                <p class="eco-item-desc">Strict verification criteria ensuring models do not hallucinate metrics or schemas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Infrastructure -->
+                    <div class="eco-category glass-element" style="border-top-color: var(--accent-purple);">
+                        <h3 class="eco-category-title" style="color: var(--accent-purple);">AI Infrastructure</h3>
+                        <p class="eco-category-desc">Orchestrating agent workflows and secure API services inside enterprise boundary limits.</p>
+                        <div class="eco-items-list">
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">MCP</h4>
+                                <p class="eco-item-desc">Model Context Protocol linking client applications seamlessly to remote tool schemas.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">FastAPI</h4>
+                                <p class="eco-item-desc">Sleek, high-concurrency API service routing requests and serving AI pipeline endpoints.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Docker</h4>
+                                <p class="eco-item-desc">Packaging AI environments into reproducible execution boundaries.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">OpenShift</h4>
+                                <p class="eco-item-desc">Kubernetes orchestration container platform hosting enterprise AI microservices.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Platforms -->
+                    <div class="eco-category glass-element" style="border-top-color: var(--accent-green);">
+                        <h3 class="eco-category-title" style="color: var(--accent-green);">Data Platforms</h3>
+                        <p class="eco-category-desc">Connecting secure high-performance data lakes and warehouse engines directly to AI pipelines.</p>
+                        <div class="eco-items-list">
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Snowflake</h4>
+                                <p class="eco-item-desc">Cloud data warehouse structuring and storage engine for operational business details.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Starburst</h4>
+                                <p class="eco-item-desc">Distributed query execution layer resolving data queries across partition borders.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">DataHub</h4>
+                                <p class="eco-item-desc">Self-service metadata discovery dashboard mapping active enterprise catalog schemas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Machine Learning -->
+                    <div class="eco-category glass-element" style="border-top-color: var(--text-primary);">
+                        <h3 class="eco-category-title" style="color: var(--text-primary);">Machine Learning</h3>
+                        <p class="eco-category-desc">Extracting semantic insights and structural features from massive records clusters.</p>
+                        <div class="eco-items-list">
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">BERTopic</h4>
+                                <p class="eco-item-desc">Neural topic modeling parsing semantic documents and clustering topics dynamically.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Top2Vec</h4>
+                                <p class="eco-item-desc">Jointly learning word and document embeddings to organize similar features.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Embeddings</h4>
+                                <p class="eco-item-desc">Dense coordinate mappings representing textual semantics inside abstract model space.</p>
+                            </div>
+                            <div class="eco-item glass-element">
+                                <h4 class="eco-item-title">Neural Networks</h4>
+                                <p class="eco-item-desc">Deep multi-layer architectures extracting features and classifying patterns.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
         </section>
