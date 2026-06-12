@@ -409,17 +409,85 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Trigger default query simulation on load
-    sendChatMessage("sales");
+    // Auto-cycle configuration
+    const SQL_CYCLE_KEYS = ["sales", "users", "products"];
+    let sqlCurrentIndex = 0;
+    let sqlCycleInterval = null;
+    let sqlCycleStarted = false;
 
-    sqlPills.forEach(pill => {
+    function activatePill(index) {
+        sqlCurrentIndex = index;
+        const key = SQL_CYCLE_KEYS[index];
+        sqlPills.forEach((p, i) => {
+            p.classList.toggle("active", i === index);
+        });
+        sendChatMessage(key);
+        resetProgressBar();
+    }
+
+    // Progress bar injected below the pills row
+    const pillsRow = document.querySelector("#card-sql .pills-row");
+    const progressBarWrap = document.createElement("div");
+    progressBarWrap.className = "sql-auto-progress-wrap";
+    progressBarWrap.innerHTML = `<div class="sql-auto-progress-bar"></div>`;
+    if (pillsRow) pillsRow.parentElement.appendChild(progressBarWrap);
+    const progressFill = progressBarWrap.querySelector(".sql-auto-progress-bar");
+
+    function resetProgressBar() {
+        if (!progressFill) return;
+        progressFill.style.transition = "none";
+        progressFill.style.width = "0%";
+        void progressFill.offsetWidth; // force reflow
+        progressFill.style.transition = "width 3s linear";
+        progressFill.style.width = "100%";
+    }
+
+    function startCycle() {
+        if (sqlCycleInterval) clearInterval(sqlCycleInterval);
+        resetProgressBar();
+        sqlCycleInterval = setInterval(() => {
+            const nextIndex = (sqlCurrentIndex + 1) % SQL_CYCLE_KEYS.length;
+            activatePill(nextIndex);
+        }, 3000);
+    }
+
+    function stopCycle() {
+        if (sqlCycleInterval) { clearInterval(sqlCycleInterval); sqlCycleInterval = null; }
+        if (progressFill) { progressFill.style.transition = "none"; progressFill.style.width = "0%"; }
+    }
+
+    // Manual click resets cycle from that pill
+    sqlPills.forEach((pill, i) => {
         pill.addEventListener("click", () => {
-            sqlPills.forEach(p => p.classList.remove("active"));
-            pill.classList.add("active");
-            const queryKey = pill.getAttribute("data-query");
-            sendChatMessage(queryKey);
+            activatePill(i);
+            if (sqlCycleStarted) startCycle();
         });
     });
+
+    // Pause auto-cycle while hovering the card
+    const sqlCard = document.getElementById("card-sql");
+    if (sqlCard) {
+        sqlCard.addEventListener("mouseenter", () => { if (sqlCycleStarted) stopCycle(); });
+        sqlCard.addEventListener("mouseleave", () => { if (sqlCycleStarted) startCycle(); });
+    }
+
+    // Kick off when demo scrolls into view
+    const sqlObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !sqlCycleStarted) {
+                sqlCycleStarted = true;
+                activatePill(0);
+                startCycle();
+            } else if (!entry.isIntersecting && sqlCycleStarted) {
+                stopCycle();
+            }
+        });
+    }, { threshold: 0.3 });
+
+    if (sqlCard) sqlObserver.observe(sqlCard);
+
+    // Fallback initial render
+    sendChatMessage("sales");
 
     // ==========================================================================
     // 2. DOCUMENT CLUSTERING IN MOTION (SCROLL-DRIVEN MOTION GRAPHIC)
