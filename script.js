@@ -247,20 +247,20 @@ document.addEventListener("DOMContentLoaded", () => {
             onEnter: () => animateMetrics()
         });
 
-        // Testimonials cards slide up
-        const testimonialCards = gsap.utils.toArray(".testimonial-card");
-        testimonialCards.forEach((card) => {
-            gsap.from(card, {
+        // Testimonials marquee wrapper slide up
+        const marqueeWrapper = document.querySelector(".testimonials-marquee-wrapper");
+        if (marqueeWrapper) {
+            gsap.from(marqueeWrapper, {
                 y: 50,
                 opacity: 0,
                 duration: 1,
                 scrollTrigger: {
-                    trigger: card,
+                    trigger: marqueeWrapper,
                     start: "top 90%",
                     toggleActions: "play none none reverse"
                 }
             });
-        });
+        }
     }
 
     /* ==========================================================================
