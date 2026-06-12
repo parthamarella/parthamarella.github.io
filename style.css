@@ -2269,3 +2269,105 @@ html, body {
         padding: 24px;
     }
 }
+
+/* Semantic Architecture Styles */
+.semantic-architecture {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    z-index: 2;
+}
+.arch-layer {
+    background: rgba(17, 17, 17, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(4px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.arch-layer:hover {
+    border-color: #10b981;
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+}
+.arch-layer-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #10b981;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+.arch-layer-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+.arch-layer-items span {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #e0e0e0;
+    transition: all 0.2s;
+}
+.arch-layer:hover .arch-layer-items span {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #fff;
+}
+.data-flow-particles {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: linear-gradient(to top, rgba(16,185,129,0.1), rgba(0,113,227,0.1));
+    z-index: 1;
+}
+.particle {
+    position: absolute;
+    left: -2px;
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #10b981, 0 0 20px #10b981;
+    bottom: 0;
+    opacity: 0;
+}
+.story-step {
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #888;
+    transition: all 0.2s;
+    background: #111;
+}
+.story-step.active {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: #10b981;
+    color: #10b981;
+}
+.semantic-story-steps {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+@keyframes flowUp {
+    0% { bottom: 0; opacity: 0; transform: scale(0.5); }
+    10% { opacity: 1; transform: scale(1); }
+    90% { opacity: 1; transform: scale(1); }
+    100% { bottom: 100%; opacity: 0; transform: scale(0.5); }
+}

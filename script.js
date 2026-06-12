@@ -1239,3 +1239,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1200);
     });
 });
+
+// --- Semantic Intelligence Interaction ---
+document.addEventListener("DOMContentLoaded", () => {
+    // Particle animation for Semantic Architecture
+    const particlesContainer = document.getElementById('semantic-particles');
+    if (particlesContainer) {
+        for (let i = 0; i < 5; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.animation = `flowUp 3s linear infinite`;
+            particle.style.animationDelay = `${i * 0.6}s`;
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    // Story interaction for Semantic Card
+    const steps = document.querySelectorAll('#card-semantic .story-step');
+    const panes = document.querySelectorAll('#card-semantic .story-pane');
+
+    steps.forEach(step => {
+        step.addEventListener('click', () => {
+            steps.forEach(s => s.classList.remove('active'));
+            step.classList.add('active');
+
+            const stepNum = step.getAttribute('data-step');
+            panes.forEach(p => {
+                p.style.display = 'none';
+            });
+            const activePane = document.getElementById(`pane-${stepNum}`);
+            if (activePane) {
+                activePane.style.display = 'block';
+            }
+        });
+    });
+});
