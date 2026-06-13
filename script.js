@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 { label: "May", val: "$68.9K", pct: 68, color: "" },
                 { label: "Jun", val: "$74.1K", pct: 74, color: "" }
             ],
-            insight: "Revenue shows a steady upward trajectory, growing from $45.2K in January to $74.1K in June. The 64% total growth is driven primarily by the Q2 marketing campaign."
+            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 4px;\">Revenue shows a steady upward trajectory, growing from $45.2K in January to $74.1K in June.</li><li style=\"margin-left: 15px;\">The 64% total growth is driven primarily by the Q2 marketing campaign.</li></ul>"
         },
         users: {
             prompt: "Find count of active monthly users",
@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 { label: "Q3", val: "190K", pct: 90, color: "purple" },
                 { label: "Q4", val: "210K", pct: 100, color: "purple" }
             ],
-            insight: "Monthly active users (MAU) breached the 200K threshold in Q4, registering a 75% year-over-year expansion compared to Q1."
+            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 4px;\">Monthly active users (MAU) breached the 200K threshold in Q4.</li><li style=\"margin-left: 15px;\">Registered a 75% year-over-year expansion compared to Q1.</li></ul>"
         },
         products: {
             prompt: "List top 3 products by total revenue",
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 { label: "Gateway", val: "$850K", pct: 70, color: "green" },
                 { label: "Mesh", val: "$420K", pct: 35, color: "green" }
             ],
-            insight: "The GenAI Enterprise Agent is the primary revenue driver at $1.2M, accounting for 48% of total catalog product sales."
+            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 4px;\">The GenAI Enterprise Agent is the primary revenue driver at $1.2M.</li><li style=\"margin-left: 15px;\">Accounting for 48% of total catalog product sales.</li></ul>"
         }
     };
 
