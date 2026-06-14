@@ -610,71 +610,96 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (sqlCard) chatObserver.observe(sqlCard);
 
-    // ==========================================================================
-    // 2. DOCUMENT CLUSTERING IN MOTION (SCROLL-DRIVEN MOTION GRAPHIC)
+        // ==========================================================================
+    // 2. DOCUMENT CLUSTERING IN MOTION (SCROLL-DRIVEN 3D MOTION GRAPHIC)
     // ==========================================================================
     const clusterCanvas = document.getElementById("topic-cluster-canvas");
     const clusterCtx = clusterCanvas ? clusterCanvas.getContext("2d") : null;
     
     if (clusterCanvas && clusterCtx) {
         let videoProgress = 0; // 0 to 100 (maps to scroll progress)
+
+        // 3D Engine Constants
+        const focalLength = 300;
+        const numDocs = 15;
+        const particlesPerDoc = 12;
+        const totalParticles = numDocs * particlesPerDoc;
+
+        let docs = [];
         let particles = [];
-        const particleCount = 180;
         
-        // Define cluster centroids (fractions of width/height)
-        const centroids = [
-            { xPct: 0.25, yPct: 0.35, color: "rgba(0, 113, 227, 0.8)", name: "Financial Audits", rgb: [0, 113, 227] },
-            { xPct: 0.75, yPct: 0.30, color: "rgba(139, 92, 246, 0.8)", name: "Legal Contracts", rgb: [139, 92, 246] },
-            { xPct: 0.30, yPct: 0.70, color: "rgba(16, 185, 129, 0.8)", name: "Operations Logs", rgb: [16, 185, 129] },
-            { xPct: 0.72, yPct: 0.70, color: "rgba(255, 159, 10, 0.8)", name: "GenAI System Prompts", rgb: [255, 159, 10] }
+        // Cluster centroids in 3D space
+        const centroids3D = [
+            { x: -100, y: -80, z: 0, color: "rgba(0, 113, 227, 0.8)", name: "Financial Audits", rgb: [0, 113, 227] },
+            { x: 100, y: -60, z: 50, color: "rgba(139, 92, 246, 0.8)", name: "Legal Contracts", rgb: [139, 92, 246] },
+            { x: -60, y: 100, z: -50, color: "rgba(16, 185, 129, 0.8)", name: "Operations Logs", rgb: [16, 185, 129] },
+            { x: 120, y: 80, z: 20, color: "rgba(255, 159, 10, 0.8)", name: "GenAI Prompts", rgb: [255, 159, 10] }
         ];
 
         function resizeClusterCanvas() {
             const rect = clusterCanvas.parentElement.getBoundingClientRect();
-            clusterCanvas.width = rect.width || 450;
-            clusterCanvas.height = 480;
+            cachedClusterW = rect.width || 450;
+            cachedClusterH = 480;
+            // Handle high DPI displays for sharper rendering
+            const dpr = window.devicePixelRatio || 1;
+            clusterCanvas.width = cachedClusterW * dpr;
+            clusterCanvas.height = cachedClusterH * dpr;
+            clusterCtx.scale(dpr, dpr);
+            clusterCanvas.style.width = `${cachedClusterW}px`;
+            clusterCanvas.style.height = `${cachedClusterH}px`;
         }
         
-        function initClusterParticles() {
+        function init3DData() {
+            docs = [];
             particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                const clusterIdx = Math.floor(Math.random() * centroids.length);
-                
-                // Random scatter position
-                const scatteredXPct = 0.08 + Math.random() * 0.84;
-                const scatteredYPct = 0.08 + Math.random() * 0.84;
-                
-                // Target cluster offsets
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.sqrt(Math.random()) * 52 + 8; // denser towards center
-                const offsetX = Math.cos(angle) * distance;
-                const offsetY = Math.sin(angle) * distance;
 
-                particles.push({
-                    clusterIndex: clusterIdx,
-                    scatteredXPct,
-                    scatteredYPct,
-                    offsetX,
-                    offsetY,
-                    radius: Math.random() * 2 + 1.2,
-                    noiseOffsetX: Math.random() * 100,
-                    noiseOffsetY: Math.random() * 100
-                });
+            for (let i = 0; i < numDocs; i++) {
+                // Initial floating doc positions
+                const startX = (Math.random() - 0.5) * 400;
+                const startY = (Math.random() - 0.5) * 400;
+                const startZ = Math.random() * 200 + 100;
+                
+                // Rotations for the 3D planes
+                const rotX = (Math.random() - 0.5) * Math.PI;
+                const rotY = (Math.random() - 0.5) * Math.PI;
+                const rotZ = (Math.random() - 0.5) * Math.PI;
+                
+                docs.push({ startX, startY, startZ, rotX, rotY, rotZ });
+
+                // Final cluster destination for this doc's particles
+                const targetCluster = Math.floor(Math.random() * centroids3D.length);
+
+                for (let j = 0; j < particlesPerDoc; j++) {
+                    // Chaotic scatter position (Phase 3)
+                    const scatterX = (Math.random() - 0.5) * 500;
+                    const scatterY = (Math.random() - 0.5) * 500;
+                    const scatterZ = (Math.random() - 0.5) * 400;
+
+                    // Clustered position (Phase 4)
+                    const ang1 = Math.random() * Math.PI * 2;
+                    const ang2 = Math.random() * Math.PI * 2;
+                    const dist = Math.sqrt(Math.random()) * 40;
+
+                    const clustX = centroids3D[targetCluster].x + dist * Math.cos(ang1) * Math.sin(ang2);
+                    const clustY = centroids3D[targetCluster].y + dist * Math.sin(ang1) * Math.sin(ang2);
+                    const clustZ = centroids3D[targetCluster].z + dist * Math.cos(ang2);
+
+                    particles.push({
+                        docIndex: i,
+                        scatterX, scatterY, scatterZ,
+                        clustX, clustY, clustZ,
+                        clusterIdx: targetCluster,
+                        noise: Math.random() * Math.PI * 2
+                    });
+                }
             }
         }
 
         resizeClusterCanvas();
-        initClusterParticles();
-        window.addEventListener("resize", () => {
-            resizeClusterCanvas();
-        });
+        init3DData();
+        window.addEventListener("resize", resizeClusterCanvas);
 
-        // Cubic Easing
-        function easeInOutCubic(x) {
-            return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-        }
-
-        // GSAP ScrollTrigger to tie scroll position of the card directly to clustering progress
+        // GSAP ScrollTrigger
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             const scrollState = { progress: 0 };
             gsap.to(scrollState, {
@@ -682,9 +707,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: "#card-topic",
-                    start: "top 85%",    // Starts assembling as top enters 85% of screen
-                    end: "center 40%",  // Completes when center reaches 40% of screen
-                    scrub: 1.2,          // Fluid scrubbing lag (like opening a folding phone)
+                    start: "top 85%",
+                    end: "center 40%",
+                    scrub: 1.2,
                     onUpdate: () => {
                         videoProgress = scrollState.progress;
                     }
@@ -692,148 +717,246 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Simple 3D projection utility
+        function project3D(x, y, z, w, h) {
+            // Move origin to center
+            const cx = w / 2;
+            const cy = h / 2;
+
+            // Avoid division by zero/negatives behind camera
+            const zAdj = z + focalLength;
+            if (zAdj <= 0) return null;
+
+            const scale = focalLength / zAdj;
+            return {
+                x: cx + x * scale,
+                y: cy + y * scale,
+                scale: scale
+            };
+        }
+
+        // Rotation utility
+        function rotate3D(x, y, z, rx, ry, rz) {
+            // X rot
+            let y1 = y * Math.cos(rx) - z * Math.sin(rx);
+            let z1 = y * Math.sin(rx) + z * Math.cos(rx);
+            // Y rot
+            let x2 = x * Math.cos(ry) + z1 * Math.sin(ry);
+            let z2 = -x * Math.sin(ry) + z1 * Math.cos(ry);
+            // Z rot
+            let x3 = x2 * Math.cos(rz) - y1 * Math.sin(rz);
+            let y3 = x2 * Math.sin(rz) + y1 * Math.cos(rz);
+
+            return {x: x3, y: y3, z: z2};
+        }
+
+        let cachedClusterW = 450;
+        let cachedClusterH = 480;
+
         function renderClustering() {
-            const w = clusterCanvas.width;
-            const h = clusterCanvas.height;
+            // Get logical width/height (unscaled by DPI)
+            const w = cachedClusterW;
+            const h = cachedClusterH;
             const t = videoProgress / 100;
-            const tEased = easeInOutCubic(t);
             const time = Date.now() * 0.001;
 
-            // Clear Background
+            clusterCtx.clearRect(0, 0, w, h);
             clusterCtx.fillStyle = "#050507";
             clusterCtx.fillRect(0, 0, w, h);
 
-            // Draw Background Grid
-            clusterCtx.strokeStyle = "rgba(255, 255, 255, 0.012)";
-            clusterCtx.lineWidth = 1;
-            const gridSize = 40;
-            for (let x = 0; x < w; x += gridSize) {
-                clusterCtx.beginPath();
-                clusterCtx.moveTo(x, 0);
-                clusterCtx.lineTo(x, h);
-                clusterCtx.stroke();
-            }
-            for (let y = 0; y < h; y += gridSize) {
-                clusterCtx.beginPath();
-                clusterCtx.moveTo(0, y);
-                clusterCtx.lineTo(w, y);
-                clusterCtx.stroke();
-            }
+            // Phase timings
+            // t < 0.25 : Docs pull in
+            // t = 0.25 to 0.45 : Scanner plane sweeps, docs dissolve into particles
+            // t = 0.45 to 0.65 : Particles scatter into 3D cloud
+            // t > 0.65 : Particles cluster and colorize
 
-            // Central Crosshair
+            const camRotY = Math.sin(time * 0.2) * 0.5 + (t * Math.PI); // Camera rotates slowly over time and heavily with scroll
+
+            // --- DRAW GRID ---
             clusterCtx.strokeStyle = "rgba(255, 255, 255, 0.03)";
+            clusterCtx.lineWidth = 1;
             clusterCtx.beginPath();
-            clusterCtx.moveTo(w/2 - 8, h/2);
-            clusterCtx.lineTo(w/2 + 8, h/2);
-            clusterCtx.moveTo(w/2, h/2 - 8);
-            clusterCtx.lineTo(w/2, h/2 + 8);
+            for(let i = -300; i <= 300; i+= 50) {
+                // X lines
+                let p1 = rotate3D(i, 200, -300, 0, camRotY, 0);
+                let p2 = rotate3D(i, 200, 300, 0, camRotY, 0);
+                let pr1 = project3D(p1.x, p1.y, p1.z, w, h);
+                let pr2 = project3D(p2.x, p2.y, p2.z, w, h);
+                if(pr1 && pr2) { clusterCtx.moveTo(pr1.x, pr1.y); clusterCtx.lineTo(pr2.x, pr2.y); }
+
+                // Z lines
+                p1 = rotate3D(-300, 200, i, 0, camRotY, 0);
+                p2 = rotate3D(300, 200, i, 0, camRotY, 0);
+                pr1 = project3D(p1.x, p1.y, p1.z, w, h);
+                pr2 = project3D(p2.x, p2.y, p2.z, w, h);
+                if(pr1 && pr2) { clusterCtx.moveTo(pr1.x, pr1.y); clusterCtx.lineTo(pr2.x, pr2.y); }
+            }
             clusterCtx.stroke();
 
-            // Centroids list in screen coords
-            const screenCentroids = centroids.map(c => ({
-                x: c.xPct * w,
-                y: c.yPct * h,
-                name: c.name,
-                color: c.color,
-                rgb: c.rgb
-            }));
+            // --- SCANNER PLANE ---
+            let scanZ = -999;
+            if (t > 0.2 && t < 0.5) {
+                const scanT = (t - 0.2) / 0.3;
+                // Plane moves from front to back
+                scanZ = -200 + (scanT * 400);
 
-            // Draw Centroids
-            if (t > 0.15) {
-                const alpha = Math.min(1, (t - 0.15) / 0.45);
-                screenCentroids.forEach(c => {
-                    // Pulsing Ring
-                    const pulse = 12 + Math.sin(time * 5 + c.x * 0.05) * 5;
-                    clusterCtx.strokeStyle = `rgba(${c.rgb.join(",")}, ${alpha * 0.25})`;
-                    clusterCtx.lineWidth = 1.2;
-                    clusterCtx.beginPath();
-                    clusterCtx.arc(c.x, c.y, pulse, 0, Math.PI * 2);
-                    clusterCtx.stroke();
+                clusterCtx.fillStyle = "rgba(0, 255, 255, 0.05)";
+                clusterCtx.strokeStyle = "rgba(0, 255, 255, 0.8)";
+                clusterCtx.lineWidth = 2;
 
-                    // Outer Ring
-                    clusterCtx.strokeStyle = `rgba(${c.rgb.join(",")}, ${alpha * 0.08})`;
-                    clusterCtx.beginPath();
-                    clusterCtx.arc(c.x, c.y, pulse * 1.8, 0, Math.PI * 2);
-                    clusterCtx.stroke();
+                let pA = rotate3D(-200, -200, scanZ, 0, camRotY, 0);
+                let pB = rotate3D(200, -200, scanZ, 0, camRotY, 0);
+                let pC = rotate3D(200, 200, scanZ, 0, camRotY, 0);
+                let pD = rotate3D(-200, 200, scanZ, 0, camRotY, 0);
 
-                    // Core Dot
-                    clusterCtx.fillStyle = `rgba(${c.rgb.join(",")}, ${alpha * 0.9})`;
+                let prA = project3D(pA.x, pA.y, pA.z, w, h);
+                let prB = project3D(pB.x, pB.y, pB.z, w, h);
+                let prC = project3D(pC.x, pC.y, pC.z, w, h);
+                let prD = project3D(pD.x, pD.y, pD.z, w, h);
+
+                if (prA && prB && prC && prD) {
                     clusterCtx.beginPath();
-                    clusterCtx.arc(c.x, c.y, 3.5, 0, Math.PI * 2);
+                    clusterCtx.moveTo(prA.x, prA.y);
+                    clusterCtx.lineTo(prB.x, prB.y);
+                    clusterCtx.lineTo(prC.x, prC.y);
+                    clusterCtx.lineTo(prD.x, prD.y);
+                    clusterCtx.closePath();
                     clusterCtx.fill();
+                    clusterCtx.stroke();
+                }
+            }
 
-                    // Cluster Label above
-                    if (t > 0.35) {
-                        const lblAlpha = Math.min(1, (t - 0.35) / 0.45);
-                        clusterCtx.font = "500 10px 'Space Grotesk'";
-                        const text = c.name.toUpperCase();
-                        const textWidth = clusterCtx.measureText(text).width;
-                        const padX = 8;
-                        const padY = 4;
-                        const rectW = textWidth + padX * 2;
-                        const rectH = 14 + padY * 2;
-                        const rectX = c.x - rectW / 2;
-                        const rectY = c.y - pulse - 24;
+            // Calculate current document positions
+            const docCurrentPos = docs.map((d, i) => {
+                // Pull into center (0,0,0) as t goes 0 -> 0.25
+                const pullT = Math.min(1, t / 0.25);
+                const easePull = 1 - Math.pow(1 - pullT, 3);
 
-                        // Capsule background
-                        clusterCtx.fillStyle = `rgba(10, 10, 12, ${lblAlpha * 0.85})`;
-                        clusterCtx.strokeStyle = `rgba(${c.rgb.join(",")}, ${lblAlpha * 0.35})`;
-                        clusterCtx.lineWidth = 1;
-                        clusterCtx.beginPath();
-                        if (clusterCtx.roundRect) {
-                            clusterCtx.roundRect(rectX, rectY, rectW, rectH, 6);
-                        } else {
-                            clusterCtx.rect(rectX, rectY, rectW, rectH);
-                        }
-                        clusterCtx.fill();
-                        clusterCtx.stroke();
+                const currX = d.startX * (1 - easePull);
+                const currY = d.startY * (1 - easePull);
+                const currZ = d.startZ * (1 - easePull);
 
-                        // Label text
-                        clusterCtx.fillStyle = `rgba(255, 255, 255, ${lblAlpha})`;
-                        clusterCtx.textAlign = "center";
-                        clusterCtx.textBaseline = "middle";
-                        clusterCtx.fillText(text, c.x, rectY + rectH / 2 + 1);
+                const currRx = d.rotX * (1 - easePull) + (time * 0.5);
+                const currRy = d.rotY * (1 - easePull) + (time * 0.3);
+                const currRz = d.rotZ * (1 - easePull);
+
+                return { x: currX, y: currY, z: currZ, rx: currRx, ry: currRy, rz: currRz, dissolved: t > 0.25 };
+            });
+
+            // --- DRAW DOCUMENTS ---
+            if (t < 0.45) {
+                // Sort docs by distance for rendering
+                const renderDocs = docCurrentPos.map((d, idx) => {
+                    let p = rotate3D(d.x, d.y, d.z, 0, camRotY, 0);
+                    return { ...d, idx, pZ: p.z, rotP: p };
+                }).sort((a, b) => b.pZ - a.pZ);
+
+                renderDocs.forEach(d => {
+                    if (t > 0.4) return; // Hide entirely if t > 0.4
+
+                    const p = d.rotP;
+                    const pr = project3D(p.x, p.y, p.z, w, h);
+                    if (!pr) return;
+
+                    const docW = 30 * pr.scale;
+                    const docH = 40 * pr.scale;
+
+                    clusterCtx.save();
+                    clusterCtx.translate(pr.x, pr.y);
+                    // Approximate 3D rotation with 2D transform (for the rectangle)
+                    // We just do a 2D rotation for effect since proper 3D polys are complex
+                    clusterCtx.rotate(d.rz);
+
+                    // Paper body
+                    clusterCtx.fillStyle = "rgba(200, 200, 210, 0.8)";
+                    clusterCtx.strokeStyle = "rgba(255, 255, 255, 0.9)";
+                    clusterCtx.lineWidth = 1;
+                    clusterCtx.fillRect(-docW/2, -docH/2, docW, docH);
+                    clusterCtx.strokeRect(-docW/2, -docH/2, docW, docH);
+
+                    // Text lines
+                    clusterCtx.fillStyle = "rgba(50, 50, 60, 0.6)";
+                    for(let l=0; l<4; l++) {
+                        clusterCtx.fillRect(-docW/2 + 4*pr.scale, -docH/2 + (8 + l*6)*pr.scale, docW - 8*pr.scale, 2*pr.scale);
+                    }
+
+                    clusterCtx.restore();
+                });
+            }
+
+            // Calculate current particle positions
+            let projectedParticles = [];
+
+            if (t > 0.2) {
+                particles.forEach((p, i) => {
+                    const doc = docCurrentPos[p.docIndex];
+                    if (!doc.dissolved) return;
+
+                    let currX, currY, currZ;
+
+                    // Scatter transition (t = 0.25 to 0.45)
+                    let scatT = Math.max(0, Math.min(1, (t - 0.25) / 0.2));
+                    let easeScat = 1 - Math.pow(1 - scatT, 3);
+
+                    // Cluster transition (t = 0.45 to 0.65)
+                    let clustT = Math.max(0, Math.min(1, (t - 0.45) / 0.2));
+                    let easeClust = clustT < 0.5 ? 4 * clustT * clustT * clustT : 1 - Math.pow(-2 * clustT + 2, 3) / 2;
+
+                    // Float noise
+                    const nx = Math.sin(time * 2 + p.noise) * 5;
+                    const ny = Math.cos(time * 1.5 + p.noise) * 5;
+                    const nz = Math.sin(time * 1.8 + p.noise) * 5;
+
+                    if (clustT === 0) {
+                        // Moving from Doc pos to Scatter pos
+                        currX = doc.x + (p.scatterX - doc.x) * easeScat + nx;
+                        currY = doc.y + (p.scatterY - doc.y) * easeScat + ny;
+                        currZ = doc.z + (p.scatterZ - doc.z) * easeScat + nz;
+                    } else {
+                        // Moving from Scatter pos to Cluster pos
+                        currX = p.scatterX + (p.clustX - p.scatterX) * easeClust + nx;
+                        currY = p.scatterY + (p.clustY - p.scatterY) * easeClust + ny;
+                        currZ = p.scatterZ + (p.clustZ - p.scatterZ) * easeClust + nz;
+                    }
+
+                    // Rotate point by camera
+                    let rotP = rotate3D(currX, currY, currZ, 0, camRotY, 0);
+                    let pr = project3D(rotP.x, rotP.y, rotP.z, w, h);
+
+                    if (pr) {
+                        projectedParticles.push({
+                            x: pr.x, y: pr.y, scale: pr.scale, z: rotP.z,
+                            clustT: clustT,
+                            clusterIdx: p.clusterIdx,
+                            orig: p
+                        });
                     }
                 });
             }
 
-            // Connection Lines between points
-            if (t > 0.45) {
-                const lineAlpha = Math.min(0.12, (t - 0.45) / 0.45);
-                clusterCtx.lineWidth = 0.6;
-                
-                // Map particles to coordinate spaces
-                const activeCoords = particles.map(p => {
-                    const c = screenCentroids[p.clusterIndex];
-                    const scatX = p.scatteredXPct * w;
-                    const scatY = p.scatteredYPct * h;
-                    const clustX = c.x + p.offsetX;
-                    const clustY = c.y + p.offsetY;
+            // Sort particles by Z-depth to render back-to-front
+            projectedParticles.sort((a, b) => b.z - a.z);
 
-                    const floatX = Math.sin(time * 0.7 + p.noiseOffsetX) * 2;
-                    const floatY = Math.cos(time * 0.7 + p.noiseOffsetY) * 2;
+            // --- DRAW CONNECTIONS (PHASE 4) ---
+            if (t > 0.6) {
+                const connAlpha = Math.min(0.2, (t - 0.6) / 0.2);
+                clusterCtx.lineWidth = 0.8;
 
-                    return {
-                        x: (scatX + (clustX - scatX) * tEased) + floatX,
-                        y: (scatY + (clustY - scatY) * tEased) + floatY,
-                        cIdx: p.clusterIndex
-                    };
-                });
+                for (let i = 0; i < projectedParticles.length; i += 2) {
+                    const pi = projectedParticles[i];
+                    if (pi.clustT < 0.8) continue;
 
-                // Draw lines between neighbors in same cluster
-                for (let i = 0; i < activeCoords.length; i += 2) {
-                    const pi = activeCoords[i];
                     let draws = 0;
-                    for (let j = i + 1; j < activeCoords.length; j++) {
-                        if (draws > 2) break;
-                        const pj = activeCoords[j];
-                        if (pi.cIdx === pj.cIdx) {
+                    for (let j = i + 1; j < projectedParticles.length; j++) {
+                        if (draws > 1) break; // Limit connections per node
+                        const pj = projectedParticles[j];
+
+                        if (pi.clusterIdx === pj.clusterIdx) {
                             const dx = pi.x - pj.x;
                             const dy = pi.y - pj.y;
-                            const distSqr = dx*dx + dy*dy;
-                            if (distSqr < 1600) { // < 40px
-                                const c = screenCentroids[pi.cIdx];
-                                clusterCtx.strokeStyle = `rgba(${c.rgb.join(",")}, ${lineAlpha})`;
+                            if (dx*dx + dy*dy < 4000) { // Screen distance check
+                                const rgb = centroids3D[pi.clusterIdx].rgb;
+                                clusterCtx.strokeStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${connAlpha})`;
                                 clusterCtx.beginPath();
                                 clusterCtx.moveTo(pi.x, pi.y);
                                 clusterCtx.lineTo(pj.x, pj.y);
@@ -845,64 +968,131 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // Render Particles
-            particles.forEach(p => {
-                const c = screenCentroids[p.clusterIndex];
-                const scatX = p.scatteredXPct * w;
-                const scatY = p.scatteredYPct * h;
-                const clustX = c.x + p.offsetX;
-                const clustY = c.y + p.offsetY;
+            // --- DRAW PARTICLES ---
+            projectedParticles.forEach(p => {
+                const c = centroids3D[p.clusterIdx];
 
-                const floatX = Math.sin(time * 0.7 + p.noiseOffsetX) * 2;
-                const floatY = Math.cos(time * 0.7 + p.noiseOffsetY) * 2;
-
-                const x = (scatX + (clustX - scatX) * tEased) + floatX;
-                const y = (scatY + (clustY - scatY) * tEased) + floatY;
-
-                // Color Lerping
-                let colorStr = "";
-                if (t < 0.2) {
-                    colorStr = `rgba(161, 161, 170, ${0.4 + (1 - t) * 0.25})`;
-                } else if (t > 0.85) {
-                    colorStr = `rgba(${c.rgb.join(",")}, 0.85)`;
-                } else {
-                    const factor = (t - 0.2) / 0.65;
-                    const r = Math.round(161 + (c.rgb[0] - 161) * factor);
-                    const g = Math.round(161 + (c.rgb[1] - 161) * factor);
-                    const b = Math.round(170 + (c.rgb[2] - 170) * factor);
-                    colorStr = `rgba(${r}, ${g}, ${b}, ${0.4 + factor * 0.45})`;
+                // Color transition from raw (white/gray) to cluster color
+                let r=200, g=200, b=220, alpha=0.8;
+                if (p.clustT > 0) {
+                    r = Math.round(200 + (c.rgb[0] - 200) * p.clustT);
+                    g = Math.round(200 + (c.rgb[1] - 200) * p.clustT);
+                    b = Math.round(220 + (c.rgb[2] - 220) * p.clustT);
+                    alpha = 0.8 + (0.2 * p.clustT); // Brighten as it clusters
                 }
 
-                clusterCtx.fillStyle = colorStr;
+                const radius = 2.5 * p.scale;
+
+                clusterCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
                 clusterCtx.beginPath();
-                clusterCtx.arc(x, y, p.radius, 0, Math.PI * 2);
+                clusterCtx.arc(p.x, p.y, radius, 0, Math.PI * 2);
                 clusterCtx.fill();
+
+                // Glow for clustered
+                if (p.clustT > 0.8) {
+                    clusterCtx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.15)`;
+                    clusterCtx.beginPath();
+                    clusterCtx.arc(p.x, p.y, radius * 3, 0, Math.PI * 2);
+                    clusterCtx.fill();
+                }
             });
 
-            // HUD Data Text Overlays
+            // --- DRAW 3D CLUSTER LABELS (PHASE 4) ---
+            if (t > 0.6) {
+                const lblAlpha = Math.min(1, (t - 0.6) / 0.2);
+                clusterCtx.font = "500 10px 'Space Grotesk'";
+                clusterCtx.textAlign = "center";
+                clusterCtx.textBaseline = "middle";
+
+                // Project centroid positions
+                const projectedCentroids = centroids3D.map((c, i) => {
+                    // Make labels float above centroid slightly
+                    const floatY = Math.sin(time * 2 + i) * 5;
+                    let rotP = rotate3D(c.x, c.y - 30 + floatY, c.z, 0, camRotY, 0);
+                    let pr = project3D(rotP.x, rotP.y, rotP.z, w, h);
+                    return { ...pr, rotP, ...c };
+                }).filter(p => p.scale !== undefined).sort((a, b) => b.rotP.z - a.rotP.z);
+
+                projectedCentroids.forEach(c => {
+                    const text = c.name.toUpperCase();
+                    const textW = clusterCtx.measureText(text).width;
+                    const padX = 8 * c.scale;
+                    const padY = 4 * c.scale;
+                    const rectW = textW + padX * 2;
+                    const rectH = (14 * c.scale) + padY * 2;
+
+                    const rectX = c.x - rectW / 2;
+                    const rectY = c.y - rectH / 2;
+
+                    // Capsule
+                    clusterCtx.fillStyle = `rgba(10, 10, 12, ${lblAlpha * 0.85})`;
+                    clusterCtx.strokeStyle = `rgba(${c.rgb.join(",")}, ${lblAlpha * 0.5})`;
+                    clusterCtx.lineWidth = 1;
+
+                    clusterCtx.beginPath();
+                    if (clusterCtx.roundRect) {
+                        clusterCtx.roundRect(rectX, rectY, rectW, rectH, 6 * c.scale);
+                    } else {
+                        clusterCtx.rect(rectX, rectY, rectW, rectH);
+                    }
+                    clusterCtx.fill();
+                    clusterCtx.stroke();
+
+                    // Text
+                    // Keep text readable (don't scale font size too small)
+                    clusterCtx.font = `500 ${Math.max(8, 10 * c.scale)}px 'Space Grotesk'`;
+                    clusterCtx.fillStyle = `rgba(255, 255, 255, ${lblAlpha})`;
+                    clusterCtx.fillText(text, c.x, c.y + 1);
+                });
+            }
+
+            // --- HUD OVERLAYS ---
             clusterCtx.fillStyle = "rgba(255, 255, 255, 0.45)";
             clusterCtx.font = "400 9px monospace";
             clusterCtx.textAlign = "left";
             clusterCtx.textBaseline = "top";
-            clusterCtx.fillText("PIPELINE: BERT-EMBEDDING-3 + HDBSCAN", 15, 15);
-            clusterCtx.fillText("REDUCTION: UMAP 2D TRANSFORMATION", 15, 27);
-            clusterCtx.fillText(`NUM_DOCUMENTS: ${particleCount}`, 15, 39);
+
+            if (t < 0.25) {
+                clusterCtx.fillText("PIPELINE: DATA INGESTION", 15, 15);
+                clusterCtx.fillText("INPUT: RAW DOCUMENTS", 15, 27);
+            } else if (t < 0.45) {
+                clusterCtx.fillText("PIPELINE: TEXT CHUNKING & EMBEDDING", 15, 15);
+                clusterCtx.fillText("MODEL: text-embedding-3-large", 15, 27);
+            } else if (t < 0.65) {
+                clusterCtx.fillText("PIPELINE: DIMENSIONALITY REDUCTION", 15, 15);
+                clusterCtx.fillText("ALGO: UMAP 3D PROJECTION", 15, 27);
+            } else {
+                clusterCtx.fillText("PIPELINE: SEMANTIC CLUSTERING", 15, 15);
+                clusterCtx.fillText("ALGO: HDBSCAN", 15, 27);
+            }
+
+            clusterCtx.fillText(`TOKENS_PROCESSED: ${Math.floor(t * 128450)}`, 15, 39);
 
             clusterCtx.textAlign = "right";
-            const loss = (1.28 - tEased * 1.20).toFixed(3);
-            const silhouette = (0.28 + tEased * 0.48).toFixed(2);
-            clusterCtx.fillText("SILHOUETTE SCORE: " + silhouette, w - 15, 15);
-            clusterCtx.fillText("CONVERGENCE LOSS: " + loss, w - 15, 27);
             
-            let status = "STATUS: UNSTRUCTURED DATA SCATTER";
-            if (t > 0.15 && t < 0.85) {
-                status = "STATUS: DYNAMIC EM CLUSTERING...";
+            let status = "STATUS: AWAITING INGESTION";
+            clusterCtx.fillStyle = "rgba(255, 255, 255, 0.45)";
+
+            if (t > 0.1 && t < 0.25) {
+                status = "STATUS: LOADING DOCUMENTS...";
+                clusterCtx.fillStyle = "var(--accent-blue)";
+            } else if (t >= 0.25 && t < 0.45) {
+                status = "STATUS: EXTRACTING SEMANTICS...";
+                clusterCtx.fillStyle = "rgba(0, 255, 255, 0.8)";
+            } else if (t >= 0.45 && t < 0.65) {
+                status = "STATUS: MAPPING VECTOR SPACE...";
                 clusterCtx.fillStyle = "var(--accent-purple)";
-            } else if (t >= 0.85) {
-                status = "STATUS: STABLE SEMANTIC GROUPS";
+            } else if (t >= 0.65) {
+                status = "STATUS: CLUSTERS CONVERGED";
                 clusterCtx.fillStyle = "var(--accent-green)";
             }
-            clusterCtx.fillText(status, w - 15, 39);
+            clusterCtx.fillText(status, w - 15, 15);
+
+            if (t > 0.45) {
+                const loss = Math.max(0.1, 2.5 - (t * 2.4)).toFixed(3);
+                clusterCtx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                clusterCtx.fillText("EMBEDDING LOSS: " + loss, w - 15, 27);
+            }
 
             requestAnimationFrame(renderClustering);
         }
