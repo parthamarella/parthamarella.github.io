@@ -959,6 +959,102 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentWorkflowPhase = 0;
     let logTimeoutIds = [];
 
+    // --- Three.js 3D Agent Pipeline Visualization ---
+    const container3D = document.getElementById('agent-3d-container');
+    let scene, camera, renderer, hub, agentNodes = {}, agentLinks = {}, agentParticles = {};
+    const agentPositions = {
+        s1: [-4.5, 3.5, 0], // Model Eval
+        s2: [4.5, 3.5, 0],  // PR Review
+        s3: [0, -4.5, 0]    // Dashboards
+    };
+
+    if (container3D && window.THREE) {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(45, container3D.clientWidth / container3D.clientHeight, 0.1, 1000);
+        camera.position.z = 15;
+
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container3D.clientWidth, container3D.clientHeight);
+        container3D.appendChild(renderer.domElement);
+
+        const hubGeo = new THREE.IcosahedronGeometry(1.5, 1);
+        const hubMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true });
+        hub = new THREE.Mesh(hubGeo, hubMat);
+        scene.add(hub);
+
+        const nodeGeo = new THREE.SphereGeometry(0.8, 16, 16);
+
+        Object.keys(agentPositions).forEach(id => {
+            const mat = new THREE.MeshBasicMaterial({ color: 0x444444, wireframe: true });
+            const mesh = new THREE.Mesh(nodeGeo, mat);
+            mesh.position.set(...agentPositions[id]);
+            scene.add(mesh);
+            agentNodes[id] = mesh;
+
+            const points = [new THREE.Vector3(0,0,0), new THREE.Vector3(...agentPositions[id])];
+            const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+            const lineMat = new THREE.LineBasicMaterial({ color: 0x333333, transparent: true, opacity: 0.5 });
+            const line = new THREE.Line(lineGeo, lineMat);
+            scene.add(line);
+            agentLinks[id] = line;
+
+            // Particle
+            const pGeo = new THREE.SphereGeometry(0.2, 8, 8);
+            const pMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+            const particle = new THREE.Mesh(pGeo, pMat);
+            scene.add(particle);
+            particle.visible = false;
+            agentParticles[id] = {
+                mesh: particle,
+                progress: 0,
+                active: false
+            };
+        });
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            if (container3D.clientWidth > 0 && container3D.clientHeight > 0) {
+                camera.aspect = container3D.clientWidth / container3D.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container3D.clientWidth, container3D.clientHeight);
+            }
+        });
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            if (!hub) return;
+
+            hub.rotation.x += 0.005;
+            hub.rotation.y += 0.005;
+
+            Object.keys(agentNodes).forEach(id => {
+                agentNodes[id].rotation.x -= 0.01;
+                agentNodes[id].rotation.y -= 0.01;
+
+                // Particle animation
+                const pData = agentParticles[id];
+                if (pData.active) {
+                    pData.mesh.visible = true;
+                    pData.progress += 0.015;
+                    if (pData.progress > 1) pData.progress = 0;
+
+                    const start = new THREE.Vector3(0,0,0);
+                    const end = new THREE.Vector3(...agentPositions[id]);
+                    const t = pData.progress;
+                    // Ease
+                    const pos = start.clone().lerp(end, (Math.sin(t * Math.PI * 2 - Math.PI/2) + 1) / 2);
+                    pData.mesh.position.copy(pos);
+                } else {
+                    pData.mesh.visible = false;
+                    pData.progress = 0;
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+        animate3D();
+    }
+
     function runAgentWorkflowCycle() {
         if (!consoleLog) return;
 
@@ -968,23 +1064,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const phase = workflowPhases[currentWorkflowPhase];
 
-        // Update SVG Nodes and Links
-        const nodes = ["s1", "s2", "s3"];
-        nodes.forEach(nodeId => {
-            const serverNode = document.getElementById(`mcp-${nodeId}`);
-            const linkNode = document.getElementById(`mcp-l${nodeId.replace("s", "")}`);
-            const isActive = (phase.activeNode === "all" || phase.activeNode === nodeId);
-
-            if (serverNode) {
-                serverNode.style.stroke = isActive ? "#10b981" : "#444";
-                serverNode.style.strokeWidth = isActive ? "2px" : "1px";
-                serverNode.style.fill = isActive ? "rgba(16, 185, 129, 0.12)" : "#111";
-            }
-            if (linkNode) {
-                linkNode.style.stroke = isActive ? "#10b981" : "#333";
-                linkNode.style.animationPlayState = isActive ? "running" : "paused";
-            }
-        });
+        // Update 3D scene colors/particles based on phase
+        if (scene) {
+            Object.keys(agentNodes).forEach(id => {
+                const isActive = (phase.activeNode === "all" || phase.activeNode === id);
+                if (agentNodes[id]) {
+                    agentNodes[id].material.color.setHex(isActive ? 0x10b981 : 0x444444);
+                }
+                if (agentLinks[id]) {
+                    agentLinks[id].material.color.setHex(isActive ? 0x10b981 : 0x333333);
+                    agentLinks[id].material.opacity = isActive ? 1 : 0.5;
+                }
+                if (agentParticles[id]) {
+                    agentParticles[id].active = isActive;
+                }
+            });
+        }
 
         // Update console logs sequentially
         consoleLog.innerHTML = "";

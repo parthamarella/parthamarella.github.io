@@ -1,8 +1,4 @@
-1. **Add CSS for new Semantic layer block**
-   - Add styling in `style.css` for `.semantic-architecture`, `.arch-layer`, `.arch-layer-title`, `.arch-layer-items`, `.data-flow-particles`, `.particle`, `.story-step`, `.semantic-story-steps`, and `.semantic-story-content`. Include keyframes for `flowUp`.
-2. **Add HTML for Semantic Intelligence project**
-   - In `index.html` within the `.product-cards-grid` section, insert the new product card `card-semantic` just before `card-mcp` or after `card-topic`. The new HTML should follow the `<div class="product-card" id="card-semantic">...</div>` structure with the details from the user prompt: "Building the Semantic Foundation for AI-Native Analytics".
-3. **Add JS for Semantic Intelligence interactions**
-   - In `script.js`, append logic to handle the particles in `.data-flow-particles` and click listeners for the `.story-step` items to swap the visible `.story-pane`.
-4. **Pre-commit checks**
-   - Run verification tests to ensure the layout matches user expectations. Ensure pre commit tasks are complete.
+1. **Update index.html to load Three.js**: Add `<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>` to the `<head>` of `index.html`.
+2. **Replace SVG with 3D Container**: Find `<svg class="visual-svg" id="mcp-visual"...` and replace it with a container for the 3D scene (e.g. `<div id="agent-3d-container" class="visual-svg" style="position: relative; overflow: hidden; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(0,113,227,0.05) 100%);"></div>`) and label overlay text divs.
+3. **Update script.js**: Replace the logic updating the SVG nodes with Three.js rendering logic. We will create a scene with an Icosahedron (Agent Hub) and Spheres (Nodes), connect them with Lines, and move a particle along the lines depending on the active node in `workflowPhases`.
+4. **Pre-commit checks**: Run verification and pre commit tasks before submitting.
