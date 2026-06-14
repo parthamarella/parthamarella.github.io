@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3001;
+const PORT = 8080;
 
 http.createServer((req, res) => {
     let filePath = '.' + req.url;
@@ -46,6 +46,6 @@ http.createServer((req, res) => {
             res.end(content, 'utf-8');
         }
     });
-}).listen(PORT, '127.0.0.1', () => {
-    console.log(`Server running at http://127.0.0.1:${PORT}/`);
+}).listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}/`);
 });

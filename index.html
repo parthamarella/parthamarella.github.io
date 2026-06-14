@@ -340,18 +340,7 @@
                                 <h3>Starburst AI Agent</h3>
                                 <p class="product-description">Enterprise data is often trapped behind siloed database
                                     partitions. I engineered a Starburst-powered SQL agent that acts as 100 virtual
-                                    analysts, democratizing data accessibility while keeping strict policy enforcement.
-                                </p>
-
-                                <!-- Interactive Controller -->
-                                <div class="interactive-controls">
-                                    <span class="controls-label">Interactive Query Demo:</span>
-                                    <div class="pills-row">
-                                        <button class="interactive-pill active" data-query="sales">Sales Growth</button>
-                                        <button class="interactive-pill" data-query="users">Active Users</button>
-                                        <button class="interactive-pill" data-query="products">Top Products</button>
-                                    </div>
-                                </div>
+                                    analysts, democratizing data accessibility while keeping strict policy enforcement.</p>
                             </div>
 
                             <div class="info-highlights">
@@ -403,16 +392,19 @@
                                     </div>
                                 </div>
 
-                                <div class="portal-grid" id="portal-grid-content">
-                                    <!-- Portal content loaded dynamically by script.js -->
+                                <div class="chat-thread-container" id="chat-thread-content">
+                                    <!-- Chat bubbles loaded dynamically by script.js -->
                                 </div>
 
-                                <div class="portal-footer">
+                                <div class="portal-footer flex-column-footer">
+                                    <div class="chat-input-mock">
+                                        <span class="chat-input-placeholder" id="chat-input-span">Ask Starburst Agent...</span>
+                                        <i data-lucide="send" class="chat-send-icon"></i>
+                                    </div>
                                     <div class="footer-persona-meta">
                                         <i data-lucide="shield-check" class="shield-icon"></i>
-                                        <span>Policy-enforced access logs active.</span>
+                                        <span>Policy-enforced security layer active. Audit logs enabled.</span>
                                     </div>
-                                    <div class="fake-input-text" id="fake-input">Click query pills on the left.</div>
                                 </div>
                             </div>
                         </div>
@@ -429,42 +421,60 @@
                                 <div class="interactive-controls" style="margin-top: 1.5rem;">
                                     <span class="controls-label">The Semantic Transformation:</span>
                                     <div class="semantic-story-steps">
-                                        <div class="story-step active" data-step="1">1. Physical Storage</div>
-                                        <div class="story-step" data-step="2">2. Business Meaning</div>
-                                        <div class="story-step" data-step="3">3. AI Reasoning</div>
+                                        <div class="story-step active" data-step="1">1. Physical Data</div>
+                                        <div class="story-step" data-step="2">2. Metadata Intel</div>
+                                        <div class="story-step" data-step="3">3. Semantic Bridge</div>
+                                        <div class="story-step" data-step="4">4. Knowledge Map</div>
+                                        <div class="story-step" data-step="5">5. Agentic AI</div>
                                     </div>
                                 </div>
 
                                 <div class="semantic-story-content" style="margin-top: 1.5rem; min-height: 120px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
                                     <div class="story-pane active" id="pane-1">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Traditional Databases</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Thousands of tables. Millions of columns. No context.</p>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Physical Storage (Layer 1)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Enterprise warehouses and lakes store raw transactional tables. Without semantic mapping, databases consist of millions of rows with cryptic labels like <code>cust_uuid</code> or <code>tx_amt</code>.</p>
                                         <div style="margin-top: 12px; display: flex; gap: 8px; font-family: monospace; font-size: 11px;">
-                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">transactions_tbl</span>
-                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">customer_dim</span>
-                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">acct_ledger</span>
+                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">Snowflake</span>
+                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">BigQuery</span>
+                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">S3 Parquet</span>
                                         </div>
                                     </div>
                                     <div class="story-pane" id="pane-2" style="display: none;">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Human Understanding</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">We think in business concepts, not physical schemas.</p>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Metadata Intelligence (Layer 2)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Automated cataloging scans schemas, collects profiling metrics, traces column-level data lineage, and classifies sensitive fields to prepare physical assets for semantic definitions.</p>
                                         <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
-                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Revenue</span>
-                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Acquisition</span>
-                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Retention</span>
+                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Lineage Map</span>
+                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Profiling Logs</span>
+                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Auto-discovery</span>
                                         </div>
                                     </div>
                                     <div class="story-pane" id="pane-3" style="display: none;">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">AI Agent Reasoning</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">"What was customer acquisition growth last quarter?"</p>
-                                        <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #888;">
-                                            <div><strong style="color:#0071E3;">Metric</strong> = Acquisition</div>
-                                            <div><strong style="color:#0071E3;">Time Dimension</strong> = Quarter</div>
-                                            <div><strong style="color:#0071E3;">Aggregation</strong> = Growth</div>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Semantic Layer (Layer 3)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">The core translator. Converts physical tables and schemas into human-readable Metrics, Dimensions, Facts, and Segments. Translates business intent (e.g. "Revenue") to automated, version-controlled SQL logic.</p>
+                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
+                                            <span style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Metrics</span>
+                                            <span style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Dimensions</span>
+                                            <span style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Segments</span>
+                                        </div>
+                                    </div>
+                                    <div class="story-pane" id="pane-4" style="display: none;">
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Knowledge layer (Layer 4)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Maps semantic entities into an enterprise knowledge graph (Ontologies &amp; Definitions). Relates customer metrics to product behaviors so LLMs can contextually navigate connections between domains.</p>
+                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
+                                            <span style="color: #8b5cf6; background: rgba(139,92,246,0.1); padding: 4px 8px; border-radius: 4px;">Ontology Graph</span>
+                                            <span style="color: #8b5cf6; background: rgba(139,92,246,0.1); padding: 4px 8px; border-radius: 4px;">Business Glossary</span>
+                                        </div>
+                                    </div>
+                                    <div class="story-pane" id="pane-5" style="display: none;">
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Agent Layer (Layer 5)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">AI agents reason about high-level questions, search the Knowledge Layer for concepts, and compile natural language into secure, exact, performant queries execute-ready for the physical engines.</p>
+                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
+                                            <span style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">LLM Agents</span>
+                                            <span style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">Text-to-SQL</span>
+                                            <span style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">MCP Services</span>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="info-highlights">
@@ -480,58 +490,131 @@
                             </div>
                         </div>
 
-                        <div class="product-card-visual" style="display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem; background: radial-gradient(circle at center, rgba(16,185,129,0.05) 0%, transparent 70%);">
-                            <!-- Interactive Architecture Visualization -->
-                            <div class="semantic-architecture">
-                                <div class="data-flow-particles" id="semantic-particles">
-                                    <!-- Particles will be injected by JS -->
+                        <div class="product-card-visual" style="display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 1rem; min-height: 540px; background: radial-gradient(circle at center, rgba(16,185,129,0.05) 0%, transparent 70%);">
+                            <div class="semantic-system-diagram">
+                                
+                                <!-- Central axis line and compiler pulse particle -->
+                                <div class="system-axis-path">
+                                    <div class="axis-pulse-particle" id="axis-pulse"></div>
+                                </div>
+                                
+                                <!-- Glowing connector hubs -->
+                                <div class="axis-hubs">
+                                    <span class="hub-node" id="hub-4-5"></span>
+                                    <span class="hub-node" id="hub-3-4"></span>
+                                    <span class="hub-node" id="hub-2-3"></span>
+                                    <span class="hub-node" id="hub-1-2"></span>
                                 </div>
 
-                                <div class="arch-layer" id="layer-5">
-                                    <div class="arch-layer-title">Agent Layer</div>
-                                    <div class="arch-layer-items">
-                                        <span>LLM Agents</span>
-                                        <span>Text-to-SQL</span>
-                                        <span>MCP Services</span>
+                                <!-- Layer 5: AGENT LAYER -->
+                                <div class="system-layer" data-layer="5" id="sys-layer-5">
+                                    <div class="layer-header-bar">
+                                        <span class="layer-title-text">AGENT LAYER</span>
+                                    </div>
+                                    <div class="layer-pills-row">
+                                        <span class="layer-pill-item">LLM Agents</span>
+                                        <span class="layer-pill-item">Text-to-SQL</span>
+                                        <span class="layer-pill-item">MCP Services</span>
+                                    </div>
+                                    
+                                    <!-- Layer 5 Overlay: NL Prompt Compiler -->
+                                    <div class="sys-overlay" id="sys-overlay-5">
+                                        <div class="sys-prompt-bubble glass-element">
+                                            <i data-lucide="message-square" class="bubble-icon"></i>
+                                            <span class="typewriter-text" id="sys-query-text">Compare quarterly sales...</span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="arch-layer" id="layer-4">
-                                    <div class="arch-layer-title">Knowledge Layer</div>
-                                    <div class="arch-layer-items">
-                                        <span>Business Definitions</span>
-                                        <span>Ontologies</span>
-                                        <span>Metric Catalog</span>
+                                <!-- Layer 4: KNOWLEDGE LAYER -->
+                                <div class="system-layer" data-layer="4" id="sys-layer-4">
+                                    <div class="layer-header-bar">
+                                        <span class="layer-title-text">KNOWLEDGE LAYER</span>
+                                    </div>
+                                    <div class="layer-pills-row">
+                                        <span class="layer-pill-item">Business Definitions</span>
+                                        <span class="layer-pill-item">Ontologies</span>
+                                        <span class="layer-pill-item">Metric Catalog</span>
+                                    </div>
+
+                                    <!-- Layer 4 Overlay: Ontology Map -->
+                                    <div class="sys-overlay" id="sys-overlay-4">
+                                        <div class="sys-ontology-card glass-element">
+                                            <i data-lucide="network" class="ontology-icon"></i>
+                                            <span>cust_id -> Customer Entity</span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="arch-layer" id="layer-3">
-                                    <div class="arch-layer-title">Semantic Layer</div>
-                                    <div class="arch-layer-items">
-                                        <span>Metrics</span>
-                                        <span>Dimensions</span>
-                                        <span>Facts</span>
-                                        <span>Segments</span>
+                                <!-- Layer 3: SEMANTIC LAYER -->
+                                <div class="system-layer" data-layer="3" id="sys-layer-3">
+                                    <div class="layer-header-bar">
+                                        <span class="layer-title-text">SEMANTIC LAYER</span>
+                                    </div>
+                                    <div class="layer-pills-row">
+                                        <span class="layer-pill-item">Metrics</span>
+                                        <span class="layer-pill-item">Dimensions</span>
+                                        <span class="layer-pill-item">Facts</span>
+                                        <span class="layer-pill-item">Segments</span>
+                                    </div>
+
+                                    <!-- Layer 3 Overlay: Formula definition -->
+                                    <div class="sys-overlay" id="sys-overlay-3">
+                                        <div class="sys-formula-bubble glass-element">
+                                            <span class="formula-label">Revenue Metric</span>
+                                            <code>SUM(tx_amt)</code>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="arch-layer" id="layer-2">
-                                    <div class="arch-layer-title">Metadata Intelligence</div>
-                                    <div class="arch-layer-items">
-                                        <span>Schema Discovery</span>
-                                        <span>Lineage</span>
-                                        <span>Column Profiling</span>
+                                <!-- Layer 2: METADATA INTELLIGENCE -->
+                                <div class="system-layer" data-layer="2" id="sys-layer-2">
+                                    <div class="layer-header-bar">
+                                        <span class="layer-title-text">METADATA INTELLIGENCE</span>
+                                    </div>
+                                    <div class="layer-pills-row">
+                                        <span class="layer-pill-item">Schema Discovery</span>
+                                        <span class="layer-pill-item">Lineage</span>
+                                        <span class="layer-pill-item">Column Profiling</span>
+                                    </div>
+
+                                    <!-- Layer 2 Overlay: Profiling Scan -->
+                                    <div class="sys-overlay" id="sys-overlay-2">
+                                        <div class="sys-scanner-bar"></div>
+                                        <div class="sys-lineage-badge glass-element">
+                                            <i data-lucide="git-branch" class="lineage-icon"></i>
+                                            <span>Lineage mapped</span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="arch-layer" id="layer-1">
-                                    <div class="arch-layer-title">Physical Data Layer</div>
-                                    <div class="arch-layer-items">
-                                        <span>Snowflake</span>
-                                        <span>Data Warehouse</span>
-                                        <span>Data Lake</span>
+                                <!-- Layer 1: PHYSICAL DATA LAYER -->
+                                <div class="system-layer" data-layer="1" id="sys-layer-1">
+                                    <div class="layer-header-bar">
+                                        <span class="layer-title-text">PHYSICAL DATA LAYER</span>
+                                    </div>
+                                    <div class="layer-pills-row">
+                                        <span class="layer-pill-item">Snowflake</span>
+                                        <span class="layer-pill-item">Data Warehouse</span>
+                                        <span class="layer-pill-item">Data Lake</span>
+                                    </div>
+
+                                    <!-- Layer 1 Overlay: Schema columns -->
+                                    <div class="sys-overlay" id="sys-overlay-1">
+                                        <div class="sys-schema-card glass-element">
+                                            <div class="card-title-mini">orders_tbl</div>
+                                            <span>cust_id (INT)</span>
+                                            <span>tx_amt (DECIMAL)</span>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <!-- Agent SQL compiler overlay (Global bottom right) -->
+                                <div class="sys-sql-compiler-bubble glass-element" id="sys-compiler-output">
+                                    <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i> Compiled SQL (Snowflake)</div>
+                                    <pre class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -663,92 +746,137 @@
 
                 <div class="ecosystem-grid">
                     <!-- Enterprise GenAI -->
-                    <div class="eco-category glass-element" style="border-top-color: var(--accent-blue);">
+                    <div class="eco-category glass-element genai" style="border-top-color: var(--accent-blue);">
                         <h3 class="eco-category-title" style="color: var(--accent-blue);">Enterprise GenAI</h3>
                         <p class="eco-category-desc">Building scalable retrieval and synthesis layer architectures for metric and document queries.</p>
                         <div class="eco-items-list">
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Text-to-SQL</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="terminal" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Text-to-SQL</h4>
+                                </div>
                                 <p class="eco-item-desc">Custom LLM compilers parsing plain English into sanitised relational databases metrics.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">RAG</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="file-search" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">RAG</h4>
+                                </div>
                                 <p class="eco-item-desc">Retrieval Augmented Generation pipelines feeding real-time context directly into LLM prompts.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Vector Databases</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="binary" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Vector Databases</h4>
+                                </div>
                                 <p class="eco-item-desc">Storing and searching dense vector representations of high-dimensional metrics nodes.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">LLM Evaluation</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="list-checks" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">LLM Evaluation</h4>
+                                </div>
                                 <p class="eco-item-desc">Strict verification criteria ensuring models do not hallucinate metrics or schemas.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- AI Infrastructure -->
-                    <div class="eco-category glass-element" style="border-top-color: var(--accent-purple);">
+                    <div class="eco-category glass-element infra" style="border-top-color: var(--accent-purple);">
                         <h3 class="eco-category-title" style="color: var(--accent-purple);">AI Infrastructure</h3>
                         <p class="eco-category-desc">Orchestrating agent workflows and secure API services inside enterprise boundary limits.</p>
                         <div class="eco-items-list">
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">MCP</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="network" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">MCP</h4>
+                                </div>
                                 <p class="eco-item-desc">Model Context Protocol linking client applications seamlessly to remote tool schemas.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">FastAPI</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="zap" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">FastAPI</h4>
+                                </div>
                                 <p class="eco-item-desc">Sleek, high-concurrency API service routing requests and serving AI pipeline endpoints.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Docker</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="box" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Docker</h4>
+                                </div>
                                 <p class="eco-item-desc">Packaging AI environments into reproducible execution boundaries.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">OpenShift</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="cloud" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">OpenShift</h4>
+                                </div>
                                 <p class="eco-item-desc">Kubernetes orchestration container platform hosting enterprise AI microservices.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Data Platforms -->
-                    <div class="eco-category glass-element" style="border-top-color: var(--accent-green);">
+                    <div class="eco-category glass-element data" style="border-top-color: var(--accent-green);">
                         <h3 class="eco-category-title" style="color: var(--accent-green);">Data Platforms</h3>
                         <p class="eco-category-desc">Connecting secure high-performance data lakes and warehouse engines directly to AI pipelines.</p>
                         <div class="eco-items-list">
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Snowflake</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="snowflake" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Snowflake</h4>
+                                </div>
                                 <p class="eco-item-desc">Cloud data warehouse structuring and storage engine for operational business details.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Starburst</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="sparkles" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Starburst</h4>
+                                </div>
                                 <p class="eco-item-desc">Distributed query execution layer resolving data queries across partition borders.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">DataHub</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="database" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">DataHub</h4>
+                                </div>
                                 <p class="eco-item-desc">Self-service metadata discovery dashboard mapping active enterprise catalog schemas.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Machine Learning -->
-                    <div class="eco-category glass-element" style="border-top-color: var(--text-primary);">
+                    <div class="eco-category glass-element ml" style="border-top-color: var(--text-primary);">
                         <h3 class="eco-category-title" style="color: var(--text-primary);">Machine Learning</h3>
                         <p class="eco-category-desc">Extracting semantic insights and structural features from massive records clusters.</p>
                         <div class="eco-items-list">
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">BERTopic</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="message-square" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">BERTopic</h4>
+                                </div>
                                 <p class="eco-item-desc">Neural topic modeling parsing semantic documents and clustering topics dynamically.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Top2Vec</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="git-commit" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Top2Vec</h4>
+                                </div>
                                 <p class="eco-item-desc">Jointly learning word and document embeddings to organize similar features.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Embeddings</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="fingerprint" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Embeddings</h4>
+                                </div>
                                 <p class="eco-item-desc">Dense coordinate mappings representing textual semantics inside abstract model space.</p>
                             </div>
                             <div class="eco-item glass-element">
-                                <h4 class="eco-item-title">Neural Networks</h4>
+                                <div class="eco-item-header">
+                                    <i data-lucide="brain" class="eco-item-icon"></i>
+                                    <h4 class="eco-item-title">Neural Networks</h4>
+                                </div>
                                 <p class="eco-item-desc">Deep multi-layer architectures extracting features and classifying patterns.</p>
                             </div>
                         </div>

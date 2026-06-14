@@ -267,9 +267,9 @@ document.addEventListener("DOMContentLoaded", () => {
        INTERACTIVE PROJECTS LOGIC
        ========================================================================== */
 
-    // 1. Starburst AI Portal Simulation (Text-to-SQL Demo)
-    const sqlPills = document.querySelectorAll("#card-sql .interactive-pill");
-    const fakeInput = document.getElementById("fake-input");
+    // 1. Starburst AI Portal Simulation (Text-to-SQL Chat Demo)
+    const chatThread = document.getElementById("chat-thread-content");
+    const sqlCard = document.getElementById("card-sql");
 
     const sqlChatSessions = {
         sales: {
@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 { label: "May", val: "$68.9K", pct: 68, color: "" },
                 { label: "Jun", val: "$74.1K", pct: 74, color: "" }
             ],
-            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 4px;\">Revenue shows a steady upward trajectory, growing from $45.2K in January to $74.1K in June.</li><li style=\"margin-left: 15px;\">The 64% total growth is driven primarily by the Q2 marketing campaign.</li></ul>"
+            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 2px;\">Revenue shows a steady upward trajectory, growing from $45.2K in January to $74.1K in June.</li><li style=\"margin-left: 15px;\">The 64% total growth is driven primarily by the Q2 marketing campaign.</li></ul>"
         },
         users: {
             prompt: "Find count of active monthly users",
@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 { label: "Q3", val: "190K", pct: 90, color: "purple" },
                 { label: "Q4", val: "210K", pct: 100, color: "purple" }
             ],
-            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 4px;\">Monthly active users (MAU) breached the 200K threshold in Q4.</li><li style=\"margin-left: 15px;\">Registered a 75% year-over-year expansion compared to Q1.</li></ul>"
+            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 2px;\">Monthly active users (MAU) breached the 200K threshold in Q4.</li><li style=\"margin-left: 15px;\">Registered a 75% year-over-year expansion compared to Q1.</li></ul>"
         },
         products: {
             prompt: "List top 3 products by total revenue",
@@ -310,18 +310,134 @@ document.addEventListener("DOMContentLoaded", () => {
                 { label: "Gateway", val: "$850K", pct: 70, color: "green" },
                 { label: "Mesh", val: "$420K", pct: 35, color: "green" }
             ],
-            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 4px;\">The GenAI Enterprise Agent is the primary revenue driver at $1.2M.</li><li style=\"margin-left: 15px;\">Accounting for 48% of total catalog product sales.</li></ul>"
+            insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 2px;\">The GenAI Enterprise Agent is the primary revenue driver at $1.2M.</li><li style=\"margin-left: 15px;\">Accounting for 48% of total catalog product sales.</li></ul>"
         }
     };
 
-    function sendChatMessage(queryKey) {
+    let chatTimeouts = [];
+    function addChatTimeout(fn, ms) {
+        chatTimeouts.push(setTimeout(fn, ms));
+    }
+    
+    function clearAllChatTimeouts() {
+        chatTimeouts.forEach(clearTimeout);
+        chatTimeouts = [];
+    }
+
+    function scrollToBottom() {
+        if (chatThread) {
+            requestAnimationFrame(() => {
+                chatThread.scrollTop = chatThread.scrollHeight;
+            });
+        }
+    }
+
+    function scrollToElement(element) {
+        if (chatThread && element) {
+            requestAnimationFrame(() => {
+                const elementTop = element.getBoundingClientRect().top;
+                const containerTop = chatThread.getBoundingClientRect().top;
+                const relativeTop = elementTop - containerTop + chatThread.scrollTop;
+                
+                chatThread.scrollTo({
+                    top: relativeTop - 10,
+                    behavior: "smooth"
+                });
+            });
+        }
+    }
+
+    const inputSpan = document.getElementById("chat-input-span");
+
+    function typeUserQuestion(text, onComplete) {
+        if (!inputSpan) {
+            const msg = appendUserMessage(text);
+            if (onComplete) onComplete(msg);
+            return;
+        }
+
+        // Set typing font color to active and reset text
+        inputSpan.style.color = "#ffffff";
+        inputSpan.style.opacity = "1";
+        inputSpan.textContent = "";
+
+        let charIdx = 0;
+        function typeChar() {
+            if (charIdx < text.length) {
+                inputSpan.textContent = text.slice(0, charIdx + 1) + "▊";
+                charIdx++;
+                const delay = 25 + Math.random() * 30; // realistic variable typing speed
+                setTimeout(typeChar, delay);
+            } else {
+                inputSpan.textContent = text;
+                
+                // Pause slightly at completion, then send it into the chat history
+                setTimeout(() => {
+                    inputSpan.style.color = "";
+                    inputSpan.style.opacity = "";
+                    inputSpan.textContent = "Ask Starburst Agent...";
+                    
+                    const msg = appendUserMessage(text);
+                    if (onComplete) onComplete(msg);
+                }, 300);
+            }
+        }
+        typeChar();
+    }
+
+    function appendUserMessage(text) {
+        if (!chatThread) return null;
+        const msg = document.createElement("div");
+        msg.className = "chat-message user";
+        msg.innerHTML = `
+            <span class="message-sender">User</span>
+            <div class="message-bubble">${text}</div>
+        `;
+        chatThread.appendChild(msg);
+        
+        setTimeout(() => {
+            scrollToElement(msg);
+        }, 100);
+        return msg;
+    }
+
+    let activeIndicator = null;
+    function showTypingIndicator(userMsgEl) {
+        if (!chatThread) return;
+        removeTypingIndicator();
+        const wrapper = document.createElement("div");
+        wrapper.className = "typing-indicator-wrapper";
+        wrapper.id = "active-typing-indicator";
+        wrapper.innerHTML = `
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        `;
+        chatThread.appendChild(wrapper);
+        activeIndicator = wrapper;
+        
+        setTimeout(() => {
+            if (userMsgEl) {
+                scrollToElement(userMsgEl);
+            } else {
+                scrollToBottom();
+            }
+        }, 100);
+    }
+
+    function removeTypingIndicator() {
+        if (activeIndicator && activeIndicator.parentNode) {
+            activeIndicator.parentNode.removeChild(activeIndicator);
+        }
+        activeIndicator = null;
+    }
+
+    function appendAgentMessage(queryKey, userMsgEl) {
+        if (!chatThread) return;
         const data = sqlChatSessions[queryKey];
         if (!data) return;
 
-        const portalGrid = document.getElementById("portal-grid-content");
-        const personaTag = document.getElementById("portal-persona-tag");
-
-        // Sync personas
+        // Update persona tag dynamically
         let personaName = "Executive VP";
         let personaColor = "#0071E3";
         if (queryKey === "users") {
@@ -332,18 +448,13 @@ document.addEventListener("DOMContentLoaded", () => {
             personaColor = "#10b981";
         }
         
+        const personaTag = document.getElementById("portal-persona-tag");
         if (personaTag) {
             personaTag.textContent = `Persona: ${personaName}`;
             personaTag.style.color = personaColor;
             personaTag.style.borderColor = personaColor + "33";
         }
 
-        if (fakeInput) {
-            fakeInput.textContent = `Query executed: "${data.prompt}"`;
-            fakeInput.style.color = "rgba(255,255,255,0.7)";
-        }
-
-        // Build bars HTML immediately — no loading delay
         let barsHtml = "";
         data.chartBars.forEach(b => {
             barsHtml += `
@@ -357,134 +468,147 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         });
 
-        // Populate dashboard panel content instantly
-        if (portalGrid) {
-            portalGrid.innerHTML = `
-                <div class="portal-panel panel-left">
-                    <div class="panel-section">
-                        <span class="panel-section-label">User Query</span>
-                        <div class="active-query-text">"${data.prompt}"</div>
-                    </div>
-                    
-                    <div class="panel-section">
-                        <span class="panel-section-label">Compiled Starburst SQL</span>
-                        <pre class="sql-code-block"><code>${data.sql}</code></pre>
-                    </div>
-                    
-                    <div class="panel-section-metadata">
-                        <div><span>Access:</span> <span class="meta-badge success">PASSED</span></div>
-                        <div><span>Audit Log:</span> <span>RECORDED</span></div>
-                        <div><span>Latency:</span> <span>${data.time}</span></div>
-                    </div>
+        const msg = document.createElement("div");
+        msg.className = "chat-message agent";
+        msg.innerHTML = `
+            <span class="message-sender">Starburst AI Agent</span>
+            <div class="message-bubble">
+                <div class="bubble-section">
+                    <span class="bubble-section-label">Compiled Starburst SQL</span>
+                    <pre class="sql-code-block"><code>${data.sql}</code></pre>
                 </div>
-
-                <div class="portal-panel panel-right">
-                    <div class="panel-section">
-                        <span class="panel-section-label">Real-time Visualization</span>
-                        <div class="chart-container">
-                            <div class="chart-title">${data.chartTitle}</div>
-                            <div class="chart-bars-list">
-                                ${barsHtml}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="panel-section" style="flex-grow: 1;">
-                        <span class="panel-section-label">Semantic Insight</span>
-                        <div class="ai-insight">
-                            ${data.insight}
+                <div class="bubble-section">
+                    <span class="bubble-section-label">Real-time Visualization</span>
+                    <div class="chart-container">
+                        <div class="chart-title">${data.chartTitle}</div>
+                        <div class="chart-bars-list">
+                            ${barsHtml}
                         </div>
                     </div>
                 </div>
-            `;
+                <div class="bubble-section">
+                    <span class="bubble-section-label">Semantic Insight</span>
+                    <div class="ai-insight">${data.insight}</div>
+                </div>
+                <div class="panel-section-metadata" style="margin-top: 0; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.03);">
+                    <div><span>Access:</span> <span class="meta-badge success">PASSED</span></div>
+                    <div><span>Audit Log:</span> <span>RECORDED</span></div>
+                    <div><span>Latency:</span> <span>${data.time}</span></div>
+                </div>
+            </div>
+        `;
+        chatThread.appendChild(msg);
 
-            // Animate bars after a single frame (CSS transition needs a paint cycle)
-            requestAnimationFrame(() => {
-                const fills = portalGrid.querySelectorAll(".chart-bar-fill");
-                fills.forEach(f => {
-                    const pct = f.getAttribute("data-width");
-                    f.style.width = `${pct}%`;
-                });
+        // Animate chart bars after DOM rendering
+        requestAnimationFrame(() => {
+            const fills = msg.querySelectorAll(".chart-bar-fill");
+            fills.forEach(f => {
+                const pct = f.getAttribute("data-width");
+                f.style.width = `${pct}%`;
             });
-        }
-    }
-
-    // Auto-cycle configuration
-    const SQL_CYCLE_KEYS = ["sales", "users", "products"];
-    let sqlCurrentIndex = 0;
-    let sqlCycleInterval = null;
-    let sqlCycleStarted = false;
-
-    function activatePill(index) {
-        sqlCurrentIndex = index;
-        const key = SQL_CYCLE_KEYS[index];
-        sqlPills.forEach((p, i) => {
-            p.classList.toggle("active", i === index);
         });
-        sendChatMessage(key);
-        resetProgressBar();
+        
+        setTimeout(() => {
+            if (userMsgEl) {
+                scrollToElement(userMsgEl);
+            } else {
+                scrollToBottom();
+            }
+        }, 100);
     }
 
-    // Progress bar injected below the pills row
-    const pillsRow = document.querySelector("#card-sql .pills-row");
-    const progressBarWrap = document.createElement("div");
-    progressBarWrap.className = "sql-auto-progress-wrap";
-    progressBarWrap.innerHTML = `<div class="sql-auto-progress-bar"></div>`;
-    if (pillsRow) pillsRow.parentElement.appendChild(progressBarWrap);
-    const progressFill = progressBarWrap.querySelector(".sql-auto-progress-bar");
+    function startChatSimulation() {
+        if (!chatThread) return;
+        clearAllChatTimeouts();
+        
+        chatThread.style.opacity = "1";
+        chatThread.innerHTML = "";
+        
+        // Greeting from agent
+        const greeting = document.createElement("div");
+        greeting.className = "chat-message agent";
+        greeting.innerHTML = `
+            <span class="message-sender">Starburst AI Agent</span>
+            <div class="message-bubble">
+                Hello! I am your Text-to-SQL Starburst Agent. I compile natural language queries into production-safe database commands. Ask me a question, or watch me process live query threads.
+            </div>
+        `;
+        chatThread.appendChild(greeting);
+        
+        setTimeout(() => {
+            scrollToBottom();
+        }, 50);
 
-    function resetProgressBar() {
-        if (!progressFill) return;
-        progressFill.style.transition = "none";
-        progressFill.style.width = "0%";
-        void progressFill.offsetWidth; // force reflow
-        progressFill.style.transition = "width 3s linear";
-        progressFill.style.width = "100%";
+        let userMsg1, userMsg2, userMsg3;
+
+        // 1st Query: Sales
+        addChatTimeout(() => {
+            typeUserQuestion("Show me monthly sales growth for 2025", (msg) => {
+                userMsg1 = msg;
+                showTypingIndicator(userMsg1);
+                
+                addChatTimeout(() => {
+                    removeTypingIndicator();
+                    appendAgentMessage("sales", userMsg1);
+                }, 1500);
+            });
+        }, 2000);
+
+        // 2nd Query: Users
+        addChatTimeout(() => {
+            typeUserQuestion("Find count of active monthly users", (msg) => {
+                userMsg2 = msg;
+                showTypingIndicator(userMsg2);
+                
+                addChatTimeout(() => {
+                    removeTypingIndicator();
+                    appendAgentMessage("users", userMsg2);
+                }, 1500);
+            });
+        }, 12500);
+
+        // 3rd Query: Products
+        addChatTimeout(() => {
+            typeUserQuestion("List top 3 products by total revenue", (msg) => {
+                userMsg3 = msg;
+                showTypingIndicator(userMsg3);
+                
+                addChatTimeout(() => {
+                    removeTypingIndicator();
+                    appendAgentMessage("products", userMsg3);
+                }, 1500);
+            });
+        }, 23500);
+
+        // Loop reset
+        addChatTimeout(() => {
+            chatThread.style.transition = "opacity 0.8s ease";
+            chatThread.style.opacity = "0";
+            
+            addChatTimeout(() => {
+                chatThread.innerHTML = "";
+                chatThread.style.opacity = "1";
+                startChatSimulation();
+            }, 800);
+        }, 34000);
     }
 
-    function startCycle() {
-        if (sqlCycleInterval) clearInterval(sqlCycleInterval);
-        resetProgressBar();
-        sqlCycleInterval = setInterval(() => {
-            const nextIndex = (sqlCurrentIndex + 1) % SQL_CYCLE_KEYS.length;
-            activatePill(nextIndex);
-        }, 3000);
-    }
-
-    function stopCycle() {
-        if (sqlCycleInterval) { clearInterval(sqlCycleInterval); sqlCycleInterval = null; }
-        if (progressFill) { progressFill.style.transition = "none"; progressFill.style.width = "0%"; }
-    }
-
-    // Manual click resets cycle from that pill
-    sqlPills.forEach((pill, i) => {
-        pill.addEventListener("click", () => {
-            activatePill(i);
-            if (sqlCycleStarted) startCycle();
-        });
-    });
-
-    // Pause auto-cycle while hovering the card
-    const sqlCard = document.getElementById("card-sql");
-
-    // Kick off when demo scrolls into view
-    const sqlObserver = new IntersectionObserver((entries) => {
+    // Observer to run/pause simulation based on visibility
+    let chatActive = false;
+    const chatObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && !sqlCycleStarted) {
-                sqlCycleStarted = true;
-                activatePill(0);
-                startCycle();
-            } else if (!entry.isIntersecting && sqlCycleStarted) {
-                stopCycle();
-                sqlCycleStarted = false;
+            if (entry.isIntersecting && !chatActive) {
+                chatActive = true;
+                startChatSimulation();
+            } else if (!entry.isIntersecting && chatActive) {
+                clearAllChatTimeouts();
+                removeTypingIndicator();
+                chatActive = false;
             }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.15 });
 
-    if (sqlCard) sqlObserver.observe(sqlCard);
-
-    // Fallback initial render
-    sendChatMessage("sales");
+    if (sqlCard) chatObserver.observe(sqlCard);
 
     // ==========================================================================
     // 2. DOCUMENT CLUSTERING IN MOTION (SCROLL-DRIVEN MOTION GRAPHIC)
@@ -868,9 +992,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const timeoutId = setTimeout(() => {
                 const line = document.createElement("div");
                 line.className = `console-line ${log.type}`;
-                line.textContent = log.text;
                 consoleLog.appendChild(line);
                 consoleLog.scrollTop = consoleLog.scrollHeight;
+
+                let charIdx = 0;
+                const text = log.text;
+                function typeChar() {
+                    if (charIdx <= text.length) {
+                        line.textContent = text.slice(0, charIdx) + (charIdx < text.length ? "▊" : "");
+                        charIdx++;
+                        setTimeout(typeChar, 8); // fast typing speed
+                    }
+                }
+                typeChar();
             }, phase.durations[idx]);
             logTimeoutIds.push(timeoutId);
         });
@@ -930,6 +1064,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateCount();
             }
         });
+    }
+
+    // Fallback/Robust IntersectionObserver for metrics animation
+    const impactSection = document.getElementById("impact");
+    if (impactSection && typeof IntersectionObserver !== 'undefined') {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateMetrics();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        observer.observe(impactSection);
     }
 
     /* ==========================================================================
@@ -1009,23 +1157,194 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Story interaction for Semantic Card
+    // Auto progression for Semantic Architecture visual steps
+    const layers = document.querySelectorAll('.semantic-system-diagram .system-layer');
+    const hubs = document.querySelectorAll('.semantic-system-diagram .hub-node');
     const steps = document.querySelectorAll('#card-semantic .story-step');
     const panes = document.querySelectorAll('#card-semantic .story-pane');
+    const compilerBubble = document.getElementById('sys-compiler-output');
+    const axisPulse = document.getElementById('axis-pulse');
 
-    steps.forEach(step => {
-        step.addEventListener('click', () => {
-            steps.forEach(s => s.classList.remove('active'));
-            step.classList.add('active');
+    let currentStepIndex = 0;
+    let autoplayInterval = null;
+    let autoplayTimeout = null;
 
-            const stepNum = step.getAttribute('data-step');
-            panes.forEach(p => {
-                p.style.display = 'none';
-            });
-            const activePane = document.getElementById(`pane-${stepNum}`);
-            if (activePane) {
-                activePane.style.display = 'block';
+    function activateStep(index) {
+        const stepNum = index + 1;
+
+        // Toggle active spotlight focus on layers
+        layers.forEach((layer) => {
+            const layerVal = parseInt(layer.getAttribute('data-layer'));
+            if (layerVal === stepNum) {
+                layer.classList.add('active');
+            } else {
+                layer.classList.remove('active');
             }
+        });
+
+        // Activate glowing hubs cumulatively to show upward flow/synergy
+        hubs.forEach((hub, idx) => {
+            if (idx < index) {
+                hub.classList.add('active');
+            } else {
+                hub.classList.remove('active');
+            }
+        });
+
+        // Toggle global compiled SQL box on Step 5
+        if (compilerBubble) {
+            if (stepNum === 5) {
+                compilerBubble.classList.add('active');
+            } else {
+                compilerBubble.classList.remove('active');
+            }
+        }
+
+        // Toggle story steps active states
+        steps.forEach((step, idx) => {
+            if (idx === index) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
+
+        // Toggle story text panes
+        panes.forEach((p, idx) => {
+            if (idx === index) {
+                p.style.display = 'block';
+            } else {
+                p.style.display = 'none';
+            }
+        });
+
+        currentStepIndex = index;
+
+        // Trigger typewriter prompt and cascade pulse down the axis on Step 5
+        if (stepNum === 5) {
+            triggerVisualQueryTypewriter();
+            triggerAxisCascadePulse();
+        }
+    }
+
+    // Neon compiled query pulse cascading top-down through the central axis line
+    function triggerAxisCascadePulse() {
+        if (!axisPulse) return;
+        axisPulse.classList.remove('pulsing');
+        void axisPulse.offsetWidth; // Force Reflow
+        axisPulse.classList.add('pulsing');
+    }
+
+    // Typewriter effect inside the visual query bubble of step 5
+    let typewriterActive = false;
+    function triggerVisualQueryTypewriter() {
+        const queryTextEl = document.getElementById('sys-query-text');
+        if (!queryTextEl || typewriterActive) return;
+        
+        typewriterActive = true;
+        const text = "Compare quarterly sales...";
+        queryTextEl.textContent = "";
+        let charIndex = 0;
+        
+        function typeChar() {
+            if (charIndex < text.length) {
+                queryTextEl.textContent += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, 50);
+            } else {
+                typewriterActive = false;
+            }
+        }
+        typeChar();
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+        autoplayInterval = setInterval(() => {
+            let nextIndex = (currentStepIndex + 1) % steps.length;
+            activateStep(nextIndex);
+        }, 4000); // Cycle every 4 seconds for readability
+    }
+
+    function stopAutoplay() {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+        }
+        if (autoplayTimeout) {
+            clearTimeout(autoplayTimeout);
+            autoplayTimeout = null;
+        }
+    }
+
+    // Initialize first state and start autoplay
+    if (steps.length > 0) {
+        activateStep(0);
+        startAutoplay();
+    }
+
+    // Manual click interaction resets autoplay
+    steps.forEach((step, idx) => {
+        step.addEventListener('click', () => {
+            stopAutoplay();
+            activateStep(idx);
+
+            // Pause for 10 seconds after manual click, then resume
+            autoplayTimeout = setTimeout(() => {
+                startAutoplay();
+            }, 10000);
+        });
+
+        // Hover interaction updates active step immediately
+        step.addEventListener('mouseenter', () => {
+            stopAutoplay();
+            activateStep(idx);
+        });
+
+        step.addEventListener('mouseleave', () => {
+            // Delay autoplay restart
+            autoplayTimeout = setTimeout(() => {
+                startAutoplay();
+            }, 4000);
+        });
+    });
+
+    // Hovering over the visual graphic pane also pauses the cycle
+    const visualWrapper = document.querySelector('.product-card-visual');
+    if (visualWrapper) {
+        visualWrapper.addEventListener('mouseenter', () => {
+            stopAutoplay();
+        });
+        visualWrapper.addEventListener('mouseleave', () => {
+            autoplayTimeout = setTimeout(() => {
+                startAutoplay();
+            }, 4000);
+        });
+    } 
+
+    // 3D Card Tilt Interaction
+    const tiltElements = document.querySelectorAll(".product-card, .education-card, .exp-card, .about-highlight-card");
+    tiltElements.forEach(el => {
+        el.classList.add("tilt-target");
+        
+        el.addEventListener("mousemove", (e) => {
+            el.classList.add("active-tilt");
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Calculate dynamic rotation angle (-8 to 8 deg for clean restraint)
+            const tiltX = ((y / rect.height) - 0.5) * -10;
+            const tiltY = ((x / rect.width) - 0.5) * 10;
+            
+            el.style.setProperty("--tilt-x", `${tiltX}deg`);
+            el.style.setProperty("--tilt-y", `${tiltY}deg`);
+        });
+        
+        el.addEventListener("mouseleave", () => {
+            el.classList.remove("active-tilt");
+            el.style.setProperty("--tilt-x", "0deg");
+            el.style.setProperty("--tilt-y", "0deg");
         });
     });
 });
