@@ -474,8 +474,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="message-sender">Starburst AI Agent</span>
             <div class="message-bubble">
                 <div class="bubble-section">
-                    <span class="bubble-section-label">Compiled Starburst SQL</span>
-                    <pre class="sql-code-block"><code>${data.sql}</code></pre>
+                    <details class="sql-details"><summary class="sql-summary">Compiled Starburst SQL (Click to Expand)</summary>
+                    <pre class="sql-code-block"><code>${data.sql}</code></pre></details>
                 </div>
                 <div class="bubble-section">
                     <span class="bubble-section-label">Real-time Visualization</span>

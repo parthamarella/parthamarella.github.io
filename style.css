@@ -3070,3 +3070,41 @@ section {
     color: #38bdf8;
     line-height: 1.3;
 }
+.sql-details {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.sql-summary {
+    font-family: var(--font-heading);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 10px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sql-summary:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sql-details[open] .sql-summary {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sql-details .sql-code-block {
+    margin: 0;
+    border: none;
+    border-radius: 0 0 6px 6px;
+    background: transparent;
+}
