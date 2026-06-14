@@ -651,54 +651,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-card-visual">
-                            <svg class="visual-svg" id="mcp-visual" viewBox="0 0 400 300" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <linearGradient id="svg-glow-3" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#10b981" stop-opacity="0.3" />
-                                        <stop offset="100%" stop-color="#0071E3" stop-opacity="0.1" />
-                                    </linearGradient>
-                                </defs>
-                                <rect x="10" y="10" width="380" height="280" rx="12" fill="url(#svg-glow-3)"
-                                    stroke="#333" stroke-width="1" />
+                        <div class="product-card-visual" style="position: relative; overflow: hidden; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(0,113,227,0.05) 100%); border: 1px solid #333; min-height: 360px;">
+                            <div id="agent-3d-container" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></div>
 
-                                <!-- Central Agent Hub -->
-                                <rect x="145" y="120" width="110" height="60" rx="8" fill="#111" stroke="#10b981"
-                                    stroke-width="1.5" id="mcp-client-box" style="transition: all 0.3s;" />
-                                <text x="200" y="154" fill="#FFF" font-family="sans-serif" font-size="10"
-                                    font-weight="bold" text-anchor="middle">AGENT HUB</text>
-
-                                <!-- Server Nodes -->
-                                <circle id="mcp-s1" cx="80" cy="70" r="28" fill="#111" stroke="#10b981"
-                                    stroke-width="1.5" style="transition: all 0.3s;" />
-                                <text x="80" y="69" fill="#FFF" font-family="sans-serif" font-size="8" font-weight="500"
-                                    text-anchor="middle">
-                                    <tspan x="80" dy="0">Model</tspan>
-                                    <tspan x="80" dy="10">Eval</tspan>
-                                </text>
-
-                                <circle id="mcp-s2" cx="320" cy="70" r="28" fill="#111" stroke="#10b981"
-                                    stroke-width="1.5" style="transition: all 0.3s;" />
-                                <text x="320" y="69" fill="#FFF" font-family="sans-serif" font-size="8"
-                                    font-weight="500" text-anchor="middle">
-                                    <tspan x="320" dy="0">PR</tspan>
-                                    <tspan x="320" dy="10">Review</tspan>
-                                </text>
-
-                                <circle id="mcp-s3" cx="200" cy="230" r="28" fill="#111" stroke="#10b981"
-                                    stroke-width="1.5" style="transition: all 0.3s;" />
-                                <text x="200" y="234" fill="#FFF" font-family="sans-serif" font-size="8"
-                                    font-weight="500" text-anchor="middle">Dashboards</text>
-
-                                <!-- Connectors -->
-                                <path id="mcp-l1" d="M 100 85 L 160 125" stroke="#10b981" stroke-dasharray="3"
-                                    class="mcp-link" style="transition: all 0.3s;" />
-                                <path id="mcp-l2" d="M 300 85 L 240 125" stroke="#10b981" stroke-dasharray="3"
-                                    class="mcp-link" style="transition: all 0.3s;" />
-                                <path id="mcp-l3" d="M 200 205 L 200 180" stroke="#10b981" stroke-dasharray="3"
-                                    class="mcp-link" style="transition: all 0.3s;" />
-                            </svg>
+                            <!-- Overlay Labels -->
+                            <div class="agent-label" style="position: absolute; top: 20%; left: 20%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
+                                Model<br>Eval
+                            </div>
+                            <div class="agent-label" style="position: absolute; top: 20%; left: 80%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
+                                PR<br>Review
+                            </div>
+                            <div class="agent-label" style="position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
+                                Dashboards
+                            </div>
+                            <div class="agent-label" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 12px; font-weight: bold; text-align: center; pointer-events: none; text-shadow: 0 0 6px #000;">
+                                AGENT HUB
+                            </div>
                         </div>
                     </div>
                 <!-- Project 4: Document Clustering in Motion -->
@@ -1109,6 +1077,7 @@
     </footer>
 
     <!-- CDN Script Integrations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
