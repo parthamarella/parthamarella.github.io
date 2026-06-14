@@ -1158,8 +1158,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Auto progression for Semantic Architecture visual steps
-    const layers = document.querySelectorAll('.semantic-system-diagram .system-layer');
-    const hubs = document.querySelectorAll('.semantic-system-diagram .hub-node');
+    const layers = document.querySelectorAll('.semantic-system-diagram .diagram-layer');
     const steps = document.querySelectorAll('#card-semantic .story-step');
     const panes = document.querySelectorAll('#card-semantic .story-pane');
     const compilerBubble = document.getElementById('sys-compiler-output');
@@ -1179,15 +1178,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 layer.classList.add('active');
             } else {
                 layer.classList.remove('active');
-            }
-        });
-
-        // Activate glowing hubs cumulatively to show upward flow/synergy
-        hubs.forEach((hub, idx) => {
-            if (idx < index) {
-                hub.classList.add('active');
-            } else {
-                hub.classList.remove('active');
             }
         });
 

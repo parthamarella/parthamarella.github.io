@@ -492,129 +492,288 @@
 
                         <div class="product-card-visual" style="display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 1rem; min-height: 540px; background: radial-gradient(circle at center, rgba(16,185,129,0.05) 0%, transparent 70%);">
                             <div class="semantic-system-diagram">
-                                
-                                <!-- Central axis line and compiler pulse particle -->
-                                <div class="system-axis-path">
-                                    <div class="axis-pulse-particle" id="axis-pulse"></div>
-                                </div>
-                                
-                                <!-- Glowing connector hubs -->
-                                <div class="axis-hubs">
-                                    <span class="hub-node" id="hub-4-5"></span>
-                                    <span class="hub-node" id="hub-3-4"></span>
-                                    <span class="hub-node" id="hub-2-3"></span>
-                                    <span class="hub-node" id="hub-1-2"></span>
-                                </div>
+                                <div class="isometric-viewport">
+                                    <!-- Vertical Z-axis flow line -->
+                                    <div class="z-axis-flow">
+                                        <div class="flow-glow"></div>
+                                        <div class="axis-pulse-particle" id="axis-pulse"></div>
+                                    </div>
 
-                                <!-- Layer 5: AGENT LAYER -->
-                                <div class="system-layer" data-layer="5" id="sys-layer-5">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">AGENT LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">LLM Agents</span>
-                                        <span class="layer-pill-item">Text-to-SQL</span>
-                                        <span class="layer-pill-item">MCP Services</span>
-                                    </div>
+                                    <!-- Stacking 5 isometric planes -->
                                     
-                                    <!-- Layer 5 Overlay: NL Prompt Compiler -->
-                                    <div class="sys-overlay" id="sys-overlay-5">
-                                        <div class="sys-prompt-bubble glass-element">
-                                            <i data-lucide="message-square" class="bubble-icon"></i>
-                                            <span class="typewriter-text" id="sys-query-text">Compare quarterly sales...</span>
+                                    <!-- Layer 5: AGENT LAYER -->
+                                    <div class="diagram-layer plane-pink" data-layer="5" style="--layer-index: 4;">
+                                        <div class="slab-border"></div>
+                                        <div class="slab-base"></div>
+                                        <div class="hud-overlay">
+                                            <span class="hud-title">L5 · AGENTIC AI</span>
+                                            <div class="hud-pills">
+                                                <span>LLM Agents</span>
+                                                <span>Reasoning</span>
+                                            </div>
+                                        </div>
+                                        <!-- Hologram: AI Multi-Agent Operations Control -->
+                                        <div class="hologram-visual agent-brain-hologram">
+                                            <div class="agents-control-desk">
+                                                <div class="agent-pod analyst-pod">
+                                                    <div class="agent-avatar-ring">
+                                                        <i data-lucide="bot" class="agent-icon"></i>
+                                                    </div>
+                                                    <span class="agent-pod-label">Analyst</span>
+                                                </div>
+                                                <div class="agent-pod planner-pod">
+                                                    <div class="agent-avatar-ring">
+                                                        <i data-lucide="cpu" class="agent-icon"></i>
+                                                    </div>
+                                                    <span class="agent-pod-label">Planner</span>
+                                                </div>
+                                                <div class="agent-pod security-pod">
+                                                    <div class="agent-avatar-ring">
+                                                        <i data-lucide="shield-check" class="agent-icon"></i>
+                                                    </div>
+                                                    <span class="agent-pod-label">Security</span>
+                                                </div>
+                                            </div>
+                                            <!-- Data Packets Flow Streams -->
+                                            <div class="data-packet-streams">
+                                                <span class="packet-spark spark-1"></span>
+                                                <span class="packet-spark spark-2"></span>
+                                                <span class="packet-spark spark-3"></span>
+                                            </div>
+                                            <!-- Prompt Typing HUD Bubble -->
+                                            <div class="agent-comms-bubble">
+                                                <i data-lucide="terminal" class="comms-terminal-icon"></i>
+                                                <span id="sys-query-text">Compare quarterly sales...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Layer 4: KNOWLEDGE LAYER -->
+                                    <div class="diagram-layer plane-purple" data-layer="4" style="--layer-index: 3;">
+                                        <div class="slab-border"></div>
+                                        <div class="slab-base"></div>
+                                        <div class="hud-overlay">
+                                            <span class="hud-title">L4 · KNOWLEDGE MAP</span>
+                                            <div class="hud-pills">
+                                                <span>Stored</span>
+                                                <span>Indexed</span>
+                                            </div>
+                                        </div>
+                                        <!-- Hologram: Knowledge Library & Ontology Index -->
+                                        <div class="hologram-visual library-hologram">
+                                            <!-- Library Catalog Storage Drawer -->
+                                            <div class="library-cabinet-enclosure">
+                                                <div class="cabinet-drawer active-drawer">
+                                                    <div class="drawer-handle"></div>
+                                                    <div class="drawer-folders">
+                                                        <span class="folder-tab text-pink" title="Revenue model metadata">Rev_M</span>
+                                                        <span class="folder-tab text-purple" title="Customer dimensions mapping">Cust_D</span>
+                                                    </div>
+                                                </div>
+                                                <div class="cabinet-drawer">
+                                                    <div class="drawer-handle"></div>
+                                                    <div class="drawer-folders">
+                                                        <span class="folder-tab text-blue" title="Cohort segment criteria">VIP_S</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Ontology Network Map Overlay -->
+                                            <div class="ontology-mesh">
+                                                <div class="mesh-node node-a" title="Sales Model"></div>
+                                                <div class="mesh-node node-b" title="LTV Metric"></div>
+                                                <div class="mesh-node node-c" title="Churn Index"></div>
+                                                <svg class="mesh-links">
+                                                    <line x1="15" y1="15" x2="60" y2="40" class="mesh-link-line"></line>
+                                                    <line x1="60" y1="40" x2="110" y2="15" class="mesh-link-line"></line>
+                                                </svg>
+                                            </div>
+                                            <!-- Rotating Search & Index Compass Radar -->
+                                            <div class="radar-indexer-ring">
+                                                <div class="radar-sweep-beam"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Layer 3: SEMANTIC LAYER -->
+                                    <div class="diagram-layer plane-blue" data-layer="3" style="--layer-index: 2;">
+                                        <div class="slab-border"></div>
+                                        <div class="slab-base"></div>
+                                        <div class="hud-overlay">
+                                            <span class="hud-title">L3 · SEMANTIC BRIDGE</span>
+                                            <div class="hud-pills">
+                                                <span>Metrics</span>
+                                                <span>Dimensions</span>
+                                            </div>
+                                        </div>
+                                        <!-- Hologram: Semantic Model Compiler (Bridge) -->
+                                        <div class="hologram-visual bridge-hologram">
+                                            <div class="semantic-bridge-grid">
+                                                <!-- Left Columns: Building Blocks -->
+                                                <div class="bridge-inputs-col">
+                                                    <!-- Computable Metrics Card -->
+                                                    <div class="bridge-block metrics-block">
+                                                        <span class="block-lbl">METRICS</span>
+                                                        <span class="formula-text">∑ Rev = SUM(Price*Qty)</span>
+                                                    </div>
+                                                    <!-- Dimensions / Filters Card -->
+                                                    <div class="bridge-block dimensions-block">
+                                                        <span class="block-lbl">DIMENSIONS</span>
+                                                        <div class="dim-tags">
+                                                            <span class="tag-pill">Region</span>
+                                                            <span class="tag-pill">Category</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Right Columns: Context and Output Model -->
+                                                <div class="bridge-inputs-col">
+                                                    <!-- Segments Card -->
+                                                    <div class="bridge-block segments-block">
+                                                        <span class="block-lbl">SEGMENTS</span>
+                                                        <span class="segment-expr">VIP (LTV &gt; $10k)</span>
+                                                    </div>
+                                                    <!-- Time Dimensions Card -->
+                                                    <div class="bridge-block time-block">
+                                                        <span class="block-lbl">TIME</span>
+                                                        <span class="time-grain-pill">Quarterly</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Unified Semantic Model Output Badge -->
+                                            <div class="unified-model-badge">
+                                                <i data-lucide="layers" class="model-badge-icon"></i>
+                                                <span>SalesModel</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Layer 2: METADATA INTELLIGENCE -->
+                                    <div class="diagram-layer plane-teal" data-layer="2" style="--layer-index: 1;">
+                                        <div class="slab-border"></div>
+                                        <div class="slab-base"></div>
+                                        <div class="hud-overlay">
+                                            <span class="hud-title">L2 · METADATA ENGINE</span>
+                                            <div class="hud-pills">
+                                                <span>Lineage</span>
+                                                <span>Profiling</span>
+                                            </div>
+                                        </div>
+                                        <!-- Hologram: Lineage, Profiling & Discovery -->
+                                        <div class="hologram-visual scanner-hologram">
+                                            <!-- Multi-node Lineage Graph -->
+                                            <div class="lineage-graph">
+                                                <div class="lineage-nodes-col source-col">
+                                                    <div class="lineage-node s-node" title="users_raw"></div>
+                                                    <div class="lineage-node s-node" title="orders_raw"></div>
+                                                </div>
+                                                <svg class="lineage-svg-multi">
+                                                    <path d="M 10 12 C 40 12, 40 22, 75 22" class="lineage-path path-1" />
+                                                    <path d="M 10 38 C 40 38, 40 28, 75 28" class="lineage-path path-2" />
+                                                    <path d="M 75 25 L 125 25" class="lineage-path path-3" />
+                                                </svg>
+                                                <div class="lineage-nodes-col join-col">
+                                                    <div class="lineage-node j-node" title="join_transform"></div>
+                                                </div>
+                                                <div class="lineage-nodes-col target-col">
+                                                    <div class="lineage-node t-node" title="sales_gold"></div>
+                                                </div>
+                                            </div>
+                                            <!-- Data Profiling Mini Dashboard -->
+                                            <div class="profiling-dashboard">
+                                                <div class="profile-radial-wrapper">
+                                                    <svg class="radial-svg" viewBox="0 0 20 20">
+                                                        <circle class="radial-bg" cx="10" cy="10" r="8"></circle>
+                                                        <circle class="radial-fill" cx="10" cy="10" r="8"></circle>
+                                                    </svg>
+                                                    <span class="radial-val">99.8%</span>
+                                                </div>
+                                                <div class="profile-metrics-list">
+                                                    <div class="prof-metric"><span>Nulls:</span> <span class="val">0.0%</span></div>
+                                                    <div class="prof-metric"><span>Card:</span> <span class="val">5.2M</span></div>
+                                                </div>
+                                            </div>
+                                            <!-- Discovery Scan Overlay -->
+                                            <div class="discovery-search-panel">
+                                                <div class="search-mini-bar">
+                                                    <i data-lucide="search" class="search-icon-mini"></i>
+                                                    <span class="search-text-typing">Scan: sales_gold</span>
+                                                </div>
+                                                <span class="discover-status-badge"><span class="pulse-dot"></span>Discoverable</span>
+                                            </div>
+                                            <!-- Dynamic Sweep Laser -->
+                                            <div class="scanner-beam-line"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Layer 1: PHYSICAL DATA LAYER -->
+                                    <div class="diagram-layer plane-green" data-layer="1" style="--layer-index: 0;">
+                                        <div class="slab-border"></div>
+                                        <div class="slab-base"></div>
+                                        <div class="hud-overlay">
+                                            <span class="hud-title">L1 · PHYSICAL STORAGE</span>
+                                            <div class="hud-pills">
+                                                <span>Warehouse</span>
+                                                <span>Data Lake</span>
+                                            </div>
+                                        </div>
+                                        <!-- Hologram: Databases, Storage Racks, Data Tables -->
+                                        <div class="hologram-visual db-hologram">
+                                            <!-- Server Storage Rack Enclosure -->
+                                            <div class="rack-enclosure">
+                                                <div class="rack-blade">
+                                                    <span class="blade-led active green"></span>
+                                                    <span class="blade-led active blue"></span>
+                                                    <span class="blade-led"></span>
+                                                </div>
+                                                <div class="rack-blade">
+                                                    <span class="blade-led active blue"></span>
+                                                    <span class="blade-led"></span>
+                                                    <span class="blade-led active green"></span>
+                                                </div>
+                                                <div class="rack-blade">
+                                                    <span class="blade-led"></span>
+                                                    <span class="blade-led active green"></span>
+                                                    <span class="blade-led active orange"></span>
+                                                </div>
+                                            </div>
+                                            <!-- Database Cylinder Cluster -->
+                                            <div class="db-cluster">
+                                                <div class="db-cylinder active primary">
+                                                    <div class="cylinder-top">DB_01</div>
+                                                    <div class="cylinder-rings">
+                                                        <span class="ring-stripe"></span>
+                                                        <span class="ring-stripe"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="db-cylinder standby">
+                                                    <div class="cylinder-top">DB_02</div>
+                                                    <div class="cylinder-rings">
+                                                        <span class="ring-stripe"></span>
+                                                        <span class="ring-stripe"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Holographic Data Table -->
+                                            <div class="floating-data-table">
+                                                <div class="table-header">
+                                                    <span class="col-head">id</span>
+                                                    <span class="col-head">val</span>
+                                                </div>
+                                                <div class="table-rows">
+                                                    <div class="table-row"><span>01</span><span>$9.2k</span></div>
+                                                    <div class="table-row active"><span>02</span><span>$4.5k</span></div>
+                                                    <div class="table-row"><span>03</span><span>$7.1k</span></div>
+                                                </div>
+                                                <div class="table-scan-line"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Layer 4: KNOWLEDGE LAYER -->
-                                <div class="system-layer" data-layer="4" id="sys-layer-4">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">KNOWLEDGE LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Business Definitions</span>
-                                        <span class="layer-pill-item">Ontologies</span>
-                                        <span class="layer-pill-item">Metric Catalog</span>
-                                    </div>
-
-                                    <!-- Layer 4 Overlay: Ontology Map -->
-                                    <div class="sys-overlay" id="sys-overlay-4">
-                                        <div class="sys-ontology-card glass-element">
-                                            <i data-lucide="network" class="ontology-icon"></i>
-                                            <span>cust_id -> Customer Entity</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 3: SEMANTIC LAYER -->
-                                <div class="system-layer" data-layer="3" id="sys-layer-3">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">SEMANTIC LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Metrics</span>
-                                        <span class="layer-pill-item">Dimensions</span>
-                                        <span class="layer-pill-item">Facts</span>
-                                        <span class="layer-pill-item">Segments</span>
-                                    </div>
-
-                                    <!-- Layer 3 Overlay: Formula definition -->
-                                    <div class="sys-overlay" id="sys-overlay-3">
-                                        <div class="sys-formula-bubble glass-element">
-                                            <span class="formula-label">Revenue Metric</span>
-                                            <code>SUM(tx_amt)</code>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 2: METADATA INTELLIGENCE -->
-                                <div class="system-layer" data-layer="2" id="sys-layer-2">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">METADATA INTELLIGENCE</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Schema Discovery</span>
-                                        <span class="layer-pill-item">Lineage</span>
-                                        <span class="layer-pill-item">Column Profiling</span>
-                                    </div>
-
-                                    <!-- Layer 2 Overlay: Profiling Scan -->
-                                    <div class="sys-overlay" id="sys-overlay-2">
-                                        <div class="sys-scanner-bar"></div>
-                                        <div class="sys-lineage-badge glass-element">
-                                            <i data-lucide="git-branch" class="lineage-icon"></i>
-                                            <span>Lineage mapped</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 1: PHYSICAL DATA LAYER -->
-                                <div class="system-layer" data-layer="1" id="sys-layer-1">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">PHYSICAL DATA LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Snowflake</span>
-                                        <span class="layer-pill-item">Data Warehouse</span>
-                                        <span class="layer-pill-item">Data Lake</span>
-                                    </div>
-
-                                    <!-- Layer 1 Overlay: Schema columns -->
-                                    <div class="sys-overlay" id="sys-overlay-1">
-                                        <div class="sys-schema-card glass-element">
-                                            <div class="card-title-mini">orders_tbl</div>
-                                            <span>cust_id (INT)</span>
-                                            <span>tx_amt (DECIMAL)</span>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                
                                 <!-- Agent SQL compiler overlay (Global bottom right) -->
                                 <div class="sys-sql-compiler-bubble glass-element" id="sys-compiler-output">
                                     <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i> Compiled SQL (Snowflake)</div>
                                     <pre class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
                                 </div>
-
                             </div>
                         </div>
                     </div>
