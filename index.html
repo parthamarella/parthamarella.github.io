@@ -506,63 +506,23 @@
                                     <span class="hub-node" id="hub-1-2"></span>
                                 </div>
 
-                                <!-- Layer 5: AGENT LAYER -->
-                                <div class="system-layer" data-layer="5" id="sys-layer-5">
+                                <!-- Layer 1: PHYSICAL DATA LAYER -->
+                                <div class="system-layer" data-layer="1" id="sys-layer-1">
                                     <div class="layer-header-bar">
-                                        <span class="layer-title-text">AGENT LAYER</span>
+                                        <span class="layer-title-text">PHYSICAL DATA LAYER</span>
                                     </div>
                                     <div class="layer-pills-row">
-                                        <span class="layer-pill-item">LLM Agents</span>
-                                        <span class="layer-pill-item">Text-to-SQL</span>
-                                        <span class="layer-pill-item">MCP Services</span>
-                                    </div>
-                                    
-                                    <!-- Layer 5 Overlay: NL Prompt Compiler -->
-                                    <div class="sys-overlay" id="sys-overlay-5">
-                                        <div class="sys-prompt-bubble glass-element">
-                                            <i data-lucide="message-square" class="bubble-icon"></i>
-                                            <span class="typewriter-text" id="sys-query-text">Compare quarterly sales...</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 4: KNOWLEDGE LAYER -->
-                                <div class="system-layer" data-layer="4" id="sys-layer-4">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">KNOWLEDGE LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Business Definitions</span>
-                                        <span class="layer-pill-item">Ontologies</span>
-                                        <span class="layer-pill-item">Metric Catalog</span>
+                                        <span class="layer-pill-item">Snowflake</span>
+                                        <span class="layer-pill-item">Data Warehouse</span>
+                                        <span class="layer-pill-item">Data Lake</span>
                                     </div>
 
-                                    <!-- Layer 4 Overlay: Ontology Map -->
-                                    <div class="sys-overlay" id="sys-overlay-4">
-                                        <div class="sys-ontology-card glass-element">
-                                            <i data-lucide="network" class="ontology-icon"></i>
-                                            <span>cust_id -> Customer Entity</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 3: SEMANTIC LAYER -->
-                                <div class="system-layer" data-layer="3" id="sys-layer-3">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">SEMANTIC LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Metrics</span>
-                                        <span class="layer-pill-item">Dimensions</span>
-                                        <span class="layer-pill-item">Facts</span>
-                                        <span class="layer-pill-item">Segments</span>
-                                    </div>
-
-                                    <!-- Layer 3 Overlay: Formula definition -->
-                                    <div class="sys-overlay" id="sys-overlay-3">
-                                        <div class="sys-formula-bubble glass-element">
-                                            <span class="formula-label">Revenue Metric</span>
-                                            <code>SUM(tx_amt)</code>
+                                    <!-- Layer 1 Overlay: Schema columns -->
+                                    <div class="sys-overlay" id="sys-overlay-1">
+                                        <div class="sys-schema-card glass-element">
+                                            <div class="card-title-mini">orders_tbl</div>
+                                            <span>cust_id (INT)</span>
+                                            <span>tx_amt (DECIMAL)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -588,23 +548,63 @@
                                     </div>
                                 </div>
 
-                                <!-- Layer 1: PHYSICAL DATA LAYER -->
-                                <div class="system-layer" data-layer="1" id="sys-layer-1">
+                                <!-- Layer 3: SEMANTIC LAYER -->
+                                <div class="system-layer" data-layer="3" id="sys-layer-3">
                                     <div class="layer-header-bar">
-                                        <span class="layer-title-text">PHYSICAL DATA LAYER</span>
+                                        <span class="layer-title-text">SEMANTIC LAYER</span>
                                     </div>
                                     <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Snowflake</span>
-                                        <span class="layer-pill-item">Data Warehouse</span>
-                                        <span class="layer-pill-item">Data Lake</span>
+                                        <span class="layer-pill-item">Metrics</span>
+                                        <span class="layer-pill-item">Dimensions</span>
+                                        <span class="layer-pill-item">Facts</span>
+                                        <span class="layer-pill-item">Segments</span>
                                     </div>
 
-                                    <!-- Layer 1 Overlay: Schema columns -->
-                                    <div class="sys-overlay" id="sys-overlay-1">
-                                        <div class="sys-schema-card glass-element">
-                                            <div class="card-title-mini">orders_tbl</div>
-                                            <span>cust_id (INT)</span>
-                                            <span>tx_amt (DECIMAL)</span>
+                                    <!-- Layer 3 Overlay: Formula definition -->
+                                    <div class="sys-overlay" id="sys-overlay-3">
+                                        <div class="sys-formula-bubble glass-element">
+                                            <span class="formula-label">Revenue Metric</span>
+                                            <code>SUM(tx_amt)</code>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Layer 4: KNOWLEDGE LAYER -->
+                                <div class="system-layer" data-layer="4" id="sys-layer-4">
+                                    <div class="layer-header-bar">
+                                        <span class="layer-title-text">KNOWLEDGE LAYER</span>
+                                    </div>
+                                    <div class="layer-pills-row">
+                                        <span class="layer-pill-item">Business Definitions</span>
+                                        <span class="layer-pill-item">Ontologies</span>
+                                        <span class="layer-pill-item">Metric Catalog</span>
+                                    </div>
+
+                                    <!-- Layer 4 Overlay: Ontology Map -->
+                                    <div class="sys-overlay" id="sys-overlay-4">
+                                        <div class="sys-ontology-card glass-element">
+                                            <i data-lucide="network" class="ontology-icon"></i>
+                                            <span>cust_id -> Customer Entity</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Layer 5: AGENT LAYER -->
+                                <div class="system-layer" data-layer="5" id="sys-layer-5">
+                                    <div class="layer-header-bar">
+                                        <span class="layer-title-text">AGENT LAYER</span>
+                                    </div>
+                                    <div class="layer-pills-row">
+                                        <span class="layer-pill-item">LLM Agents</span>
+                                        <span class="layer-pill-item">Text-to-SQL</span>
+                                        <span class="layer-pill-item">MCP Services</span>
+                                    </div>
+
+                                    <!-- Layer 5 Overlay: NL Prompt Compiler -->
+                                    <div class="sys-overlay" id="sys-overlay-5">
+                                        <div class="sys-prompt-bubble glass-element">
+                                            <i data-lucide="message-square" class="bubble-icon"></i>
+                                            <span class="typewriter-text" id="sys-query-text">Compare quarterly sales...</span>
                                         </div>
                                     </div>
                                 </div>

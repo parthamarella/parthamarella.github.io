@@ -2632,21 +2632,26 @@ section {
     min-height: 520px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 20px 0;
+    padding: 0;
     z-index: 2;
+    transform-style: preserve-3d;
+    perspective: 1500px;
+    /* Add top spacing so it sits centered */
+    margin-top: 20px;
 }
 
 .system-axis-path {
     position: absolute;
-    top: 30px;
-    bottom: 30px;
+    top: -50px;
+    bottom: -50px;
     width: 2px;
     background: rgba(255, 255, 255, 0.04);
     z-index: 1;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateZ(-10px);
+    display: none; /* Hide old axis for better 3d stacking */
 }
 
 .axis-pulse-particle {
@@ -2661,72 +2666,105 @@ section {
     pointer-events: none;
     opacity: 0;
     z-index: 5;
-}
-
-@keyframes axisPulseFlow {
-    0% { top: 5%; opacity: 1; background: #ec4899; box-shadow: 0 0 12px #ec4899; }
-    25% { background: #8b5cf6; box-shadow: 0 0 12px #8b5cf6; }
-    50% { background: #0071E3; box-shadow: 0 0 12px #0071E3; }
-    75% { background: #14b8a6; box-shadow: 0 0 12px #14b8a6; }
-    100% { top: 95%; opacity: 1; background: #10b981; box-shadow: 0 0 12px #10b981; }
-}
-
-.axis-pulse-particle.pulsing {
-    animation: axisPulseFlow 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    display: none;
 }
 
 .axis-hubs {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
+    display: none; /* Hide hubs for 3D layout */
 }
-
-.hub-node {
-    position: absolute;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translate(-50%, -50%);
-    transition: all 0.3s;
-}
-
-#hub-4-5 { top: 20%; }
-#hub-3-4 { top: 40%; }
-#hub-2-3 { top: 60%; }
-#hub-1-2 { top: 80%; }
-
-#hub-4-5.active { background: #ec4899; box-shadow: 0 0 8px #ec4899; }
-#hub-3-4.active { background: #8b5cf6; box-shadow: 0 0 8px #8b5cf6; }
-#hub-2-3.active { background: #0071E3; box-shadow: 0 0 8px #0071E3; }
-#hub-1-2.active { background: #14b8a6; box-shadow: 0 0 8px #14b8a6; }
 
 .system-layer {
     width: 90%;
-    max-width: 250px;
-    background: rgba(10, 10, 15, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 8px;
-    padding: 8px 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    z-index: 2;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0.25;
-    transform: scale(0.97);
-    position: relative;
+    max-width: 320px;
+    background: rgba(10, 10, 15, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow:
+        0 20px 40px -10px rgba(0,0,0,0.8),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.1;
+
+    /* True 3D stacking layout */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Default initial transform (will be overridden by nth-child setup) */
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(0px);
+    transform-style: preserve-3d;
+}
+
+/* Base positions (creating the stack) */
+#sys-layer-1 { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(-120px); z-index: 1; }
+#sys-layer-2 { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(-60px); z-index: 2; }
+#sys-layer-3 { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(0px); z-index: 3; }
+#sys-layer-4 { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(60px); z-index: 4; }
+#sys-layer-5 { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(120px); z-index: 5; }
+
+/* 3D "biscuit" thickness pseudo-element */
+.system-layer::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 12px; /* thickness */
+    background: inherit;
+    border: inherit;
+    border-top: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    transform-origin: top;
+    transform: rotateX(-90deg);
+    filter: brightness(0.4);
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.1);
+}
+.system-layer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 12px; /* thickness */
+    height: 100%;
+    background: inherit;
+    border: inherit;
+    border-left: none;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    transform-origin: left;
+    transform: rotateY(90deg);
+    filter: brightness(0.6);
+    box-shadow: inset -1px 0 0 rgba(255,255,255,0.1);
 }
 
 .system-layer.active {
     opacity: 1;
-    transform: scale(1.03);
-    z-index: 3;
 }
+
+/* Active states (lifting the layers) */
+#sys-layer-1.active {
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(-90px) scale(1.05);
+}
+#sys-layer-2.active {
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(-20px) scale(1.05);
+}
+#sys-layer-3.active {
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(50px) scale(1.05);
+}
+#sys-layer-4.active {
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(120px) scale(1.05);
+}
+#sys-layer-5.active {
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg) translateZ(190px) scale(1.05);
+}
+
+/* Inactive but visible states */
+.system-layer { opacity: 0.35; }
+
 
 #sys-layer-5.active { border-color: rgba(236, 72, 153, 0.5); box-shadow: 0 8px 25px rgba(236, 72, 153, 0.18); }
 #sys-layer-4.active { border-color: rgba(139, 92, 246, 0.5); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.18); }
@@ -2784,45 +2822,71 @@ section {
     position: absolute;
     pointer-events: none;
     opacity: 0;
-    transform: translateY(5px);
+    /* In 3D context, shift up slightly using Z so it hovers above the biscuit */
+    transform: translateZ(30px) translateY(5px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 10;
 }
 
 .system-layer.active .sys-overlay {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateZ(40px) translateY(0);
     pointer-events: auto;
 }
 
+/* Because the biscuit is rotated X 60deg and Z -45deg, the coordinate system is skewed.
+   We will counteract some of this within the overlays themselves if needed,
+   but absolute positioning them attached to the layer will make them sit ON the layer perfectly. */
+
 #sys-overlay-5 {
-    top: -45px;
-    left: 5%;
+    top: -30px;
+    left: 20px;
+    transform: translateZ(30px) translateY(5px) rotateZ(45deg) rotateX(-60deg);
+}
+.system-layer.active #sys-overlay-5 {
+    transform: translateZ(50px) translateY(0) rotateZ(45deg) rotateX(-60deg);
 }
 
 #sys-overlay-4 {
-    top: 6px;
-    right: -135px;
-    width: 125px;
+    top: -10px;
+    right: -80px;
+    width: 140px;
+    transform: translateZ(30px) translateY(5px) rotateZ(45deg) rotateX(-60deg);
+}
+.system-layer.active #sys-overlay-4 {
+    transform: translateZ(50px) translateY(0) rotateZ(45deg) rotateX(-60deg);
 }
 
 #sys-overlay-3 {
-    top: 6px;
-    left: -135px;
-    width: 125px;
+    top: -20px;
+    left: -100px;
+    width: 130px;
+    transform: translateZ(30px) translateY(5px) rotateZ(45deg) rotateX(-60deg);
+}
+.system-layer.active #sys-overlay-3 {
+    transform: translateZ(50px) translateY(0) rotateZ(45deg) rotateX(-60deg);
 }
 
 #sys-overlay-2 {
-    top: 6px;
-    right: -135px;
-    width: 125px;
+    top: 10px;
+    right: -100px;
+    width: 140px;
+    transform: translateZ(30px) translateY(5px) rotateZ(45deg) rotateX(-60deg);
+}
+.system-layer.active #sys-overlay-2 {
+    transform: translateZ(50px) translateY(0) rotateZ(45deg) rotateX(-60deg);
 }
 
 #sys-overlay-1 {
-    top: 6px;
-    left: -135px;
-    width: 125px;
+    top: -10px;
+    left: -100px;
+    width: 140px;
+    transform: translateZ(30px) translateY(5px) rotateZ(45deg) rotateX(-60deg);
 }
+.system-layer.active #sys-overlay-1 {
+    transform: translateZ(50px) translateY(0) rotateZ(45deg) rotateX(-60deg);
+}
+
 
 /* Inner overlay decorations */
 .sys-prompt-bubble {
