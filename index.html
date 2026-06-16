@@ -545,165 +545,177 @@
                             </div>
                         </div>
 
-                        <div class="product-card-visual"
-                            style="display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 1rem; min-height: 540px; background: radial-gradient(circle at center, rgba(16,185,129,0.05) 0%, transparent 70%);">
-                            <div class="semantic-system-diagram">
-
-                                <!-- Central axis line and compiler pulse particle -->
-                                <div class="system-axis-path">
-                                    <div class="axis-pulse-particle" id="axis-pulse"></div>
-                                </div>
-
-                                <!-- Glowing connector hubs -->
-                                <div class="axis-hubs">
-                                    <span class="hub-node" id="hub-4-5"></span>
-                                    <span class="hub-node" id="hub-3-4"></span>
-                                    <span class="hub-node" id="hub-2-3"></span>
-                                    <span class="hub-node" id="hub-1-2"></span>
-                                </div>
-
-                                <!-- Layer 1: PHYSICAL DATA LAYER -->
-                                <div class="system-layer" data-layer="1" id="sys-layer-1">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">PHYSICAL DATA LAYER</span>
+                        <div class="product-card-visual sem-visual-wrap">
+                            <div class="sem-stack">
+                                <!-- Layer 5: Agent Layer -->
+                                <div class="sem-layer" data-layer="5" style="--layer-color: #ec4899;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
                                     </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Snowflake</span>
-                                        <span class="layer-pill-item">Data Warehouse</span>
-                                        <span class="layer-pill-item">Data Lake</span>
-                                    </div>
-
-                                    <!-- Layer 1 Overlay: Schema columns -->
-                                    <div class="sys-overlay" id="sys-overlay-1">
-                                        <div class="sys-schema-card glass-element">
-                                            <div class="card-title-mini">orders_tbl</div>
-                                            <span>cust_id (INT)</span>
-                                            <span>tx_amt (DECIMAL)</span>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">05</span>
+                                            <span class="sem-name">Agent Layer</span>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 2: METADATA INTELLIGENCE -->
-                                <div class="system-layer" data-layer="2" id="sys-layer-2">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">METADATA INTELLIGENCE</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Schema Discovery</span>
-                                        <span class="layer-pill-item">Lineage</span>
-                                        <span class="layer-pill-item">Column Profiling</span>
-                                    </div>
-
-                                    <!-- Layer 2 Overlay: Profiling Scan -->
-                                    <div class="sys-overlay" id="sys-overlay-2">
-                                        <div class="sys-scanner-bar"></div>
-                                        <div class="sys-lineage-badge glass-element">
-                                            <i data-lucide="git-branch" class="lineage-icon"></i>
-                                            <span>Lineage mapped</span>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">LLM Agents</span>
+                                            <span class="sem-chip">Text-to-SQL</span>
+                                            <span class="sem-chip">MCP Services</span>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 3: SEMANTIC LAYER -->
-                                <div class="diagram-layer plane-blue" data-layer="3" style="--layer-index: 2;">
-                                    <div class="slab-border"></div>
-                                    <div class="slab-base"></div>
-                                    <div class="hud-overlay">
-                                        <span class="hud-title">L3 · SEMANTIC BRIDGE</span>
-                                        <div class="hud-pills">
-                                            <span>Metrics</span>
-                                            <span>Dimensions</span>
-                                        </div>
-                                    </div>
-                                    <!-- Hologram: Semantic Model Compiler (Bridge) -->
-                                    <div class="hologram-visual bridge-hologram">
-                                        <div class="semantic-bridge-grid">
-                                            <!-- Left Columns: Building Blocks -->
-                                            <div class="bridge-inputs-col">
-                                                <!-- Computable Metrics Card -->
-                                                <div class="bridge-block metrics-block">
-                                                    <span class="block-lbl">METRICS</span>
-                                                    <span class="formula-text">∑ Rev = SUM(Price*Qty)</span>
+                                        <div class="sem-detail">
+                                            <div class="sem-agent-demo">
+                                                <div class="sem-demo-box sem-demo-input">
+                                                    <span class="sem-demo-label">Natural Language</span>
+                                                    <span class="sem-demo-value">"Compare quarterly sales across regions"</span>
                                                 </div>
-                                                <!-- Dimensions / Filters Card -->
-                                                <div class="bridge-block dimensions-block">
-                                                    <span class="block-lbl">DIMENSIONS</span>
-                                                    <div class="dim-tags">
-                                                        <span class="tag-pill">Region</span>
-                                                        <span class="tag-pill">Category</span>
+                                                <div class="sem-demo-arrow">
+                                                    <svg width="24" height="12" viewBox="0 0 24 12"><path d="M2 6h16m-4-4l5 4-5 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                                </div>
+                                                <div class="sem-demo-box sem-demo-output">
+                                                    <span class="sem-demo-label">Compiled SQL</span>
+                                                    <code>SELECT quarter, region, SUM(rev) GROUP BY 1,2</code>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Layer 4: Knowledge Layer -->
+                                <div class="sem-layer" data-layer="4" style="--layer-color: #8b5cf6;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
+                                    </div>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">04</span>
+                                            <span class="sem-name">Knowledge Layer</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Business Glossary</span>
+                                            <span class="sem-chip">Ontologies</span>
+                                            <span class="sem-chip">Metric Catalog</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-ont-graph">
+                                                <span class="sem-ont-root">Customer Entity</span>
+                                                <div class="sem-ont-edges">
+                                                    <span class="sem-ont-edge">── Revenue (Metric)</span>
+                                                    <span class="sem-ont-edge">── Region (Dimension)</span>
+                                                    <span class="sem-ont-edge">── VIP (Segment)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Layer 3: Semantic Bridge -->
+                                <div class="sem-layer" data-layer="3" style="--layer-color: #0071E3;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
+                                    </div>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">03</span>
+                                            <span class="sem-name">Semantic Bridge</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Metrics</span>
+                                            <span class="sem-chip">Dimensions</span>
+                                            <span class="sem-chip">Segments</span>
+                                            <span class="sem-chip">Time Grains</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-bridge-demo">
+                                                <div class="sem-formula-row">
+                                                    <span class="sem-formula-tag" style="--fc: #0071E3;">METRIC</span>
+                                                    <span class="sem-formula-def">Revenue = SUM(price × qty)</span>
+                                                </div>
+                                                <div class="sem-formula-row">
+                                                    <span class="sem-formula-tag" style="--fc: #38bdf8;">DIM</span>
+                                                    <span class="sem-formula-def">Region · Category · Product</span>
+                                                </div>
+                                                <div class="sem-formula-row">
+                                                    <span class="sem-formula-tag" style="--fc: #10b981;">SEG</span>
+                                                    <span class="sem-formula-def">VIP = lifetime_value &gt; $10K</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Layer 2: Metadata Intelligence -->
+                                <div class="sem-layer" data-layer="2" style="--layer-color: #14b8a6;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
+                                    </div>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">02</span>
+                                            <span class="sem-name">Metadata Intelligence</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Schema Discovery</span>
+                                            <span class="sem-chip">Lineage</span>
+                                            <span class="sem-chip">Profiling</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-metadata-demo">
+                                                <div class="sem-lineage-chain">
+                                                    <span class="sem-lineage-item">orders_tbl</span>
+                                                    <span class="sem-lineage-sep">→</span>
+                                                    <span class="sem-lineage-item">staging</span>
+                                                    <span class="sem-lineage-sep">→</span>
+                                                    <span class="sem-lineage-item">fact_revenue</span>
+                                                </div>
+                                                <div class="sem-profiling-row">
+                                                    <span>Completeness <strong>98.2%</strong></span>
+                                                    <span>Null Rate <strong>1.8%</strong></span>
+                                                    <span>PII <strong>3 cols</strong></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Layer 1: Physical Data -->
+                                <div class="sem-layer" data-layer="1" style="--layer-color: #10b981;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
+                                    </div>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">01</span>
+                                            <span class="sem-name">Physical Data</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Snowflake</span>
+                                            <span class="sem-chip">Data Warehouse</span>
+                                            <span class="sem-chip">Data Lake</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-physical-demo">
+                                                <div class="sem-db-table">
+                                                    <div class="sem-db-header">
+                                                        <span>cust_id</span>
+                                                        <span>tx_amt</span>
+                                                        <span>ts</span>
+                                                        <span>region_cd</span>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <!-- Right Columns: Context and Output Model -->
-                                            <div class="bridge-inputs-col">
-                                                <!-- Segments Card -->
-                                                <div class="bridge-block segments-block">
-                                                    <span class="block-lbl">SEGMENTS</span>
-                                                    <span class="segment-expr">VIP (LTV &gt; $10k)</span>
-                                                </div>
-                                                <!-- Time Dimensions Card -->
-                                                <div class="bridge-block time-block">
-                                                    <span class="block-lbl">TIME</span>
-                                                    <span class="time-grain-pill">Quarterly</span>
+                                                    <div class="sem-db-row"><span>A8F2D</span><span>249.99</span><span>2025-03</span><span>US-W</span></div>
+                                                    <div class="sem-db-row"><span>C4E1B</span><span>89.50</span><span>2025-03</span><span>EU-N</span></div>
+                                                    <div class="sem-db-row sem-db-dim"><span>…</span><span>…</span><span>…</span><span>…</span></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Unified Semantic Model Output Badge -->
-                                        <div class="unified-model-badge">
-                                            <i data-lucide="layers" class="model-badge-icon"></i>
-                                            <span>SalesModel</span>
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Layer 4: KNOWLEDGE LAYER -->
-                                <div class="system-layer" data-layer="4" id="sys-layer-4">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">KNOWLEDGE LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Business Definitions</span>
-                                        <span class="layer-pill-item">Ontologies</span>
-                                        <span class="layer-pill-item">Metric Catalog</span>
-                                    </div>
-
-                                    <!-- Layer 4 Overlay: Ontology Map -->
-                                    <div class="sys-overlay" id="sys-overlay-4">
-                                        <div class="sys-ontology-card glass-element">
-                                            <i data-lucide="network" class="ontology-icon"></i>
-                                            <span>cust_id -> Customer Entity</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Layer 5: AGENT LAYER -->
-                                <div class="system-layer" data-layer="5" id="sys-layer-5">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">AGENT LAYER</span>
-                                    </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">LLM Agents</span>
-                                        <span class="layer-pill-item">Text-to-SQL</span>
-                                        <span class="layer-pill-item">MCP Services</span>
-                                    </div>
-
-                                    <!-- Layer 5 Overlay: NL Prompt Compiler -->
-                                    <div class="sys-overlay" id="sys-overlay-5">
-                                        <div class="sys-prompt-bubble glass-element">
-                                            <i data-lucide="message-square" class="bubble-icon"></i>
-                                            <span class="typewriter-text" id="sys-query-text">Compare quarterly
-                                                sales...</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Agent SQL compiler overlay (Global bottom right) -->
-                                <div class="sys-sql-compiler-bubble glass-element" id="sys-compiler-output">
-                                    <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i>
-                                        Compiled SQL (Snowflake)</div>
-                                    <pre
-                                        class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
-                                </div>
+                            <!-- Compiled SQL overlay (appears on Step 5) -->
+                            <div class="sys-sql-compiler-bubble glass-element" id="sys-compiler-output">
+                                <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i>
+                                    Compiled SQL (Snowflake)</div>
+                                <pre class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
                             </div>
                         </div>
                     </div>

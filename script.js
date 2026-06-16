@@ -1443,7 +1443,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Auto progression for Semantic Architecture visual steps
-    const layers = document.querySelectorAll('.semantic-system-diagram .diagram-layer');
+    const layers = document.querySelectorAll('.sem-stack .sem-layer');
     const steps = document.querySelectorAll('#card-semantic .story-step');
     const panes = document.querySelectorAll('#card-semantic .story-pane');
     const compilerBubble = document.getElementById('sys-compiler-output');
