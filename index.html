@@ -28,6 +28,13 @@
 
 <body>
 
+    <!-- Ambient Background -->
+    <div class="ambient-background">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress-bar"></div>
 
@@ -113,7 +120,12 @@
                 </div>
 
                 <div class="about-right">
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-profile-container">
+                        <div class="profile-image-wrap">
+                            <img src="images/profile_bg.png" alt="Partha Marella" class="profile-img">
+                        </div>
+                    </div>
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="map-pin" class="highlight-icon"></i>
                             <span>Currently Based In</span>
@@ -122,7 +134,7 @@
                         <div class="highlight-sub">Working @ Citi / WorldLink</div>
                     </div>
 
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="graduation-cap" class="highlight-icon"></i>
                             <span>Latest Degree</span>
@@ -131,7 +143,7 @@
                         <div class="highlight-sub">Carnegie Mellon University</div>
                     </div>
 
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="flask-conical" class="highlight-icon"></i>
                             <span>Research Focus</span>
@@ -140,7 +152,7 @@
                         <div class="highlight-sub">PhD — University of the Cumberlands</div>
                     </div>
 
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="zap" class="highlight-icon"></i>
                             <span>Core Expertise</span>
@@ -162,7 +174,7 @@
                 <div class="experience-list">
 
                     <!-- Citi / WorldLink — Current -->
-                    <div class="exp-card glass-element exp-current">
+                    <div class="exp-card glass-surface exp-current">
                         <div class="exp-accent" style="background: var(--accent-blue);"></div>
                         <div class="exp-logo-col">
                             <div class="exp-partnership-logos">
@@ -206,7 +218,7 @@
                     </div>
 
                     <!-- Hitachi Vantara -->
-                    <div class="exp-card glass-element">
+                    <div class="exp-card glass-surface">
                         <div class="exp-accent" style="background: var(--accent-purple);"></div>
                         <div class="exp-logo-col">
                             <img src="images/hitachi_logo.png" class="exp-logo exp-logo-png" alt="Hitachi Logo">
@@ -241,7 +253,7 @@
                     </div>
 
                     <!-- Merkle / Dentsu -->
-                    <div class="exp-card glass-element">
+                    <div class="exp-card glass-surface">
                         <div class="exp-accent" style="background: var(--accent-green);"></div>
                         <div class="exp-logo-col">
                             <img src="images/merkle_uploaded.png" class="exp-logo exp-logo-png" alt="Merkle Logo">
@@ -286,7 +298,7 @@
                 <h2 class="section-title">Academic & Technical Foundation</h2>
 
                 <div class="education-cards">
-                    <div class="education-card glass-element">
+                    <div class="education-card glass-surface">
                         <div class="card-glow"></div>
                         <div class="edu-logo-box">
                             <img src="images/cmu-wordmark-square-w-on-k.png" class="edu-card-logo edu-card-logo-png"
@@ -298,7 +310,7 @@
                         <span class="edu-meta">Pittsburgh, USA · 2022</span>
                     </div>
 
-                    <div class="education-card glass-element highlight-card">
+                    <div class="education-card glass-surface highlight-card">
                         <div class="card-glow"></div>
                         <div class="edu-logo-box">
                             <img src="images/cumberlands_uploaded.png" class="edu-card-logo edu-card-logo-png"
@@ -310,7 +322,7 @@
                         <span class="edu-meta">Kentucky, USA · In Progress</span>
                     </div>
 
-                    <div class="education-card glass-element">
+                    <div class="education-card glass-surface">
                         <div class="card-glow"></div>
                         <div class="edu-logo-box">
                             <img src="images/pes_uploaded.png" class="edu-card-logo edu-card-logo-png" alt="PES Logo">
@@ -712,7 +724,7 @@
                             </div>
 
                             <!-- Compiled SQL overlay (appears on Step 5) -->
-                            <div class="sys-sql-compiler-bubble glass-element" id="sys-compiler-output">
+                            <div class="sys-sql-compiler-bubble glass-surface" id="sys-compiler-output">
                                 <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i>
                                     Compiled SQL (Snowflake)</div>
                                 <pre class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
@@ -785,11 +797,7 @@
                                 <span class="product-badge">Unsupervised NLP</span>
                                 <h3>Semantic Document Clustering</h3>
                                 <p class="product-description">Enterprise document repositories are often a black box of
-                                    unstructured reports. I engineered a pipeline that performs chunking, indexing, and
-                                    clustering to convert raw text into dense coordinate embeddings, mapping semantic
-                                    relationships. As you scroll this section, watch document nodes self-organize from
-                                    chaotic scatter into structured topic clusters—just like a folding phone opening
-                                    into active use.</p>
+                                    unstructured reports. I engineered a pipeline that converts raw text into dense vector embeddings. As you scroll, watch raw document records stream into a high-speed data pipeline, pass through a holographic metadata scanner for real-time attribute extraction, ingest into a multi-dimensional vector database, and finally project into interconnected semantic clusters representing specific domain subjects.</p>
 
                                 <div class="motion-scroll-indicator">
                                     <div class="mouse-scroll-icon">
@@ -828,12 +836,12 @@
 
                 <div class="ecosystem-grid">
                     <!-- Enterprise GenAI -->
-                    <div class="eco-category glass-element genai" style="border-top-color: var(--accent-blue);">
+                    <div class="eco-category glass-surface genai" style="border-top-color: var(--accent-blue);">
                         <h3 class="eco-category-title" style="color: var(--accent-blue);">Enterprise GenAI</h3>
                         <p class="eco-category-desc">Building scalable retrieval and synthesis layer architectures for
                             metric and document queries.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="terminal" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Text-to-SQL</h4>
@@ -841,7 +849,7 @@
                                 <p class="eco-item-desc">Custom LLM compilers parsing plain English into sanitised
                                     relational databases metrics.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="file-search" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">RAG</h4>
@@ -849,7 +857,7 @@
                                 <p class="eco-item-desc">Retrieval Augmented Generation pipelines feeding real-time
                                     context directly into LLM prompts.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="binary" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Vector Databases</h4>
@@ -857,7 +865,7 @@
                                 <p class="eco-item-desc">Storing and searching dense vector representations of
                                     high-dimensional metrics nodes.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="list-checks" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">LLM Evaluation</h4>
@@ -869,12 +877,12 @@
                     </div>
 
                     <!-- AI Infrastructure -->
-                    <div class="eco-category glass-element infra" style="border-top-color: var(--accent-purple);">
+                    <div class="eco-category glass-surface infra" style="border-top-color: var(--accent-purple);">
                         <h3 class="eco-category-title" style="color: var(--accent-purple);">AI Infrastructure</h3>
                         <p class="eco-category-desc">Orchestrating agent workflows and secure API services inside
                             enterprise boundary limits.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="network" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">MCP</h4>
@@ -882,7 +890,7 @@
                                 <p class="eco-item-desc">Model Context Protocol linking client applications seamlessly
                                     to remote tool schemas.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="zap" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">FastAPI</h4>
@@ -890,7 +898,7 @@
                                 <p class="eco-item-desc">Sleek, high-concurrency API service routing requests and
                                     serving AI pipeline endpoints.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="box" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Docker</h4>
@@ -898,7 +906,7 @@
                                 <p class="eco-item-desc">Packaging AI environments into reproducible execution
                                     boundaries.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="cloud" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">OpenShift</h4>
@@ -910,12 +918,12 @@
                     </div>
 
                     <!-- Data Platforms -->
-                    <div class="eco-category glass-element data" style="border-top-color: var(--accent-green);">
+                    <div class="eco-category glass-surface data" style="border-top-color: var(--accent-green);">
                         <h3 class="eco-category-title" style="color: var(--accent-green);">Data Platforms</h3>
                         <p class="eco-category-desc">Connecting secure high-performance data lakes and warehouse engines
                             directly to AI pipelines.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="snowflake" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Snowflake</h4>
@@ -923,7 +931,7 @@
                                 <p class="eco-item-desc">Cloud data warehouse structuring and storage engine for
                                     operational business details.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="sparkles" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Starburst</h4>
@@ -931,7 +939,7 @@
                                 <p class="eco-item-desc">Distributed query execution layer resolving data queries across
                                     partition borders.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="database" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">DataHub</h4>
@@ -943,12 +951,12 @@
                     </div>
 
                     <!-- Machine Learning -->
-                    <div class="eco-category glass-element ml" style="border-top-color: var(--text-primary);">
+                    <div class="eco-category glass-surface ml" style="border-top-color: var(--text-primary);">
                         <h3 class="eco-category-title" style="color: var(--text-primary);">Machine Learning</h3>
                         <p class="eco-category-desc">Extracting semantic insights and structural features from massive
                             records clusters.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="message-square" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">BERTopic</h4>
@@ -956,7 +964,7 @@
                                 <p class="eco-item-desc">Neural topic modeling parsing semantic documents and clustering
                                     topics dynamically.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="git-commit" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Top2Vec</h4>
@@ -964,7 +972,7 @@
                                 <p class="eco-item-desc">Jointly learning word and document embeddings to organize
                                     similar features.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="fingerprint" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Embeddings</h4>
@@ -972,7 +980,7 @@
                                 <p class="eco-item-desc">Dense coordinate mappings representing textual semantics inside
                                     abstract model space.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="brain" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Neural Networks</h4>
@@ -992,19 +1000,19 @@
                 <h2 class="section-title">Outcomes, Not Features</h2>
 
                 <div class="metrics-grid">
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-target="90" data-suffix="%">0%</span>
                         <span class="metric-label">Reduction in Query Creation Time</span>
                     </div>
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-target="50" data-suffix="%">0%</span>
                         <span class="metric-label">Reduction in MCP Development Cycles</span>
                     </div>
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-target="100" data-prefix="$" data-suffix="K+">0</span>
                         <span class="metric-label">Annual Savings Through Data Automation</span>
                     </div>
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-text="Millions">0</span>
                         <span class="metric-label">Records Processed Across Platforms</span>
                     </div>
@@ -1025,7 +1033,7 @@
                     <div class="testimonials-marquee marquee-1">
                         <div class="marquee-track track-1">
                             <!-- Testimonial 1 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials kh-avatar">KH</div>
                                     <div class="recommender-meta">
@@ -1046,7 +1054,7 @@
                             </div>
 
                             <!-- Testimonial 2 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials rp-avatar">RP</div>
                                     <div class="recommender-meta">
@@ -1068,7 +1076,7 @@
                             </div>
 
                             <!-- Testimonial 3 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials as-avatar">AS</div>
                                     <div class="recommender-meta">
@@ -1088,7 +1096,7 @@
                             </div>
 
                             <!-- Testimonial 4 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials tc-avatar">TC</div>
                                     <div class="recommender-meta">
@@ -1112,7 +1120,7 @@
 
                             <!-- Duplicate for infinite scroll -->
                             <!-- Testimonial 1 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials kh-avatar">KH</div>
                                     <div class="recommender-meta">
@@ -1133,7 +1141,7 @@
                             </div>
 
                             <!-- Testimonial 2 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials rp-avatar">RP</div>
                                     <div class="recommender-meta">
@@ -1155,7 +1163,7 @@
                             </div>
 
                             <!-- Testimonial 3 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials as-avatar">AS</div>
                                     <div class="recommender-meta">
@@ -1175,7 +1183,7 @@
                             </div>
 
                             <!-- Testimonial 4 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials tc-avatar">TC</div>
                                     <div class="recommender-meta">
@@ -1229,7 +1237,7 @@
                 </div>
 
                 <!-- Contact Form -->
-                <form id="contact-form" class="glass-element">
+                <form id="contact-form" class="glass-surface">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="John Doe">

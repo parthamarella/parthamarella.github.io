@@ -6,7 +6,7 @@
     /* Color Palette */
     --bg-black: #000000;
     --bg-dark-gray: #0a0a0c;
-    --bg-card: rgba(20, 20, 25, 0.65);
+    --bg-card: rgba(20, 20, 25, 0.15);
 
     --text-primary: #FFFFFF;
     --text-secondary: #A1A1AA;
@@ -42,18 +42,83 @@ html,
 body {
     width: 100%;
     overflow-x: hidden;
-    background-color: #020205;
-    background-image:
-        radial-gradient(circle at 10% 20%, rgba(0, 113, 227, 0.06) 0%, transparent 45%),
-        radial-gradient(circle at 90% 40%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 15% 70%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
-        radial-gradient(circle at 85% 90%, rgba(0, 113, 227, 0.04) 0%, transparent 40%);
-    background-attachment: scroll;
+    background-color: var(--bg-black);
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/profile_bg.png');
+    background-repeat: no-repeat;
+    background-position: center 30%;
+    background-size: min(85vw, 650px); /* Responsive sizing */
+    opacity: 0.03; /* Faintly in the background */
+    z-index: -1; /* Place above the body background layer but behind content */
+    pointer-events: none;
+    filter: grayscale(100%) contrast(105%);
+}
+
+/* Layered Ambient Background */
+.ambient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+    background-color: var(--bg-black);
+}
+
+.ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.4;
+    animation: floatOrb 20s infinite ease-in-out alternate;
+}
+
+.ambient-orb.orb-1 {
+    width: 60vw;
+    height: 60vw;
+    background: rgba(0, 113, 227, 0.15); /* Soft blue */
+    top: -10vw;
+    left: -10vw;
+    animation-delay: 0s;
+}
+
+.ambient-orb.orb-2 {
+    width: 50vw;
+    height: 50vw;
+    background: rgba(139, 92, 246, 0.12); /* Soft violet */
+    bottom: -10vw;
+    right: -10vw;
+    animation-delay: -5s;
+}
+
+.ambient-orb.orb-3 {
+    width: 40vw;
+    height: 40vw;
+    background: rgba(16, 185, 129, 0.1); /* Soft cyan/green */
+    top: 40vh;
+    left: 20vw;
+    animation-delay: -10s;
+}
+
+@keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(5vw, -5vw) scale(1.05); }
+    100% { transform: translate(-5vw, 5vw) scale(0.95); }
 }
 
 section {
@@ -100,18 +165,31 @@ section {
     width: 100%;
 }
 
-/* Glassmorphism Element */
-.glass-element {
+/* Glass Surface Component */
+.glass-surface {
     background: var(--bg-card);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02), 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
 }
 
-.glass-element:hover {
-    border-color: rgba(255, 255, 255, 0.1);
+.glass-surface::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.glass-surface:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05), 0 12px 48px rgba(0, 0, 0, 0.4);
 }
 
 /* Section Indicators */
@@ -149,23 +227,26 @@ section {
 
 #site-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--header-height);
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1100px;
+    height: 64px;
     z-index: 100;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(20, 20, 25, 0.15);
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
     transition: var(--transition-smooth);
 }
 
 .header-container {
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
     height: 100%;
-    padding: 0 40px;
+    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -178,6 +259,8 @@ section {
     letter-spacing: -0.01em;
     color: var(--text-primary);
     text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: var(--transition-fast);
 }
 
@@ -188,7 +271,7 @@ section {
 #main-nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 16px;
 }
 
 .nav-link {
@@ -196,16 +279,18 @@ section {
     font-weight: 400;
     color: var(--text-secondary);
     text-decoration: none;
+    white-space: nowrap;
     transition: var(--transition-fast);
+    padding: 6px 12px;
+    border-radius: 20px;
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
     color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .nav-link.contact-btn {
-    padding: 8px 16px;
-    border-radius: 20px;
     background-color: var(--text-primary);
     color: var(--bg-black);
     font-weight: 500;
@@ -386,6 +471,58 @@ section {
     grid-template-columns: 1.2fr 1fr;
     gap: 48px;
     align-items: start;
+}
+
+/* Profile image container and hover effects */
+.about-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.profile-image-wrap {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+    box-shadow: 0 10px 35px rgba(0, 113, 227, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+}
+
+.profile-image-wrap::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.25) 100%);
+    transform: skewX(-25deg);
+    transition: 0.75s;
+    pointer-events: none;
+}
+
+.profile-image-wrap:hover::before {
+    left: 125%;
+}
+
+.profile-image-wrap:hover {
+    transform: scale(1.04) translateY(-4px);
+    box-shadow: 0 20px 45px rgba(0, 113, 227, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.12);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3.5px solid #020205; /* Clean border space */
+    display: block;
 }
 
 .about-headline {
@@ -1655,8 +1792,8 @@ section {
     width: 100%;
     height: 480px;
     /* Matched the Starburst Agent card height for layout symmetry */
-    background-color: #050507;
-    border: 1px solid #222;
+    background: radial-gradient(circle at top, #0f0f18 0%, #050508 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     position: relative;
     overflow: hidden;
