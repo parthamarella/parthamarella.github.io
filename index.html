@@ -51,7 +51,23 @@
                 <a href="#testimonials" class="nav-link">Reviews</a>
                 <a href="#contact" class="nav-link contact-btn">Get in Touch</a>
             </nav>
+            <button id="mobile-menu-toggle" aria-label="Toggle menu">
+                <i data-lucide="menu" class="menu-icon"></i>
+            </button>
         </div>
+        
+        <!-- Mobile Navigation Overlay -->
+        <nav id="mobile-nav">
+            <div class="mobile-nav-links">
+                <a href="#about" class="mobile-link">About</a>
+                <a href="#experience" class="mobile-link">Experience</a>
+                <a href="#education" class="mobile-link">Education</a>
+                <a href="#projects" class="mobile-link">Projects</a>
+                <a href="#technical-ecosystem" class="mobile-link">Stack</a>
+                <a href="#testimonials" class="mobile-link">Reviews</a>
+                <a href="#contact" class="mobile-link mobile-contact-btn">Get in Touch</a>
+            </div>
+        </nav>
     </header>
 
     <main>
@@ -171,122 +187,142 @@
                 <p class="section-subtitle">Roles across data engineering, machine learning, and enterprise AI systems
                     at industry-leading organizations.</p>
 
-                <div class="experience-list">
-
-                    <!-- Citi / WorldLink — Current -->
-                    <div class="exp-card glass-surface exp-current">
-                        <div class="exp-accent" style="background: var(--accent-blue);"></div>
-                        <div class="exp-logo-col">
-                            <div class="exp-partnership-logos">
-                                <img src="images/worldlink_uploaded.png" class="exp-logo exp-logo-png"
-                                    alt="WorldLink Logo">
-                                <div class="exp-partner-divider">
-                                    <span class="exp-partner-x">×</span>
+                <div class="timeline-interactive">
+                    <div class="timeline-content-area">
+                        <!-- Citi / WorldLink — Current -->
+                        <div class="exp-card glass-surface timeline-card active" id="exp-2023-present">
+                            <div class="exp-accent" style="background: var(--accent-blue);"></div>
+                            <div class="exp-logo-col">
+                                <div class="exp-partnership-logos">
+                                    <img src="images/worldlink_uploaded.png" class="exp-logo exp-logo-png"
+                                        alt="WorldLink Logo">
+                                    <div class="exp-partner-divider">
+                                        <span class="exp-partner-x">×</span>
+                                    </div>
+                                    <img src="images/citi-2.svg" class="exp-logo" alt="Citi Logo">
                                 </div>
-                                <img src="images/citi-2.svg" class="exp-logo" alt="Citi Logo">
+                                <span class="exp-date-badge">2023 – Present</span>
+                                <span class="exp-status-badge">Current</span>
                             </div>
-                            <span class="exp-date-badge">2023 – Present</span>
-                            <span class="exp-status-badge">Current</span>
+                            <div class="exp-body">
+                                <div class="exp-title-row">
+                                    <h3 class="exp-role">Data Scientist & GenAI Engineer</h3>
+                                    <span class="exp-company">Citi · via WorldLink</span>
+                                </div>
+                                <p class="exp-desc">Leading enterprise GenAI adoption at one of the world's largest
+                                    financial institutions — building AI systems that democratize access to complex data
+                                    across global teams.</p>
+                                <ul class="exp-bullets">
+                                    <li>Engineered a Starburst-powered Text-to-SQL agent that acts as 100 virtual
+                                        analysts, reducing query creation time by <strong>90%</strong></li>
+                                    <li>Designed persona-aware security layers enforcing role-based compliance and audit
+                                        logging across all AI interactions</li>
+                                    <li>Built and deployed autonomous MCP-based agentic pipelines for model evaluation,
+                                        PR review, and automated dashboarding</li>
+                                    <li>Implemented semantic document clustering pipelines that reduced manual metadata
+                                        classification by <strong>80%</strong></li>
+                                </ul>
+                                <div class="exp-tags">
+                                    <span class="exp-tag">GenAI</span>
+                                    <span class="exp-tag">Text-to-SQL</span>
+                                    <span class="exp-tag">Starburst</span>
+                                    <span class="exp-tag">MCP</span>
+                                    <span class="exp-tag">Python</span>
+                                    <span class="exp-tag">OpenShift</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="exp-body">
-                            <div class="exp-title-row">
-                                <h3 class="exp-role">Data Scientist & GenAI Engineer</h3>
-                                <span class="exp-company">Citi · via WorldLink</span>
+
+                        <!-- Hitachi Vantara -->
+                        <div class="exp-card glass-surface timeline-card" id="exp-2023">
+                            <div class="exp-accent" style="background: var(--accent-purple);"></div>
+                            <div class="exp-logo-col">
+                                <img src="images/hitachi_logo.png" class="exp-logo exp-logo-png" alt="Hitachi Logo">
+                                <span class="exp-date-badge">2023</span>
                             </div>
-                            <p class="exp-desc">Leading enterprise GenAI adoption at one of the world's largest
-                                financial institutions — building AI systems that democratize access to complex data
-                                across global teams.</p>
-                            <ul class="exp-bullets">
-                                <li>Engineered a Starburst-powered Text-to-SQL agent that acts as 100 virtual analysts,
-                                    reducing query creation time by <strong>90%</strong></li>
-                                <li>Designed persona-aware security layers enforcing role-based compliance and audit
-                                    logging across all AI interactions</li>
-                                <li>Built and deployed autonomous MCP-based agentic pipelines for model evaluation, PR
-                                    review, and automated dashboarding</li>
-                                <li>Implemented semantic document clustering pipelines that reduced manual metadata
-                                    classification by <strong>80%</strong></li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">GenAI</span>
-                                <span class="exp-tag">Text-to-SQL</span>
-                                <span class="exp-tag">Starburst</span>
-                                <span class="exp-tag">MCP</span>
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">OpenShift</span>
+                            <div class="exp-body">
+                                <div class="exp-title-row">
+                                    <h3 class="exp-role">Data Scientist</h3>
+                                    <span class="exp-company">Hitachi Vantara</span>
+                                </div>
+                                <p class="exp-desc">Joined the Lumada Catalog team to implement advanced data catalog
+                                    features and industry-specific semantic glossaries that accelerated enterprise
+                                    adoption.</p>
+                                <ul class="exp-bullets">
+                                    <li>Independently proposed and implemented a business term portability feature for
+                                        the Lumada Data Catalog in record time</li>
+                                    <li>Created industry-specific seed glossaries enabling rapid catalog adoption across
+                                        multiple verticals</li>
+                                    <li>Applied BERTopic and Top2Vec NLP models to automatically classify and cluster
+                                        enterprise documents</li>
+                                    <li>Evaluated and benchmarked large language models for accuracy, safety, and SQL
+                                        injection resilience</li>
+                                </ul>
+                                <div class="exp-tags">
+                                    <span class="exp-tag">NLP</span>
+                                    <span class="exp-tag">BERTopic</span>
+                                    <span class="exp-tag">DataHub</span>
+                                    <span class="exp-tag">Python</span>
+                                    <span class="exp-tag">ML Evaluation</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Merkle / Dentsu -->
+                        <div class="exp-card glass-surface timeline-card" id="exp-2019">
+                            <div class="exp-accent" style="background: var(--accent-green);"></div>
+                            <div class="exp-logo-col">
+                                <img src="images/merkle_uploaded.png" class="exp-logo exp-logo-png" alt="Merkle Logo">
+                                <span class="exp-date-badge">2019 – 2022</span>
+                            </div>
+                            <div class="exp-body">
+                                <div class="exp-title-row">
+                                    <h3 class="exp-role">Software Engineer (Data)</h3>
+                                    <span class="exp-company">Merkle · Dentsu</span>
+                                </div>
+                                <p class="exp-desc">Started my career building data pipelines and analytical models for
+                                    global retail and marketing clients, developing foundational expertise across the
+                                    full data stack.</p>
+                                <ul class="exp-bullets">
+                                    <li>Ramped up COGS calculation processes for a US-based retailer, identifying cost
+                                        magnitude across business functions</li>
+                                    <li>Built and deployed ML models using Linear Regression, Logistic Regression,
+                                        K-means and Hierarchical Clustering</li>
+                                    <li>Developed topic modeling pipelines for large marketing document repositories,
+                                        accelerating insight extraction</li>
+                                    <li>Delivered analytics solutions in Python, R, and Advanced Excel across a cohort
+                                        of client engagements</li>
+                                </ul>
+                                <div class="exp-tags">
+                                    <span class="exp-tag">Python</span>
+                                    <span class="exp-tag">R</span>
+                                    <span class="exp-tag">Machine Learning</span>
+                                    <span class="exp-tag">SQL</span>
+                                    <span class="exp-tag">Topic Modeling</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Hitachi Vantara -->
-                    <div class="exp-card glass-surface">
-                        <div class="exp-accent" style="background: var(--accent-purple);"></div>
-                        <div class="exp-logo-col">
-                            <img src="images/hitachi_logo.png" class="exp-logo exp-logo-png" alt="Hitachi Logo">
-                            <span class="exp-date-badge">2023</span>
+                    <div class="timeline-navigation glass-surface">
+                        <div class="timeline-track">
+                            <div class="timeline-progress" id="timeline-progress"></div>
                         </div>
-                        <div class="exp-body">
-                            <div class="exp-title-row">
-                                <h3 class="exp-role">Data Scientist</h3>
-                                <span class="exp-company">Hitachi Vantara</span>
-                            </div>
-                            <p class="exp-desc">Joined the Lumada Catalog team to implement advanced data catalog
-                                features and industry-specific semantic glossaries that accelerated enterprise adoption.
-                            </p>
-                            <ul class="exp-bullets">
-                                <li>Independently proposed and implemented a business term portability feature for the
-                                    Lumada Data Catalog in record time</li>
-                                <li>Created industry-specific seed glossaries enabling rapid catalog adoption across
-                                    multiple verticals</li>
-                                <li>Applied BERTopic and Top2Vec NLP models to automatically classify and cluster
-                                    enterprise documents</li>
-                                <li>Evaluated and benchmarked large language models for accuracy, safety, and SQL
-                                    injection resilience</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">NLP</span>
-                                <span class="exp-tag">BERTopic</span>
-                                <span class="exp-tag">DataHub</span>
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">ML Evaluation</span>
-                            </div>
+                        <div class="timeline-nodes">
+                            <button class="timeline-node" data-target="exp-2019">
+                                <span class="node-dot"></span>
+                                <span class="node-label">2019 - 2022</span>
+                            </button>
+                            <button class="timeline-node" data-target="exp-2023">
+                                <span class="node-dot"></span>
+                                <span class="node-label">2023</span>
+                            </button>
+                            <button class="timeline-node active" data-target="exp-2023-present">
+                                <span class="node-dot"></span>
+                                <span class="node-label">2023 - Present</span>
+                            </button>
                         </div>
                     </div>
-
-                    <!-- Merkle / Dentsu -->
-                    <div class="exp-card glass-surface">
-                        <div class="exp-accent" style="background: var(--accent-green);"></div>
-                        <div class="exp-logo-col">
-                            <img src="images/merkle_uploaded.png" class="exp-logo exp-logo-png" alt="Merkle Logo">
-                            <span class="exp-date-badge">2019 – 2022</span>
-                        </div>
-                        <div class="exp-body">
-                            <div class="exp-title-row">
-                                <h3 class="exp-role">Software Engineer (Data)</h3>
-                                <span class="exp-company">Merkle · Dentsu</span>
-                            </div>
-                            <p class="exp-desc">Started my career building data pipelines and analytical models for
-                                global retail and marketing clients, developing foundational expertise across the full
-                                data stack.</p>
-                            <ul class="exp-bullets">
-                                <li>Ramped up COGS calculation processes for a US-based retailer, identifying cost
-                                    magnitude across business functions</li>
-                                <li>Built and deployed ML models using Linear Regression, Logistic Regression, K-means
-                                    and Hierarchical Clustering</li>
-                                <li>Developed topic modeling pipelines for large marketing document repositories,
-                                    accelerating insight extraction</li>
-                                <li>Delivered analytics solutions in Python, R, and Advanced Excel across a cohort of
-                                    client engagements</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">R</span>
-                                <span class="exp-tag">Machine Learning</span>
-                                <span class="exp-tag">SQL</span>
-                                <span class="exp-tag">Topic Modeling</span>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
@@ -390,34 +426,32 @@
                             </div>
                         </div>
                         <div class="product-card-visual">
-                            <!-- Starburst Query Portal Dashboard Mock -->
-                            <div class="chatbot-window">
+                            <!-- iOS iPhone Mockup -->
+                            <div class="iphone-mockup">
+                                <div class="iphone-notch">
+                                    <div class="notch-camera"></div>
+                                </div>
+                                
+                                <div class="ios-status-bar">
+                                    <div class="ios-time">9:41</div>
+                                    <div class="ios-status-icons">
+                                        <i data-lucide="bar-chart-2" class="ios-icon"></i>
+                                        <i data-lucide="wifi" class="ios-icon"></i>
+                                        <i data-lucide="battery-full" class="ios-icon"></i>
+                                    </div>
+                                </div>
+
                                 <div class="chatbot-header">
-                                    <div class="window-dots">
-                                        <span class="dot dot-red"></span>
-                                        <span class="dot dot-yellow"></span>
-                                        <span class="dot dot-green"></span>
-                                    </div>
-                                    <div class="window-title">Starburst AI Query Portal</div>
-                                    <div class="db-status">
-                                        <span class="persona-tag" id="portal-persona-tag">Persona: Executive VP</span>
-                                        <span class="status-indicator"></span>Connected
-                                    </div>
+                                    <div class="header-title">Starburst AI</div>
                                 </div>
 
                                 <div class="chat-thread-container" id="chat-thread-content">
                                     <!-- Chat bubbles loaded dynamically by script.js -->
                                 </div>
-
-                                <div class="portal-footer flex-column-footer">
-                                    <div class="chat-input-mock">
-                                        <span class="chat-input-placeholder" id="chat-input-span">Ask Starburst
-                                            Agent...</span>
-                                        <i data-lucide="send" class="chat-send-icon"></i>
-                                    </div>
-                                    <div class="footer-persona-meta">
-                                        <i data-lucide="shield-check" class="shield-icon"></i>
-                                        <span>Policy-enforced security layer active. Audit logs enabled.</span>
+                                <div class="chat-input-area">
+                                    <div class="chat-input-box">
+                                        <span class="chat-input-placeholder" id="chat-input-span">Message Starburst...</span>
+                                        <i data-lucide="arrow-up" class="chat-send-icon"></i>
                                     </div>
                                 </div>
                             </div>
@@ -456,7 +490,8 @@
                                         <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Enterprise
                                             warehouses and lakes store raw transactional tables. Without semantic
                                             mapping, databases consist of millions of rows with cryptic labels like
-                                            <code>cust_uuid</code> or <code>tx_amt</code>.</p>
+                                            <code>cust_uuid</code> or <code>tx_amt</code>.
+                                        </p>
                                         <div
                                             style="margin-top: 12px; display: flex; gap: 8px; font-family: monospace; font-size: 11px;">
                                             <span
@@ -578,10 +613,15 @@
                                             <div class="sem-agent-demo">
                                                 <div class="sem-demo-box sem-demo-input">
                                                     <span class="sem-demo-label">Natural Language</span>
-                                                    <span class="sem-demo-value">"Compare quarterly sales across regions"</span>
+                                                    <span class="sem-demo-value">"Compare quarterly sales across
+                                                        regions"</span>
                                                 </div>
                                                 <div class="sem-demo-arrow">
-                                                    <svg width="24" height="12" viewBox="0 0 24 12"><path d="M2 6h16m-4-4l5 4-5 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                                    <svg width="24" height="12" viewBox="0 0 24 12">
+                                                        <path d="M2 6h16m-4-4l5 4-5 4" stroke="currentColor"
+                                                            stroke-width="1.5" fill="none" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
                                                 </div>
                                                 <div class="sem-demo-box sem-demo-output">
                                                     <span class="sem-demo-label">Compiled SQL</span>
@@ -713,9 +753,15 @@
                                                         <span>ts</span>
                                                         <span>region_cd</span>
                                                     </div>
-                                                    <div class="sem-db-row"><span>A8F2D</span><span>249.99</span><span>2025-03</span><span>US-W</span></div>
-                                                    <div class="sem-db-row"><span>C4E1B</span><span>89.50</span><span>2025-03</span><span>EU-N</span></div>
-                                                    <div class="sem-db-row sem-db-dim"><span>…</span><span>…</span><span>…</span><span>…</span></div>
+                                                    <div class="sem-db-row">
+                                                        <span>A8F2D</span><span>249.99</span><span>2025-03</span><span>US-W</span>
+                                                    </div>
+                                                    <div class="sem-db-row">
+                                                        <span>C4E1B</span><span>89.50</span><span>2025-03</span><span>EU-N</span>
+                                                    </div>
+                                                    <div class="sem-db-row sem-db-dim">
+                                                        <span>…</span><span>…</span><span>…</span><span>…</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -727,7 +773,8 @@
                             <div class="sys-sql-compiler-bubble glass-surface" id="sys-compiler-output">
                                 <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i>
                                     Compiled SQL (Snowflake)</div>
-                                <pre class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
+                                <pre
+                                    class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
                             </div>
                         </div>
                     </div>
@@ -797,7 +844,12 @@
                                 <span class="product-badge">Unsupervised NLP</span>
                                 <h3>Semantic Document Clustering</h3>
                                 <p class="product-description">Enterprise document repositories are often a black box of
-                                    unstructured reports. I engineered a pipeline that converts raw text into dense vector embeddings. As you scroll, watch raw document records stream into a high-speed data pipeline, pass through a holographic metadata scanner for real-time attribute extraction, ingest into a multi-dimensional vector database, and finally project into interconnected semantic clusters representing specific domain subjects.</p>
+                                    unstructured reports. I engineered a pipeline that converts raw text into dense
+                                    vector embeddings. As you scroll, watch raw document records stream into a
+                                    high-speed data pipeline, pass through a holographic metadata scanner for real-time
+                                    attribute extraction, ingest into a multi-dimensional vector database, and finally
+                                    project into interconnected semantic clusters representing specific domain subjects.
+                                </p>
 
                                 <div class="motion-scroll-indicator">
                                     <div class="mouse-scroll-icon">

@@ -60,6 +60,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Mobile Menu Toggle Logic
+    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+    const mobileNav = document.getElementById("mobile-nav");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+
+    if (mobileMenuToggle && mobileNav) {
+        mobileMenuToggle.addEventListener("click", () => {
+            mobileNav.classList.toggle("active");
+            // Toggle icon between menu and x
+            const icon = mobileMenuToggle.querySelector("i");
+            if (mobileNav.classList.contains("active")) {
+                icon.setAttribute("data-lucide", "x");
+            } else {
+                icon.setAttribute("data-lucide", "menu");
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                mobileNav.classList.remove("active");
+                const icon = mobileMenuToggle.querySelector("i");
+                icon.setAttribute("data-lucide", "menu");
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            });
+        });
+    }
+
     // Liquid Glass 3D Tilt Interaction
     const glassSurfaces = document.querySelectorAll(".glass-surface");
     glassSurfaces.forEach(surface => {
@@ -324,6 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sqlChatSessions = {
         sales: {
+            chartType: "line",
             prompt: "Show me monthly sales growth for 2025",
             sql: "<span>SELECT</span> DATE_TRUNC('month', date) <span>AS</span> month,<br>       <span>SUM</span>(sales_amount) <span>AS</span> revenue<br><span>FROM</span> transactions<br><span>WHERE</span> year = 2025<br><span>GROUP BY</span> 1 <span>ORDER BY</span> 1;",
             time: "12ms",
@@ -339,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
             insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 2px;\">Revenue shows a steady upward trajectory, growing from $45.2K in January to $74.1K in June.</li><li style=\"margin-left: 15px;\">The 64% total growth is driven primarily by the Q2 marketing campaign.</li></ul>"
         },
         users: {
+            chartType: "bar",
             prompt: "Find count of active monthly users",
             sql: "<span>SELECT</span> DATE_TRUNC('month', login_time) <span>AS</span> month,<br>       <span>COUNT</span>(<span>DISTINCT</span> user_id) <span>AS</span> active_users<br><span>FROM</span> user_sessions<br><span>WHERE</span> status = 'active'<br><span>GROUP BY</span> 1 <span>ORDER BY</span> 1;",
             time: "8ms",
@@ -352,14 +383,15 @@ document.addEventListener("DOMContentLoaded", () => {
             insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 2px;\">Monthly active users (MAU) breached the 200K threshold in Q4.</li><li style=\"margin-left: 15px;\">Registered a 75% year-over-year expansion compared to Q1.</li></ul>"
         },
         products: {
+            chartType: "pie",
             prompt: "List top 3 products by total revenue",
             sql: "<span>SELECT</span> p.product_name,<br>       <span>SUM</span>(o.quantity * o.unit_price) <span>AS</span> revenue<br><span>FROM</span> order_items o<br><span>JOIN</span> products p <span>ON</span> o.product_id = p.id<br><span>GROUP BY</span> 1 <span>ORDER BY</span> 2 <span>DESC</span> <span>LIMIT</span> 3;",
             time: "18ms",
             chartTitle: "Top Product Revenues ($)",
             chartBars: [
-                { label: "Agent", val: "$1.2M", pct: 100, color: "green" },
-                { label: "Gateway", val: "$850K", pct: 70, color: "green" },
-                { label: "Mesh", val: "$420K", pct: 35, color: "green" }
+                { label: "Agent", val: "$1.2M", pct: 48.6, color: "green" },
+                { label: "Gateway", val: "$850K", pct: 34.4, color: "green" },
+                { label: "Mesh", val: "$420K", pct: 17.0, color: "green" }
             ],
             insight: "<ul><li style=\"margin-left: 15px; margin-bottom: 2px;\">The GenAI Enterprise Agent is the primary revenue driver at $1.2M.</li><li style=\"margin-left: 15px;\">Accounting for 48% of total catalog product sales.</li></ul>"
         }
@@ -488,36 +520,80 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = sqlChatSessions[queryKey];
         if (!data) return;
 
-        // Update persona tag dynamically
-        let personaName = "Executive VP";
-        let personaColor = "#0071E3";
-        if (queryKey === "users") {
-            personaName = "Product VP";
-            personaColor = "#8b5cf6";
-        } else if (queryKey === "products") {
-            personaName = "Pricing Manager";
-            personaColor = "#10b981";
-        }
+        let chartRenderHtml = "";
         
-        const personaTag = document.getElementById("portal-persona-tag");
-        if (personaTag) {
-            personaTag.textContent = `Persona: ${personaName}`;
-            personaTag.style.color = personaColor;
-            personaTag.style.borderColor = personaColor + "33";
-        }
+        if (data.chartType === "line") {
+            let pathD = "";
+            const w = 200;
+            const h = 40;
+            const dx = w / (data.chartBars.length - 1);
+            data.chartBars.forEach((b, i) => {
+                const x = i * dx;
+                const y = h - (b.pct / 100 * h);
+                pathD += (i === 0 ? "M" : "L") + `${x},${y} `;
+            });
+            
+            let labelsHtml = "";
+            data.chartBars.forEach((b, i) => {
+                const x = i * dx;
+                labelsHtml += `<text x="${x}" y="${h + 15}" fill="var(--text-secondary)" font-size="8" text-anchor="middle">${b.label}</text>`;
+            });
 
-        let barsHtml = "";
-        data.chartBars.forEach(b => {
-            barsHtml += `
-                <div class="chart-row">
-                     <span class="chart-label">${b.label}</span>
-                     <div class="chart-bar-wrapper">
-                         <div class="chart-bar-fill ${b.color}" data-width="${b.pct}"></div>
-                     </div>
-                     <span class="chart-value">${b.val}</span>
+            chartRenderHtml = `
+                <svg viewBox="-10 -10 220 70" style="width:100%; height:70px; overflow:visible; margin-top: 10px;">
+                    <defs>
+                        <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.5" />
+                            <stop offset="100%" stop-color="var(--accent-blue)" stop-opacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <path d="${pathD} L${w},${h} L0,${h} Z" fill="url(#lineGradient)" class="chart-area-anim" style="opacity: 0; transition: opacity 1s ease 0.5s;" />
+                    <path d="${pathD}" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chart-line-anim" stroke-dasharray="300" stroke-dashoffset="300" style="transition: stroke-dashoffset 1.5s ease-out;" />
+                    ${labelsHtml}
+                </svg>
+            `;
+        } else if (data.chartType === "pie") {
+            let pieLegend = "";
+            let conicStops = [];
+            let currentPct = 0;
+            data.chartBars.forEach((b, i) => {
+                const colors = ["var(--accent-green)", "var(--accent-blue)", "var(--accent-purple)"];
+                const color = colors[i % colors.length];
+                const nextPct = currentPct + b.pct;
+                conicStops.push(`${color} ${currentPct}% ${nextPct}%`);
+                currentPct = nextPct;
+                pieLegend += `
+                    <div style="display:flex; align-items:center; gap:6px; font-size:10px; color:var(--text-secondary);">
+                        <div style="width:8px; height:8px; background:${color}; border-radius:50%;"></div>
+                        ${b.label} (${b.val})
+                    </div>
+                `;
+            });
+            const conicGradient = `conic-gradient(${conicStops.join(", ")})`;
+            
+            chartRenderHtml = `
+                <div style="display:flex; align-items:center; gap:20px; margin-top:10px; opacity: 0; transition: opacity 1s ease;" class="chart-pie-anim">
+                    <div style="width:60px; height:60px; border-radius:50%; background: ${conicGradient}; transform: scale(0); transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);" class="chart-pie-circle"></div>
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                        ${pieLegend}
+                    </div>
                 </div>
             `;
-        });
+        } else {
+            let barsHtml = "";
+            data.chartBars.forEach(b => {
+                barsHtml += `
+                    <div class="chart-row">
+                         <span class="chart-label">${b.label}</span>
+                         <div class="chart-bar-wrapper">
+                             <div class="chart-bar-fill ${b.color}" data-width="${b.pct}"></div>
+                         </div>
+                         <span class="chart-value">${b.val}</span>
+                    </div>
+                `;
+            });
+            chartRenderHtml = `<div class="chart-bars-list">${barsHtml}</div>`;
+        }
 
         const msg = document.createElement("div");
         msg.className = "chat-message agent";
@@ -532,9 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="bubble-section-label">Real-time Visualization</span>
                     <div class="chart-container">
                         <div class="chart-title">${data.chartTitle}</div>
-                        <div class="chart-bars-list">
-                            ${barsHtml}
-                        </div>
+                        ${chartRenderHtml}
                     </div>
                 </div>
                 <div class="bubble-section">
@@ -550,13 +624,25 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         chatThread.appendChild(msg);
 
-        // Animate chart bars after DOM rendering
+        // Animate charts after DOM rendering
         requestAnimationFrame(() => {
-            const fills = msg.querySelectorAll(".chart-bar-fill");
-            fills.forEach(f => {
-                const pct = f.getAttribute("data-width");
-                f.style.width = `${pct}%`;
-            });
+            if (data.chartType === "line") {
+                const line = msg.querySelector(".chart-line-anim");
+                const area = msg.querySelector(".chart-area-anim");
+                if (line) line.style.strokeDashoffset = "0";
+                if (area) area.style.opacity = "1";
+            } else if (data.chartType === "pie") {
+                const pieContainer = msg.querySelector(".chart-pie-anim");
+                const pieCircle = msg.querySelector(".chart-pie-circle");
+                if (pieContainer) pieContainer.style.opacity = "1";
+                if (pieCircle) pieCircle.style.transform = "scale(1)";
+            } else {
+                const fills = msg.querySelectorAll(".chart-bar-fill");
+                fills.forEach(f => {
+                    const pct = f.getAttribute("data-width");
+                    f.style.width = `${pct}%`;
+                });
+            }
         });
         
         setTimeout(() => {
@@ -575,61 +661,67 @@ document.addEventListener("DOMContentLoaded", () => {
         chatThread.style.opacity = "1";
         chatThread.innerHTML = "";
         
-        // Greeting from agent
-        const greeting = document.createElement("div");
-        greeting.className = "chat-message agent";
-        greeting.innerHTML = `
-            <span class="message-sender">Starburst AI Agent</span>
-            <div class="message-bubble">
-                Hello! I am your Text-to-SQL Starburst Agent. I compile natural language queries into production-safe database commands. Ask me a question, or watch me process live query threads.
-            </div>
-        `;
-        chatThread.appendChild(greeting);
-        
         setTimeout(() => {
             scrollToBottom();
         }, 50);
 
         let userMsg1, userMsg2, userMsg3;
 
+        // Helper to reset chat between queries
+        function transitionToNextQuery(queryFunc) {
+            chatThread.style.transition = "opacity 0.4s ease";
+            chatThread.style.opacity = "0";
+            addChatTimeout(() => {
+                chatThread.innerHTML = "";
+                chatThread.style.opacity = "1";
+                addChatTimeout(queryFunc, 200);
+            }, 400);
+        }
+
         // 1st Query: Sales
         addChatTimeout(() => {
-            typeUserQuestion("Show me monthly sales growth for 2025", (msg) => {
-                userMsg1 = msg;
-                showTypingIndicator(userMsg1);
-                
-                addChatTimeout(() => {
-                    removeTypingIndicator();
-                    appendAgentMessage("sales", userMsg1);
-                }, 1500);
+            transitionToNextQuery(() => {
+                typeUserQuestion("Show me monthly sales growth for 2025", (msg) => {
+                    userMsg1 = msg;
+                    showTypingIndicator(userMsg1);
+                    
+                    addChatTimeout(() => {
+                        removeTypingIndicator();
+                        appendAgentMessage("sales", userMsg1);
+                    }, 1500);
+                });
             });
-        }, 2000);
+        }, 500);
 
         // 2nd Query: Users
         addChatTimeout(() => {
-            typeUserQuestion("Find count of active monthly users", (msg) => {
-                userMsg2 = msg;
-                showTypingIndicator(userMsg2);
-                
-                addChatTimeout(() => {
-                    removeTypingIndicator();
-                    appendAgentMessage("users", userMsg2);
-                }, 1500);
+            transitionToNextQuery(() => {
+                typeUserQuestion("Find count of active monthly users", (msg) => {
+                    userMsg2 = msg;
+                    showTypingIndicator(userMsg2);
+                    
+                    addChatTimeout(() => {
+                        removeTypingIndicator();
+                        appendAgentMessage("users", userMsg2);
+                    }, 1500);
+                });
             });
-        }, 12500);
+        }, 11500); // Shifted slightly earlier for transition time
 
         // 3rd Query: Products
         addChatTimeout(() => {
-            typeUserQuestion("List top 3 products by total revenue", (msg) => {
-                userMsg3 = msg;
-                showTypingIndicator(userMsg3);
-                
-                addChatTimeout(() => {
-                    removeTypingIndicator();
-                    appendAgentMessage("products", userMsg3);
-                }, 1500);
+            transitionToNextQuery(() => {
+                typeUserQuestion("List top 3 products by total revenue", (msg) => {
+                    userMsg3 = msg;
+                    showTypingIndicator(userMsg3);
+                    
+                    addChatTimeout(() => {
+                        removeTypingIndicator();
+                        appendAgentMessage("products", userMsg3);
+                    }, 1500);
+                });
             });
-        }, 23500);
+        }, 22500); // Shifted slightly earlier for transition time
 
         // Loop reset
         addChatTimeout(() => {
@@ -1912,4 +2004,109 @@ document.addEventListener("DOMContentLoaded", () => {
             el.style.setProperty("--tilt-y", "0deg");
         });
     });
+
+    // Experience Timeline Logic (Cover Flow & Autoplay)
+    const timelineNodes = document.querySelectorAll('.timeline-node');
+    const timelineCards = document.querySelectorAll('.timeline-card');
+    const timelineProgress = document.getElementById('timeline-progress');
+
+    if (timelineNodes.length > 0 && timelineCards.length > 0) {
+        let currentTimelineIndex = timelineNodes.length - 1; // Start at present role
+        let timelineAutoplayTimeout;
+
+        function updateTimeline(activeIndex) {
+            // Update Nodes
+            timelineNodes.forEach((n, i) => {
+                if (i === activeIndex) n.classList.add('active');
+                else n.classList.remove('active');
+            });
+
+            const activeNode = timelineNodes[activeIndex];
+            const activeTargetId = activeNode.getAttribute('data-target');
+            
+            // Map cards array based on Target ID to handle order differences
+            const cardsArray = Array.from(timelineCards);
+            let activeCardIndex = cardsArray.findIndex(c => c.id === activeTargetId);
+
+            cardsArray.forEach((card, i) => {
+                card.classList.remove('card-active', 'card-prev-1', 'card-prev-2', 'card-next-1', 'card-next-2');
+                
+                if (i === activeCardIndex) {
+                    card.classList.add('card-active');
+                } else if (i === activeCardIndex - 1) {
+                    card.classList.add('card-next-1'); // In reverse order DOM, earlier index is newer job
+                } else if (i === activeCardIndex - 2) {
+                    card.classList.add('card-next-2');
+                } else if (i === activeCardIndex + 1) {
+                    card.classList.add('card-prev-1'); // Later index is older job
+                } else if (i === activeCardIndex + 2) {
+                    card.classList.add('card-prev-2');
+                }
+            });
+
+            // Update Progress Line
+            if(timelineProgress) {
+                const percentage = (activeIndex / (timelineNodes.length - 1)) * 100;
+                timelineProgress.style.width = `${percentage}%`;
+            }
+        }
+
+        // Setup Autoplay
+        function startTimelineAutoplay() {
+            stopTimelineAutoplay();
+            // Wait 4 seconds, then animate backwards in time
+            timelineAutoplayTimeout = setTimeout(() => {
+                currentTimelineIndex--;
+                if (currentTimelineIndex < 0) {
+                    currentTimelineIndex = timelineNodes.length - 1; // loop back
+                }
+                updateTimeline(currentTimelineIndex);
+                startTimelineAutoplay();
+            }, 4000);
+        }
+
+        function stopTimelineAutoplay() {
+            if (timelineAutoplayTimeout) {
+                clearTimeout(timelineAutoplayTimeout);
+                timelineAutoplayTimeout = null;
+            }
+        }
+
+        // Initialize
+        updateTimeline(currentTimelineIndex);
+        
+        // Setup Intersection Observer to start autoplay only when Experience section is visible
+        const experienceSection = document.getElementById('experience');
+        if (experienceSection) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    startTimelineAutoplay();
+                } else {
+                    stopTimelineAutoplay();
+                }
+            }, { threshold: 0.5 });
+            observer.observe(experienceSection);
+        } else {
+            startTimelineAutoplay();
+        }
+
+        // Node click events
+        timelineNodes.forEach((node, idx) => {
+            node.addEventListener('click', () => {
+                stopTimelineAutoplay(); // Manual click stops autoplay
+                currentTimelineIndex = idx;
+                updateTimeline(currentTimelineIndex);
+            });
+        });
+        
+        // Stop autoplay on hover
+        timelineCards.forEach(card => {
+            card.addEventListener('mouseenter', stopTimelineAutoplay);
+            card.addEventListener('mouseleave', () => {
+                if (experienceSection.getBoundingClientRect().top < window.innerHeight && experienceSection.getBoundingClientRect().bottom > 0) {
+                     startTimelineAutoplay();
+                }
+            });
+        });
+    }
 });
