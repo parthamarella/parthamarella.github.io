@@ -28,6 +28,13 @@
 
 <body>
 
+    <!-- Ambient Background -->
+    <div class="ambient-background">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress-bar"></div>
 
@@ -44,7 +51,23 @@
                 <a href="#testimonials" class="nav-link">Reviews</a>
                 <a href="#contact" class="nav-link contact-btn">Get in Touch</a>
             </nav>
+            <button id="mobile-menu-toggle" aria-label="Toggle menu">
+                <i data-lucide="menu" class="menu-icon"></i>
+            </button>
         </div>
+        
+        <!-- Mobile Navigation Overlay -->
+        <nav id="mobile-nav">
+            <div class="mobile-nav-links">
+                <a href="#about" class="mobile-link">About</a>
+                <a href="#experience" class="mobile-link">Experience</a>
+                <a href="#education" class="mobile-link">Education</a>
+                <a href="#projects" class="mobile-link">Projects</a>
+                <a href="#technical-ecosystem" class="mobile-link">Stack</a>
+                <a href="#testimonials" class="mobile-link">Reviews</a>
+                <a href="#contact" class="mobile-link mobile-contact-btn">Get in Touch</a>
+            </div>
+        </nav>
     </header>
 
     <main>
@@ -113,7 +136,12 @@
                 </div>
 
                 <div class="about-right">
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-profile-container">
+                        <div class="profile-image-wrap">
+                            <img src="images/profile_bg.png" alt="Partha Marella" class="profile-img">
+                        </div>
+                    </div>
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="map-pin" class="highlight-icon"></i>
                             <span>Currently Based In</span>
@@ -122,7 +150,7 @@
                         <div class="highlight-sub">Working @ Citi / WorldLink</div>
                     </div>
 
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="graduation-cap" class="highlight-icon"></i>
                             <span>Latest Degree</span>
@@ -131,7 +159,7 @@
                         <div class="highlight-sub">Carnegie Mellon University</div>
                     </div>
 
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="flask-conical" class="highlight-icon"></i>
                             <span>Research Focus</span>
@@ -140,7 +168,7 @@
                         <div class="highlight-sub">PhD — University of the Cumberlands</div>
                     </div>
 
-                    <div class="about-highlight-card glass-element">
+                    <div class="about-highlight-card glass-surface">
                         <div class="highlight-header">
                             <i data-lucide="zap" class="highlight-icon"></i>
                             <span>Core Expertise</span>
@@ -159,122 +187,142 @@
                 <p class="section-subtitle">Roles across data engineering, machine learning, and enterprise AI systems
                     at industry-leading organizations.</p>
 
-                <div class="experience-list">
-
-                    <!-- Citi / WorldLink — Current -->
-                    <div class="exp-card glass-element exp-current">
-                        <div class="exp-accent" style="background: var(--accent-blue);"></div>
-                        <div class="exp-logo-col">
-                            <div class="exp-partnership-logos">
-                                <img src="images/worldlink_uploaded.png" class="exp-logo exp-logo-png"
-                                    alt="WorldLink Logo">
-                                <div class="exp-partner-divider">
-                                    <span class="exp-partner-x">×</span>
+                <div class="timeline-interactive">
+                    <div class="timeline-content-area">
+                        <!-- Citi / WorldLink — Current -->
+                        <div class="exp-card glass-surface timeline-card active" id="exp-2023-present">
+                            <div class="exp-accent" style="background: var(--accent-blue);"></div>
+                            <div class="exp-logo-col">
+                                <div class="exp-partnership-logos">
+                                    <img src="images/worldlink_uploaded.png" class="exp-logo exp-logo-png"
+                                        alt="WorldLink Logo">
+                                    <div class="exp-partner-divider">
+                                        <span class="exp-partner-x">×</span>
+                                    </div>
+                                    <img src="images/citi-2.svg" class="exp-logo" alt="Citi Logo">
                                 </div>
-                                <img src="images/citi-2.svg" class="exp-logo" alt="Citi Logo">
+                                <span class="exp-date-badge">2023 – Present</span>
+                                <span class="exp-status-badge">Current</span>
                             </div>
-                            <span class="exp-date-badge">2023 – Present</span>
-                            <span class="exp-status-badge">Current</span>
+                            <div class="exp-body">
+                                <div class="exp-title-row">
+                                    <h3 class="exp-role">Data Scientist & GenAI Engineer</h3>
+                                    <span class="exp-company">Citi · via WorldLink</span>
+                                </div>
+                                <p class="exp-desc">Leading enterprise GenAI adoption at one of the world's largest
+                                    financial institutions — building AI systems that democratize access to complex data
+                                    across global teams.</p>
+                                <ul class="exp-bullets">
+                                    <li>Engineered a Starburst-powered Text-to-SQL agent that acts as 100 virtual
+                                        analysts, reducing query creation time by <strong>90%</strong></li>
+                                    <li>Designed persona-aware security layers enforcing role-based compliance and audit
+                                        logging across all AI interactions</li>
+                                    <li>Built and deployed autonomous MCP-based agentic pipelines for model evaluation,
+                                        PR review, and automated dashboarding</li>
+                                    <li>Implemented semantic document clustering pipelines that reduced manual metadata
+                                        classification by <strong>80%</strong></li>
+                                </ul>
+                                <div class="exp-tags">
+                                    <span class="exp-tag">GenAI</span>
+                                    <span class="exp-tag">Text-to-SQL</span>
+                                    <span class="exp-tag">Starburst</span>
+                                    <span class="exp-tag">MCP</span>
+                                    <span class="exp-tag">Python</span>
+                                    <span class="exp-tag">OpenShift</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="exp-body">
-                            <div class="exp-title-row">
-                                <h3 class="exp-role">Data Scientist & GenAI Engineer</h3>
-                                <span class="exp-company">Citi · via WorldLink</span>
+
+                        <!-- Hitachi Vantara -->
+                        <div class="exp-card glass-surface timeline-card" id="exp-2023">
+                            <div class="exp-accent" style="background: var(--accent-purple);"></div>
+                            <div class="exp-logo-col">
+                                <img src="images/hitachi_logo.png" class="exp-logo exp-logo-png" alt="Hitachi Logo">
+                                <span class="exp-date-badge">2023</span>
                             </div>
-                            <p class="exp-desc">Leading enterprise GenAI adoption at one of the world's largest
-                                financial institutions — building AI systems that democratize access to complex data
-                                across global teams.</p>
-                            <ul class="exp-bullets">
-                                <li>Engineered a Starburst-powered Text-to-SQL agent that acts as 100 virtual analysts,
-                                    reducing query creation time by <strong>90%</strong></li>
-                                <li>Designed persona-aware security layers enforcing role-based compliance and audit
-                                    logging across all AI interactions</li>
-                                <li>Built and deployed autonomous MCP-based agentic pipelines for model evaluation, PR
-                                    review, and automated dashboarding</li>
-                                <li>Implemented semantic document clustering pipelines that reduced manual metadata
-                                    classification by <strong>80%</strong></li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">GenAI</span>
-                                <span class="exp-tag">Text-to-SQL</span>
-                                <span class="exp-tag">Starburst</span>
-                                <span class="exp-tag">MCP</span>
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">OpenShift</span>
+                            <div class="exp-body">
+                                <div class="exp-title-row">
+                                    <h3 class="exp-role">Data Scientist</h3>
+                                    <span class="exp-company">Hitachi Vantara</span>
+                                </div>
+                                <p class="exp-desc">Joined the Lumada Catalog team to implement advanced data catalog
+                                    features and industry-specific semantic glossaries that accelerated enterprise
+                                    adoption.</p>
+                                <ul class="exp-bullets">
+                                    <li>Independently proposed and implemented a business term portability feature for
+                                        the Lumada Data Catalog in record time</li>
+                                    <li>Created industry-specific seed glossaries enabling rapid catalog adoption across
+                                        multiple verticals</li>
+                                    <li>Applied BERTopic and Top2Vec NLP models to automatically classify and cluster
+                                        enterprise documents</li>
+                                    <li>Evaluated and benchmarked large language models for accuracy, safety, and SQL
+                                        injection resilience</li>
+                                </ul>
+                                <div class="exp-tags">
+                                    <span class="exp-tag">NLP</span>
+                                    <span class="exp-tag">BERTopic</span>
+                                    <span class="exp-tag">DataHub</span>
+                                    <span class="exp-tag">Python</span>
+                                    <span class="exp-tag">ML Evaluation</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Merkle / Dentsu -->
+                        <div class="exp-card glass-surface timeline-card" id="exp-2019">
+                            <div class="exp-accent" style="background: var(--accent-green);"></div>
+                            <div class="exp-logo-col">
+                                <img src="images/merkle_uploaded.png" class="exp-logo exp-logo-png" alt="Merkle Logo">
+                                <span class="exp-date-badge">2019 – 2022</span>
+                            </div>
+                            <div class="exp-body">
+                                <div class="exp-title-row">
+                                    <h3 class="exp-role">Software Engineer (Data)</h3>
+                                    <span class="exp-company">Merkle · Dentsu</span>
+                                </div>
+                                <p class="exp-desc">Started my career building data pipelines and analytical models for
+                                    global retail and marketing clients, developing foundational expertise across the
+                                    full data stack.</p>
+                                <ul class="exp-bullets">
+                                    <li>Ramped up COGS calculation processes for a US-based retailer, identifying cost
+                                        magnitude across business functions</li>
+                                    <li>Built and deployed ML models using Linear Regression, Logistic Regression,
+                                        K-means and Hierarchical Clustering</li>
+                                    <li>Developed topic modeling pipelines for large marketing document repositories,
+                                        accelerating insight extraction</li>
+                                    <li>Delivered analytics solutions in Python, R, and Advanced Excel across a cohort
+                                        of client engagements</li>
+                                </ul>
+                                <div class="exp-tags">
+                                    <span class="exp-tag">Python</span>
+                                    <span class="exp-tag">R</span>
+                                    <span class="exp-tag">Machine Learning</span>
+                                    <span class="exp-tag">SQL</span>
+                                    <span class="exp-tag">Topic Modeling</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Hitachi Vantara -->
-                    <div class="exp-card glass-element">
-                        <div class="exp-accent" style="background: var(--accent-purple);"></div>
-                        <div class="exp-logo-col">
-                            <img src="images/hitachi_logo.png" class="exp-logo exp-logo-png" alt="Hitachi Logo">
-                            <span class="exp-date-badge">2023</span>
+                    <div class="timeline-navigation glass-surface">
+                        <div class="timeline-track">
+                            <div class="timeline-progress" id="timeline-progress"></div>
                         </div>
-                        <div class="exp-body">
-                            <div class="exp-title-row">
-                                <h3 class="exp-role">Data Scientist</h3>
-                                <span class="exp-company">Hitachi Vantara</span>
-                            </div>
-                            <p class="exp-desc">Joined the Lumada Catalog team to implement advanced data catalog
-                                features and industry-specific semantic glossaries that accelerated enterprise adoption.
-                            </p>
-                            <ul class="exp-bullets">
-                                <li>Independently proposed and implemented a business term portability feature for the
-                                    Lumada Data Catalog in record time</li>
-                                <li>Created industry-specific seed glossaries enabling rapid catalog adoption across
-                                    multiple verticals</li>
-                                <li>Applied BERTopic and Top2Vec NLP models to automatically classify and cluster
-                                    enterprise documents</li>
-                                <li>Evaluated and benchmarked large language models for accuracy, safety, and SQL
-                                    injection resilience</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">NLP</span>
-                                <span class="exp-tag">BERTopic</span>
-                                <span class="exp-tag">DataHub</span>
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">ML Evaluation</span>
-                            </div>
+                        <div class="timeline-nodes">
+                            <button class="timeline-node" data-target="exp-2019">
+                                <span class="node-dot"></span>
+                                <span class="node-label">2019 - 2022</span>
+                            </button>
+                            <button class="timeline-node" data-target="exp-2023">
+                                <span class="node-dot"></span>
+                                <span class="node-label">2023</span>
+                            </button>
+                            <button class="timeline-node active" data-target="exp-2023-present">
+                                <span class="node-dot"></span>
+                                <span class="node-label">2023 - Present</span>
+                            </button>
                         </div>
                     </div>
-
-                    <!-- Merkle / Dentsu -->
-                    <div class="exp-card glass-element">
-                        <div class="exp-accent" style="background: var(--accent-green);"></div>
-                        <div class="exp-logo-col">
-                            <img src="images/merkle_uploaded.png" class="exp-logo exp-logo-png" alt="Merkle Logo">
-                            <span class="exp-date-badge">2019 – 2022</span>
-                        </div>
-                        <div class="exp-body">
-                            <div class="exp-title-row">
-                                <h3 class="exp-role">Software Engineer (Data)</h3>
-                                <span class="exp-company">Merkle · Dentsu</span>
-                            </div>
-                            <p class="exp-desc">Started my career building data pipelines and analytical models for
-                                global retail and marketing clients, developing foundational expertise across the full
-                                data stack.</p>
-                            <ul class="exp-bullets">
-                                <li>Ramped up COGS calculation processes for a US-based retailer, identifying cost
-                                    magnitude across business functions</li>
-                                <li>Built and deployed ML models using Linear Regression, Logistic Regression, K-means
-                                    and Hierarchical Clustering</li>
-                                <li>Developed topic modeling pipelines for large marketing document repositories,
-                                    accelerating insight extraction</li>
-                                <li>Delivered analytics solutions in Python, R, and Advanced Excel across a cohort of
-                                    client engagements</li>
-                            </ul>
-                            <div class="exp-tags">
-                                <span class="exp-tag">Python</span>
-                                <span class="exp-tag">R</span>
-                                <span class="exp-tag">Machine Learning</span>
-                                <span class="exp-tag">SQL</span>
-                                <span class="exp-tag">Topic Modeling</span>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
@@ -286,7 +334,7 @@
                 <h2 class="section-title">Academic & Technical Foundation</h2>
 
                 <div class="education-cards">
-                    <div class="education-card glass-element">
+                    <div class="education-card glass-surface">
                         <div class="card-glow"></div>
                         <div class="edu-logo-box">
                             <img src="images/cmu-wordmark-square-w-on-k.png" class="edu-card-logo edu-card-logo-png"
@@ -298,7 +346,7 @@
                         <span class="edu-meta">Pittsburgh, USA · 2022</span>
                     </div>
 
-                    <div class="education-card glass-element highlight-card">
+                    <div class="education-card glass-surface highlight-card">
                         <div class="card-glow"></div>
                         <div class="edu-logo-box">
                             <img src="images/cumberlands_uploaded.png" class="edu-card-logo edu-card-logo-png"
@@ -310,7 +358,7 @@
                         <span class="edu-meta">Kentucky, USA · In Progress</span>
                     </div>
 
-                    <div class="education-card glass-element">
+                    <div class="education-card glass-surface">
                         <div class="card-glow"></div>
                         <div class="edu-logo-box">
                             <img src="images/pes_uploaded.png" class="edu-card-logo edu-card-logo-png" alt="PES Logo">
@@ -340,7 +388,8 @@
                                 <h3>Starburst AI Agent</h3>
                                 <p class="product-description">Enterprise data is often trapped behind siloed database
                                     partitions. I engineered a Starburst-powered SQL agent that acts as 100 virtual
-                                    analysts, democratizing data accessibility while keeping strict policy enforcement.</p>
+                                    analysts, democratizing data accessibility while keeping strict policy enforcement.
+                                </p>
                             </div>
 
                             <div class="info-highlights">
@@ -377,33 +426,32 @@
                             </div>
                         </div>
                         <div class="product-card-visual">
-                            <!-- Starburst Query Portal Dashboard Mock -->
-                            <div class="chatbot-window">
+                            <!-- iOS iPhone Mockup -->
+                            <div class="iphone-mockup">
+                                <div class="iphone-notch">
+                                    <div class="notch-camera"></div>
+                                </div>
+                                
+                                <div class="ios-status-bar">
+                                    <div class="ios-time">9:41</div>
+                                    <div class="ios-status-icons">
+                                        <i data-lucide="bar-chart-2" class="ios-icon"></i>
+                                        <i data-lucide="wifi" class="ios-icon"></i>
+                                        <i data-lucide="battery-full" class="ios-icon"></i>
+                                    </div>
+                                </div>
+
                                 <div class="chatbot-header">
-                                    <div class="window-dots">
-                                        <span class="dot dot-red"></span>
-                                        <span class="dot dot-yellow"></span>
-                                        <span class="dot dot-green"></span>
-                                    </div>
-                                    <div class="window-title">Starburst AI Query Portal</div>
-                                    <div class="db-status">
-                                        <span class="persona-tag" id="portal-persona-tag">Persona: Executive VP</span>
-                                        <span class="status-indicator"></span>Connected
-                                    </div>
+                                    <div class="header-title">Starburst AI</div>
                                 </div>
 
                                 <div class="chat-thread-container" id="chat-thread-content">
                                     <!-- Chat bubbles loaded dynamically by script.js -->
                                 </div>
-
-                                <div class="portal-footer flex-column-footer">
-                                    <div class="chat-input-mock">
-                                        <span class="chat-input-placeholder" id="chat-input-span">Ask Starburst Agent...</span>
-                                        <i data-lucide="send" class="chat-send-icon"></i>
-                                    </div>
-                                    <div class="footer-persona-meta">
-                                        <i data-lucide="shield-check" class="shield-icon"></i>
-                                        <span>Policy-enforced security layer active. Audit logs enabled.</span>
+                                <div class="chat-input-area">
+                                    <div class="chat-input-box">
+                                        <span class="chat-input-placeholder" id="chat-input-span">Message Starburst...</span>
+                                        <i data-lucide="arrow-up" class="chat-send-icon"></i>
                                     </div>
                                 </div>
                             </div>
@@ -416,7 +464,12 @@
                             <div class="info-narrative">
                                 <span class="product-badge">AI Understanding</span>
                                 <h3>Enterprise Semantic Layer</h3>
-                                <p class="product-description">Large language models can generate SQL, but they cannot reliably reason about enterprise data without context. I am developing semantic-layer technologies that bridge physical data systems and business meaning, allowing AI agents to identify metrics, dimensions, facts, segments, and temporal relationships autonomously. The result is a system where enterprise knowledge becomes discoverable, reusable, and machine understandable.</p>
+                                <p class="product-description">Large language models can generate SQL, but they cannot
+                                    reliably reason about enterprise data without context. I am developing
+                                    semantic-layer technologies that bridge physical data systems and business meaning,
+                                    allowing AI agents to identify metrics, dimensions, facts, segments, and temporal
+                                    relationships autonomously. The result is a system where enterprise knowledge
+                                    becomes discoverable, reusable, and machine understandable.</p>
 
                                 <div class="interactive-controls" style="margin-top: 1.5rem;">
                                     <span class="controls-label">The Semantic Transformation:</span>
@@ -429,49 +482,97 @@
                                     </div>
                                 </div>
 
-                                <div class="semantic-story-content" style="margin-top: 1.5rem; min-height: 120px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                <div class="semantic-story-content"
+                                    style="margin-top: 1.5rem; min-height: 120px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
                                     <div class="story-pane active" id="pane-1">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Physical Storage (Layer 1)</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Enterprise warehouses and lakes store raw transactional tables. Without semantic mapping, databases consist of millions of rows with cryptic labels like <code>cust_uuid</code> or <code>tx_amt</code>.</p>
-                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-family: monospace; font-size: 11px;">
-                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">Snowflake</span>
-                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">BigQuery</span>
-                                            <span style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">S3 Parquet</span>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Physical Storage
+                                            (Layer 1)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Enterprise
+                                            warehouses and lakes store raw transactional tables. Without semantic
+                                            mapping, databases consist of millions of rows with cryptic labels like
+                                            <code>cust_uuid</code> or <code>tx_amt</code>.
+                                        </p>
+                                        <div
+                                            style="margin-top: 12px; display: flex; gap: 8px; font-family: monospace; font-size: 11px;">
+                                            <span
+                                                style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">Snowflake</span>
+                                            <span
+                                                style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">BigQuery</span>
+                                            <span
+                                                style="background: #222; padding: 4px 8px; border-radius: 4px; color: #888;">S3
+                                                Parquet</span>
                                         </div>
                                     </div>
                                     <div class="story-pane" id="pane-2" style="display: none;">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Metadata Intelligence (Layer 2)</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Automated cataloging scans schemas, collects profiling metrics, traces column-level data lineage, and classifies sensitive fields to prepare physical assets for semantic definitions.</p>
-                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
-                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Lineage Map</span>
-                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Profiling Logs</span>
-                                            <span style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Auto-discovery</span>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Metadata
+                                            Intelligence (Layer 2)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Automated
+                                            cataloging scans schemas, collects profiling metrics, traces column-level
+                                            data lineage, and classifies sensitive fields to prepare physical assets for
+                                            semantic definitions.</p>
+                                        <div
+                                            style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
+                                            <span
+                                                style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Lineage
+                                                Map</span>
+                                            <span
+                                                style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Profiling
+                                                Logs</span>
+                                            <span
+                                                style="color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px;">Auto-discovery</span>
                                         </div>
                                     </div>
                                     <div class="story-pane" id="pane-3" style="display: none;">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Semantic Layer (Layer 3)</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">The core translator. Converts physical tables and schemas into human-readable Metrics, Dimensions, Facts, and Segments. Translates business intent (e.g. "Revenue") to automated, version-controlled SQL logic.</p>
-                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
-                                            <span style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Metrics</span>
-                                            <span style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Dimensions</span>
-                                            <span style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Segments</span>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Semantic Layer
+                                            (Layer 3)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">The core
+                                            translator. Converts physical tables and schemas into human-readable
+                                            Metrics, Dimensions, Facts, and Segments. Translates business intent (e.g.
+                                            "Revenue") to automated, version-controlled SQL logic.</p>
+                                        <div
+                                            style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
+                                            <span
+                                                style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Metrics</span>
+                                            <span
+                                                style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Dimensions</span>
+                                            <span
+                                                style="color: #0071E3; background: rgba(0,113,227,0.1); padding: 4px 8px; border-radius: 4px;">Segments</span>
                                         </div>
                                     </div>
                                     <div class="story-pane" id="pane-4" style="display: none;">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Knowledge layer (Layer 4)</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Maps semantic entities into an enterprise knowledge graph (Ontologies &amp; Definitions). Relates customer metrics to product behaviors so LLMs can contextually navigate connections between domains.</p>
-                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
-                                            <span style="color: #8b5cf6; background: rgba(139,92,246,0.1); padding: 4px 8px; border-radius: 4px;">Ontology Graph</span>
-                                            <span style="color: #8b5cf6; background: rgba(139,92,246,0.1); padding: 4px 8px; border-radius: 4px;">Business Glossary</span>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Knowledge layer
+                                            (Layer 4)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">Maps
+                                            semantic entities into an enterprise knowledge graph (Ontologies &amp;
+                                            Definitions). Relates customer metrics to product behaviors so LLMs can
+                                            contextually navigate connections between domains.</p>
+                                        <div
+                                            style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
+                                            <span
+                                                style="color: #8b5cf6; background: rgba(139,92,246,0.1); padding: 4px 8px; border-radius: 4px;">Ontology
+                                                Graph</span>
+                                            <span
+                                                style="color: #8b5cf6; background: rgba(139,92,246,0.1); padding: 4px 8px; border-radius: 4px;">Business
+                                                Glossary</span>
                                         </div>
                                     </div>
                                     <div class="story-pane" id="pane-5" style="display: none;">
-                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Agent Layer (Layer 5)</h4>
-                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">AI agents reason about high-level questions, search the Knowledge Layer for concepts, and compile natural language into secure, exact, performant queries execute-ready for the physical engines.</p>
-                                        <div style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
-                                            <span style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">LLM Agents</span>
-                                            <span style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">Text-to-SQL</span>
-                                            <span style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">MCP Services</span>
+                                        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #fff;">Agent Layer (Layer
+                                            5)</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #aaa; line-height: 1.5;">AI agents
+                                            reason about high-level questions, search the Knowledge Layer for concepts,
+                                            and compile natural language into secure, exact, performant queries
+                                            execute-ready for the physical engines.</p>
+                                        <div
+                                            style="margin-top: 12px; display: flex; gap: 8px; font-size: 12px; font-weight: 500;">
+                                            <span
+                                                style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">LLM
+                                                Agents</span>
+                                            <span
+                                                style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">Text-to-SQL</span>
+                                            <span
+                                                style="color: #ec4899; background: rgba(236,72,153,0.1); padding: 4px 8px; border-radius: 4px;">MCP
+                                                Services</span>
                                         </div>
                                     </div>
                                 </div>
@@ -483,138 +584,197 @@
                                         <i data-lucide="layers" class="value-icon"></i>
                                         <div>
                                             <strong>From Storage to Understanding</strong>
-                                            <p>Enterprise systems were built for storage. AI systems require meaning.</p>
+                                            <p>Enterprise systems were built for storage. AI systems require meaning.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="product-card-visual" style="display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 1rem; min-height: 540px; background: radial-gradient(circle at center, rgba(16,185,129,0.05) 0%, transparent 70%);">
-                            <div class="semantic-system-diagram">
-                                
-                                <!-- Central axis line and compiler pulse particle -->
-                                <div class="system-axis-path">
-                                    <div class="axis-pulse-particle" id="axis-pulse"></div>
-                                </div>
-                                
-                                <!-- Glowing connector hubs -->
-                                <div class="axis-hubs">
-                                    <span class="hub-node" id="hub-4-5"></span>
-                                    <span class="hub-node" id="hub-3-4"></span>
-                                    <span class="hub-node" id="hub-2-3"></span>
-                                    <span class="hub-node" id="hub-1-2"></span>
-                                </div>
-
-                                <!-- Layer 1: PHYSICAL DATA LAYER -->
-                                <div class="system-layer" data-layer="1" id="sys-layer-1">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">PHYSICAL DATA LAYER</span>
+                        <div class="product-card-visual sem-visual-wrap">
+                            <div class="sem-stack">
+                                <!-- Layer 5: Agent Layer -->
+                                <div class="sem-layer" data-layer="5" style="--layer-color: #ec4899;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
                                     </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Snowflake</span>
-                                        <span class="layer-pill-item">Data Warehouse</span>
-                                        <span class="layer-pill-item">Data Lake</span>
-                                    </div>
-
-                                    <!-- Layer 1 Overlay: Schema columns -->
-                                    <div class="sys-overlay" id="sys-overlay-1">
-                                        <div class="sys-schema-card glass-element">
-                                            <div class="card-title-mini">orders_tbl</div>
-                                            <span>cust_id (INT)</span>
-                                            <span>tx_amt (DECIMAL)</span>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">05</span>
+                                            <span class="sem-name">Agent Layer</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">LLM Agents</span>
+                                            <span class="sem-chip">Text-to-SQL</span>
+                                            <span class="sem-chip">MCP Services</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-agent-demo">
+                                                <div class="sem-demo-box sem-demo-input">
+                                                    <span class="sem-demo-label">Natural Language</span>
+                                                    <span class="sem-demo-value">"Compare quarterly sales across
+                                                        regions"</span>
+                                                </div>
+                                                <div class="sem-demo-arrow">
+                                                    <svg width="24" height="12" viewBox="0 0 24 12">
+                                                        <path d="M2 6h16m-4-4l5 4-5 4" stroke="currentColor"
+                                                            stroke-width="1.5" fill="none" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                </div>
+                                                <div class="sem-demo-box sem-demo-output">
+                                                    <span class="sem-demo-label">Compiled SQL</span>
+                                                    <code>SELECT quarter, region, SUM(rev) GROUP BY 1,2</code>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Layer 2: METADATA INTELLIGENCE -->
-                                <div class="system-layer" data-layer="2" id="sys-layer-2">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">METADATA INTELLIGENCE</span>
+                                <!-- Layer 4: Knowledge Layer -->
+                                <div class="sem-layer" data-layer="4" style="--layer-color: #8b5cf6;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
                                     </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Schema Discovery</span>
-                                        <span class="layer-pill-item">Lineage</span>
-                                        <span class="layer-pill-item">Column Profiling</span>
-                                    </div>
-
-                                    <!-- Layer 2 Overlay: Profiling Scan -->
-                                    <div class="sys-overlay" id="sys-overlay-2">
-                                        <div class="sys-scanner-bar"></div>
-                                        <div class="sys-lineage-badge glass-element">
-                                            <i data-lucide="git-branch" class="lineage-icon"></i>
-                                            <span>Lineage mapped</span>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">04</span>
+                                            <span class="sem-name">Knowledge Layer</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Business Glossary</span>
+                                            <span class="sem-chip">Ontologies</span>
+                                            <span class="sem-chip">Metric Catalog</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-ont-graph">
+                                                <span class="sem-ont-root">Customer Entity</span>
+                                                <div class="sem-ont-edges">
+                                                    <span class="sem-ont-edge">── Revenue (Metric)</span>
+                                                    <span class="sem-ont-edge">── Region (Dimension)</span>
+                                                    <span class="sem-ont-edge">── VIP (Segment)</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Layer 3: SEMANTIC LAYER -->
-                                <div class="system-layer" data-layer="3" id="sys-layer-3">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">SEMANTIC LAYER</span>
+                                <!-- Layer 3: Semantic Bridge -->
+                                <div class="sem-layer" data-layer="3" style="--layer-color: #0071E3;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
                                     </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Metrics</span>
-                                        <span class="layer-pill-item">Dimensions</span>
-                                        <span class="layer-pill-item">Facts</span>
-                                        <span class="layer-pill-item">Segments</span>
-                                    </div>
-
-                                    <!-- Layer 3 Overlay: Formula definition -->
-                                    <div class="sys-overlay" id="sys-overlay-3">
-                                        <div class="sys-formula-bubble glass-element">
-                                            <span class="formula-label">Revenue Metric</span>
-                                            <code>SUM(tx_amt)</code>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">03</span>
+                                            <span class="sem-name">Semantic Bridge</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Metrics</span>
+                                            <span class="sem-chip">Dimensions</span>
+                                            <span class="sem-chip">Segments</span>
+                                            <span class="sem-chip">Time Grains</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-bridge-demo">
+                                                <div class="sem-formula-row">
+                                                    <span class="sem-formula-tag" style="--fc: #0071E3;">METRIC</span>
+                                                    <span class="sem-formula-def">Revenue = SUM(price × qty)</span>
+                                                </div>
+                                                <div class="sem-formula-row">
+                                                    <span class="sem-formula-tag" style="--fc: #38bdf8;">DIM</span>
+                                                    <span class="sem-formula-def">Region · Category · Product</span>
+                                                </div>
+                                                <div class="sem-formula-row">
+                                                    <span class="sem-formula-tag" style="--fc: #10b981;">SEG</span>
+                                                    <span class="sem-formula-def">VIP = lifetime_value &gt; $10K</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Layer 4: KNOWLEDGE LAYER -->
-                                <div class="system-layer" data-layer="4" id="sys-layer-4">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">KNOWLEDGE LAYER</span>
+                                <!-- Layer 2: Metadata Intelligence -->
+                                <div class="sem-layer" data-layer="2" style="--layer-color: #14b8a6;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
                                     </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">Business Definitions</span>
-                                        <span class="layer-pill-item">Ontologies</span>
-                                        <span class="layer-pill-item">Metric Catalog</span>
-                                    </div>
-
-                                    <!-- Layer 4 Overlay: Ontology Map -->
-                                    <div class="sys-overlay" id="sys-overlay-4">
-                                        <div class="sys-ontology-card glass-element">
-                                            <i data-lucide="network" class="ontology-icon"></i>
-                                            <span>cust_id -> Customer Entity</span>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">02</span>
+                                            <span class="sem-name">Metadata Intelligence</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Schema Discovery</span>
+                                            <span class="sem-chip">Lineage</span>
+                                            <span class="sem-chip">Profiling</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-metadata-demo">
+                                                <div class="sem-lineage-chain">
+                                                    <span class="sem-lineage-item">orders_tbl</span>
+                                                    <span class="sem-lineage-sep">→</span>
+                                                    <span class="sem-lineage-item">staging</span>
+                                                    <span class="sem-lineage-sep">→</span>
+                                                    <span class="sem-lineage-item">fact_revenue</span>
+                                                </div>
+                                                <div class="sem-profiling-row">
+                                                    <span>Completeness <strong>98.2%</strong></span>
+                                                    <span>Null Rate <strong>1.8%</strong></span>
+                                                    <span>PII <strong>3 cols</strong></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Layer 5: AGENT LAYER -->
-                                <div class="system-layer" data-layer="5" id="sys-layer-5">
-                                    <div class="layer-header-bar">
-                                        <span class="layer-title-text">AGENT LAYER</span>
+                                <!-- Layer 1: Physical Data -->
+                                <div class="sem-layer" data-layer="1" style="--layer-color: #10b981;">
+                                    <div class="sem-node-col">
+                                        <div class="sem-node"></div>
                                     </div>
-                                    <div class="layer-pills-row">
-                                        <span class="layer-pill-item">LLM Agents</span>
-                                        <span class="layer-pill-item">Text-to-SQL</span>
-                                        <span class="layer-pill-item">MCP Services</span>
-                                    </div>
-
-                                    <!-- Layer 5 Overlay: NL Prompt Compiler -->
-                                    <div class="sys-overlay" id="sys-overlay-5">
-                                        <div class="sys-prompt-bubble glass-element">
-                                            <i data-lucide="message-square" class="bubble-icon"></i>
-                                            <span class="typewriter-text" id="sys-query-text">Compare quarterly sales...</span>
+                                    <div class="sem-card">
+                                        <div class="sem-card-head">
+                                            <span class="sem-num">01</span>
+                                            <span class="sem-name">Physical Data</span>
+                                        </div>
+                                        <div class="sem-tag-row">
+                                            <span class="sem-chip">Snowflake</span>
+                                            <span class="sem-chip">Data Warehouse</span>
+                                            <span class="sem-chip">Data Lake</span>
+                                        </div>
+                                        <div class="sem-detail">
+                                            <div class="sem-physical-demo">
+                                                <div class="sem-db-table">
+                                                    <div class="sem-db-header">
+                                                        <span>cust_id</span>
+                                                        <span>tx_amt</span>
+                                                        <span>ts</span>
+                                                        <span>region_cd</span>
+                                                    </div>
+                                                    <div class="sem-db-row">
+                                                        <span>A8F2D</span><span>249.99</span><span>2025-03</span><span>US-W</span>
+                                                    </div>
+                                                    <div class="sem-db-row">
+                                                        <span>C4E1B</span><span>89.50</span><span>2025-03</span><span>EU-N</span>
+                                                    </div>
+                                                    <div class="sem-db-row sem-db-dim">
+                                                        <span>…</span><span>…</span><span>…</span><span>…</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Agent SQL compiler overlay (Global bottom right) -->
-                                <div class="sys-sql-compiler-bubble glass-element" id="sys-compiler-output">
-                                    <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i> Compiled SQL (Snowflake)</div>
-                                    <pre class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
-                                </div>
-
+                            <!-- Compiled SQL overlay (appears on Step 5) -->
+                            <div class="sys-sql-compiler-bubble glass-surface" id="sys-compiler-output">
+                                <div class="compiler-title-mini"><i data-lucide="cpu" class="compiler-icon"></i>
+                                    Compiled SQL (Snowflake)</div>
+                                <pre
+                                    class="compiler-code-snip"><code>SELECT date_trunc('quarter', ts) AS quarter, SUM(tx_amt) FROM orders GROUP BY 1</code></pre>
                             </div>
                         </div>
                     </div>
@@ -625,7 +785,9 @@
                             <div class="info-narrative">
                                 <span class="product-badge">Autonomous Workflows</span>
                                 <h3>Agentic AI Pipelines</h3>
-                                <p class="product-description">I design and deploy specialized, autonomous AI agents that handle complex engineering and analytic tasks—building different agents for fraud detection, model selection, semantic model creation, and dashboarding.</p>
+                                <p class="product-description">I design and deploy specialized, autonomous AI agents
+                                    that handle complex engineering and analytic tasks—building different agents for
+                                    fraud detection, model selection, semantic model creation, and dashboarding.</p>
 
                                 <!-- Dynamic Console HUD -->
                                 <div class="agent-console">
@@ -651,31 +813,43 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-card-visual" style="position: relative; overflow: hidden; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(0,113,227,0.05) 100%); border: 1px solid #333; min-height: 360px;">
-                            <div id="agent-3d-container" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></div>
+                        <div class="product-card-visual"
+                            style="position: relative; overflow: hidden; border-radius: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(0,113,227,0.05) 100%); border: 1px solid #333; min-height: 360px;">
+                            <div id="agent-3d-container"
+                                style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></div>
 
                             <!-- Overlay Labels -->
-                            <div class="agent-label" style="position: absolute; top: 20%; left: 20%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
+                            <div class="agent-label"
+                                style="position: absolute; top: 20%; left: 20%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
                                 Model<br>Eval
                             </div>
-                            <div class="agent-label" style="position: absolute; top: 20%; left: 80%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
+                            <div class="agent-label"
+                                style="position: absolute; top: 20%; left: 80%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
                                 PR<br>Review
                             </div>
-                            <div class="agent-label" style="position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
+                            <div class="agent-label"
+                                style="position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 10px; font-weight: 500; text-align: center; pointer-events: none; text-shadow: 0 0 4px #000;">
                                 Dashboards
                             </div>
-                            <div class="agent-label" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 12px; font-weight: bold; text-align: center; pointer-events: none; text-shadow: 0 0 6px #000;">
+                            <div class="agent-label"
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #FFF; font-family: sans-serif; font-size: 12px; font-weight: bold; text-align: center; pointer-events: none; text-shadow: 0 0 6px #000;">
                                 AGENT HUB
                             </div>
                         </div>
                     </div>
-                <!-- Project 4: Document Clustering in Motion -->
+                    <!-- Project 4: Document Clustering in Motion -->
                     <div class="product-card" id="card-topic">
                         <div class="product-card-info">
                             <div class="info-narrative">
                                 <span class="product-badge">Unsupervised NLP</span>
                                 <h3>Semantic Document Clustering</h3>
-                                <p class="product-description">Enterprise document repositories are often a black box of unstructured reports. I engineered a pipeline that performs chunking, indexing, and clustering to convert raw text into dense coordinate embeddings, mapping semantic relationships. As you scroll this section, watch document nodes self-organize from chaotic scatter into structured topic clusters—just like a folding phone opening into active use.</p>
+                                <p class="product-description">Enterprise document repositories are often a black box of
+                                    unstructured reports. I engineered a pipeline that converts raw text into dense
+                                    vector embeddings. As you scroll, watch raw document records stream into a
+                                    high-speed data pipeline, pass through a holographic metadata scanner for real-time
+                                    attribute extraction, ingest into a multi-dimensional vector database, and finally
+                                    project into interconnected semantic clusters representing specific domain subjects.
+                                </p>
 
                                 <div class="motion-scroll-indicator">
                                     <div class="mouse-scroll-icon">
@@ -701,7 +875,7 @@
                     </div>
 
 
-                    </div>
+                </div>
         </section>
 
         <!-- Section 6 — Technical Depth (Ecosystem Network Graph) -->
@@ -714,138 +888,157 @@
 
                 <div class="ecosystem-grid">
                     <!-- Enterprise GenAI -->
-                    <div class="eco-category glass-element genai" style="border-top-color: var(--accent-blue);">
+                    <div class="eco-category glass-surface genai" style="border-top-color: var(--accent-blue);">
                         <h3 class="eco-category-title" style="color: var(--accent-blue);">Enterprise GenAI</h3>
-                        <p class="eco-category-desc">Building scalable retrieval and synthesis layer architectures for metric and document queries.</p>
+                        <p class="eco-category-desc">Building scalable retrieval and synthesis layer architectures for
+                            metric and document queries.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="terminal" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Text-to-SQL</h4>
                                 </div>
-                                <p class="eco-item-desc">Custom LLM compilers parsing plain English into sanitised relational databases metrics.</p>
+                                <p class="eco-item-desc">Custom LLM compilers parsing plain English into sanitised
+                                    relational databases metrics.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="file-search" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">RAG</h4>
                                 </div>
-                                <p class="eco-item-desc">Retrieval Augmented Generation pipelines feeding real-time context directly into LLM prompts.</p>
+                                <p class="eco-item-desc">Retrieval Augmented Generation pipelines feeding real-time
+                                    context directly into LLM prompts.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="binary" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Vector Databases</h4>
                                 </div>
-                                <p class="eco-item-desc">Storing and searching dense vector representations of high-dimensional metrics nodes.</p>
+                                <p class="eco-item-desc">Storing and searching dense vector representations of
+                                    high-dimensional metrics nodes.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="list-checks" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">LLM Evaluation</h4>
                                 </div>
-                                <p class="eco-item-desc">Strict verification criteria ensuring models do not hallucinate metrics or schemas.</p>
+                                <p class="eco-item-desc">Strict verification criteria ensuring models do not hallucinate
+                                    metrics or schemas.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- AI Infrastructure -->
-                    <div class="eco-category glass-element infra" style="border-top-color: var(--accent-purple);">
+                    <div class="eco-category glass-surface infra" style="border-top-color: var(--accent-purple);">
                         <h3 class="eco-category-title" style="color: var(--accent-purple);">AI Infrastructure</h3>
-                        <p class="eco-category-desc">Orchestrating agent workflows and secure API services inside enterprise boundary limits.</p>
+                        <p class="eco-category-desc">Orchestrating agent workflows and secure API services inside
+                            enterprise boundary limits.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="network" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">MCP</h4>
                                 </div>
-                                <p class="eco-item-desc">Model Context Protocol linking client applications seamlessly to remote tool schemas.</p>
+                                <p class="eco-item-desc">Model Context Protocol linking client applications seamlessly
+                                    to remote tool schemas.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="zap" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">FastAPI</h4>
                                 </div>
-                                <p class="eco-item-desc">Sleek, high-concurrency API service routing requests and serving AI pipeline endpoints.</p>
+                                <p class="eco-item-desc">Sleek, high-concurrency API service routing requests and
+                                    serving AI pipeline endpoints.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="box" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Docker</h4>
                                 </div>
-                                <p class="eco-item-desc">Packaging AI environments into reproducible execution boundaries.</p>
+                                <p class="eco-item-desc">Packaging AI environments into reproducible execution
+                                    boundaries.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="cloud" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">OpenShift</h4>
                                 </div>
-                                <p class="eco-item-desc">Kubernetes orchestration container platform hosting enterprise AI microservices.</p>
+                                <p class="eco-item-desc">Kubernetes orchestration container platform hosting enterprise
+                                    AI microservices.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Data Platforms -->
-                    <div class="eco-category glass-element data" style="border-top-color: var(--accent-green);">
+                    <div class="eco-category glass-surface data" style="border-top-color: var(--accent-green);">
                         <h3 class="eco-category-title" style="color: var(--accent-green);">Data Platforms</h3>
-                        <p class="eco-category-desc">Connecting secure high-performance data lakes and warehouse engines directly to AI pipelines.</p>
+                        <p class="eco-category-desc">Connecting secure high-performance data lakes and warehouse engines
+                            directly to AI pipelines.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="snowflake" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Snowflake</h4>
                                 </div>
-                                <p class="eco-item-desc">Cloud data warehouse structuring and storage engine for operational business details.</p>
+                                <p class="eco-item-desc">Cloud data warehouse structuring and storage engine for
+                                    operational business details.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="sparkles" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Starburst</h4>
                                 </div>
-                                <p class="eco-item-desc">Distributed query execution layer resolving data queries across partition borders.</p>
+                                <p class="eco-item-desc">Distributed query execution layer resolving data queries across
+                                    partition borders.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="database" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">DataHub</h4>
                                 </div>
-                                <p class="eco-item-desc">Self-service metadata discovery dashboard mapping active enterprise catalog schemas.</p>
+                                <p class="eco-item-desc">Self-service metadata discovery dashboard mapping active
+                                    enterprise catalog schemas.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Machine Learning -->
-                    <div class="eco-category glass-element ml" style="border-top-color: var(--text-primary);">
+                    <div class="eco-category glass-surface ml" style="border-top-color: var(--text-primary);">
                         <h3 class="eco-category-title" style="color: var(--text-primary);">Machine Learning</h3>
-                        <p class="eco-category-desc">Extracting semantic insights and structural features from massive records clusters.</p>
+                        <p class="eco-category-desc">Extracting semantic insights and structural features from massive
+                            records clusters.</p>
                         <div class="eco-items-list">
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="message-square" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">BERTopic</h4>
                                 </div>
-                                <p class="eco-item-desc">Neural topic modeling parsing semantic documents and clustering topics dynamically.</p>
+                                <p class="eco-item-desc">Neural topic modeling parsing semantic documents and clustering
+                                    topics dynamically.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="git-commit" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Top2Vec</h4>
                                 </div>
-                                <p class="eco-item-desc">Jointly learning word and document embeddings to organize similar features.</p>
+                                <p class="eco-item-desc">Jointly learning word and document embeddings to organize
+                                    similar features.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="fingerprint" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Embeddings</h4>
                                 </div>
-                                <p class="eco-item-desc">Dense coordinate mappings representing textual semantics inside abstract model space.</p>
+                                <p class="eco-item-desc">Dense coordinate mappings representing textual semantics inside
+                                    abstract model space.</p>
                             </div>
-                            <div class="eco-item glass-element">
+                            <div class="eco-item glass-surface">
                                 <div class="eco-item-header">
                                     <i data-lucide="brain" class="eco-item-icon"></i>
                                     <h4 class="eco-item-title">Neural Networks</h4>
                                 </div>
-                                <p class="eco-item-desc">Deep multi-layer architectures extracting features and classifying patterns.</p>
+                                <p class="eco-item-desc">Deep multi-layer architectures extracting features and
+                                    classifying patterns.</p>
                             </div>
                         </div>
                     </div>
@@ -859,19 +1052,19 @@
                 <h2 class="section-title">Outcomes, Not Features</h2>
 
                 <div class="metrics-grid">
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-target="90" data-suffix="%">0%</span>
                         <span class="metric-label">Reduction in Query Creation Time</span>
                     </div>
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-target="50" data-suffix="%">0%</span>
                         <span class="metric-label">Reduction in MCP Development Cycles</span>
                     </div>
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-target="100" data-prefix="$" data-suffix="K+">0</span>
                         <span class="metric-label">Annual Savings Through Data Automation</span>
                     </div>
-                    <div class="metric-card glass-element">
+                    <div class="metric-card glass-surface">
                         <span class="metric-value" data-text="Millions">0</span>
                         <span class="metric-label">Records Processed Across Platforms</span>
                     </div>
@@ -887,12 +1080,12 @@
                     analytical impact.</p>
 
 
-                                <div class="testimonials-marquee-wrapper">
+                <div class="testimonials-marquee-wrapper">
                     <!-- Single Continuous Row -->
                     <div class="testimonials-marquee marquee-1">
                         <div class="marquee-track track-1">
                             <!-- Testimonial 1 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials kh-avatar">KH</div>
                                     <div class="recommender-meta">
@@ -902,12 +1095,18 @@
                                     </div>
                                     <img src="images/hitachi.svg" class="testimonial-brand-logo" alt="Hitachi Logo">
                                 </div>
-                                <p class="testimonial-quote">"Partha's technical acumen consistently impressed me while he was on my team at Hitachi Vantara. Not only did he exhibit profound analytical prowess, but he also approached challenges with strong thinking, ensuring solutions were innovative and sustainable. His meticulous attention to quality combined with a deep empathy with client needs made him indispensable. Partha's dedication and his ability to transform complex data into actionable insights was impressive. Partha is an invaluable asset to any team!"</p>
+                                <p class="testimonial-quote">"Partha's technical acumen consistently impressed me while
+                                    he was on my team at Hitachi Vantara. Not only did he exhibit profound analytical
+                                    prowess, but he also approached challenges with strong thinking, ensuring solutions
+                                    were innovative and sustainable. His meticulous attention to quality combined with a
+                                    deep empathy with client needs made him indispensable. Partha's dedication and his
+                                    ability to transform complex data into actionable insights was impressive. Partha is
+                                    an invaluable asset to any team!"</p>
                                 <div class="testimonial-context">Kevin managed Partha directly</div>
                             </div>
 
                             <!-- Testimonial 2 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials rp-avatar">RP</div>
                                     <div class="recommender-meta">
@@ -917,12 +1116,19 @@
                                     </div>
                                     <img src="images/hitachi.svg" class="testimonial-brand-logo" alt="Hitachi Logo">
                                 </div>
-                                <p class="testimonial-quote">"It was a pleasure to have Partha join the Lumada Catalog team at Hitachi Vantara as an intern and implement a number of features that we have been planning to release for quite some time. With very little help from other members of the engineering team, Partha was able to propose a plan and implement a fairly involved business term portability feature of the Catalog in record time. In addition, he added a number of industry specific seed glossaries for the Catalog to help customers in different industries to quickly use the catalog in their business environments."</p>
+                                <p class="testimonial-quote">"It was a pleasure to have Partha join the Lumada Catalog
+                                    team at Hitachi Vantara as an intern and implement a number of features that we have
+                                    been planning to release for quite some time. With very little help from other
+                                    members of the engineering team, Partha was able to propose a plan and implement a
+                                    fairly involved business term portability feature of the Catalog in record time. In
+                                    addition, he added a number of industry specific seed glossaries for the Catalog to
+                                    help customers in different industries to quickly use the catalog in their business
+                                    environments."</p>
                                 <div class="testimonial-context">Ramesh managed Partha directly</div>
                             </div>
 
                             <!-- Testimonial 3 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials as-avatar">AS</div>
                                     <div class="recommender-meta">
@@ -932,12 +1138,17 @@
                                     </div>
                                     <img src="images/dentsu.svg" class="testimonial-brand-logo" alt="Dentsu Logo">
                                 </div>
-                                <p class="testimonial-quote">"Partha is a great team player. He has a keen eye for detail and is very dependable. He also understood business imperatives and derived meaningful insights from the data that had a significant business impact. As a keen learner, he identifies the problem and pitches his ideas across effectively. Overall, he is a great asset for any team to have in terms of both his technical and interpersonal skills."</p>
+                                <p class="testimonial-quote">"Partha is a great team player. He has a keen eye for
+                                    detail and is very dependable. He also understood business imperatives and derived
+                                    meaningful insights from the data that had a significant business impact. As a keen
+                                    learner, he identifies the problem and pitches his ideas across effectively.
+                                    Overall, he is a great asset for any team to have in terms of both his technical and
+                                    interpersonal skills."</p>
                                 <div class="testimonial-context">Abhilash managed Partha directly</div>
                             </div>
 
                             <!-- Testimonial 4 -->
-                            <div class="testimonial-card glass-element">
+                            <div class="testimonial-card glass-surface">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials tc-avatar">TC</div>
                                     <div class="recommender-meta">
@@ -945,15 +1156,23 @@
                                         <span class="rec-role">Analytics & Data Science Manager</span>
                                         <span class="rec-company">Merkle / Dentsu</span>
                                     </div>
-                                    <img src="images/merkle_uploaded.png" class="testimonial-brand-logo testimonial-brand-logo-png" alt="Merkle Logo">
+                                    <img src="images/merkle_uploaded.png"
+                                        class="testimonial-brand-logo testimonial-brand-logo-png" alt="Merkle Logo">
                                 </div>
-                                <p class="testimonial-quote">"Partha is an excellent team player and has worked on cohort of interesting projects in the field of data science. His intuitive planning and commitment to deadlines has been one of the biggest asset to our team. He helped me and the team to ramp up the process COGS calculation for a US based retailer to identify the magnitude of costs incurred to the company by various functions. Partha has exemplary skills in Python, R, Advanced Excel and a variety of ML frameworks like Linear Regression, Logistic Regression, Topic Modelling, K-means, Hierarchical Clustering."</p>
+                                <p class="testimonial-quote">"Partha is an excellent team player and has worked on
+                                    cohort of interesting projects in the field of data science. His intuitive planning
+                                    and commitment to deadlines has been one of the biggest asset to our team. He helped
+                                    me and the team to ramp up the process COGS calculation for a US based retailer to
+                                    identify the magnitude of costs incurred to the company by various functions. Partha
+                                    has exemplary skills in Python, R, Advanced Excel and a variety of ML frameworks
+                                    like Linear Regression, Logistic Regression, Topic Modelling, K-means, Hierarchical
+                                    Clustering."</p>
                                 <div class="testimonial-context font-muted">Tanay managed Partha directly</div>
                             </div>
 
                             <!-- Duplicate for infinite scroll -->
                             <!-- Testimonial 1 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials kh-avatar">KH</div>
                                     <div class="recommender-meta">
@@ -963,12 +1182,18 @@
                                     </div>
                                     <img src="images/hitachi.svg" class="testimonial-brand-logo" alt="Hitachi Logo">
                                 </div>
-                                <p class="testimonial-quote">"Partha's technical acumen consistently impressed me while he was on my team at Hitachi Vantara. Not only did he exhibit profound analytical prowess, but he also approached challenges with strong thinking, ensuring solutions were innovative and sustainable. His meticulous attention to quality combined with a deep empathy with client needs made him indispensable. Partha's dedication and his ability to transform complex data into actionable insights was impressive. Partha is an invaluable asset to any team!"</p>
+                                <p class="testimonial-quote">"Partha's technical acumen consistently impressed me while
+                                    he was on my team at Hitachi Vantara. Not only did he exhibit profound analytical
+                                    prowess, but he also approached challenges with strong thinking, ensuring solutions
+                                    were innovative and sustainable. His meticulous attention to quality combined with a
+                                    deep empathy with client needs made him indispensable. Partha's dedication and his
+                                    ability to transform complex data into actionable insights was impressive. Partha is
+                                    an invaluable asset to any team!"</p>
                                 <div class="testimonial-context">Kevin managed Partha directly</div>
                             </div>
 
                             <!-- Testimonial 2 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials rp-avatar">RP</div>
                                     <div class="recommender-meta">
@@ -978,12 +1203,19 @@
                                     </div>
                                     <img src="images/hitachi.svg" class="testimonial-brand-logo" alt="Hitachi Logo">
                                 </div>
-                                <p class="testimonial-quote">"It was a pleasure to have Partha join the Lumada Catalog team at Hitachi Vantara as an intern and implement a number of features that we have been planning to release for quite some time. With very little help from other members of the engineering team, Partha was able to propose a plan and implement a fairly involved business term portability feature of the Catalog in record time. In addition, he added a number of industry specific seed glossaries for the Catalog to help customers in different industries to quickly use the catalog in their business environments."</p>
+                                <p class="testimonial-quote">"It was a pleasure to have Partha join the Lumada Catalog
+                                    team at Hitachi Vantara as an intern and implement a number of features that we have
+                                    been planning to release for quite some time. With very little help from other
+                                    members of the engineering team, Partha was able to propose a plan and implement a
+                                    fairly involved business term portability feature of the Catalog in record time. In
+                                    addition, he added a number of industry specific seed glossaries for the Catalog to
+                                    help customers in different industries to quickly use the catalog in their business
+                                    environments."</p>
                                 <div class="testimonial-context">Ramesh managed Partha directly</div>
                             </div>
 
                             <!-- Testimonial 3 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials as-avatar">AS</div>
                                     <div class="recommender-meta">
@@ -993,12 +1225,17 @@
                                     </div>
                                     <img src="images/dentsu.svg" class="testimonial-brand-logo" alt="Dentsu Logo">
                                 </div>
-                                <p class="testimonial-quote">"Partha is a great team player. He has a keen eye for detail and is very dependable. He also understood business imperatives and derived meaningful insights from the data that had a significant business impact. As a keen learner, he identifies the problem and pitches his ideas across effectively. Overall, he is a great asset for any team to have in terms of both his technical and interpersonal skills."</p>
+                                <p class="testimonial-quote">"Partha is a great team player. He has a keen eye for
+                                    detail and is very dependable. He also understood business imperatives and derived
+                                    meaningful insights from the data that had a significant business impact. As a keen
+                                    learner, he identifies the problem and pitches his ideas across effectively.
+                                    Overall, he is a great asset for any team to have in terms of both his technical and
+                                    interpersonal skills."</p>
                                 <div class="testimonial-context">Abhilash managed Partha directly</div>
                             </div>
 
                             <!-- Testimonial 4 -->
-                            <div class="testimonial-card glass-element" aria-hidden="true">
+                            <div class="testimonial-card glass-surface" aria-hidden="true">
                                 <div class="testimonial-header">
                                     <div class="avatar-initials tc-avatar">TC</div>
                                     <div class="recommender-meta">
@@ -1006,9 +1243,17 @@
                                         <span class="rec-role">Analytics & Data Science Manager</span>
                                         <span class="rec-company">Merkle / Dentsu</span>
                                     </div>
-                                    <img src="images/merkle_uploaded.png" class="testimonial-brand-logo testimonial-brand-logo-png" alt="Merkle Logo">
+                                    <img src="images/merkle_uploaded.png"
+                                        class="testimonial-brand-logo testimonial-brand-logo-png" alt="Merkle Logo">
                                 </div>
-                                <p class="testimonial-quote">"Partha is an excellent team player and has worked on cohort of interesting projects in the field of data science. His intuitive planning and commitment to deadlines has been one of the biggest asset to our team. He helped me and the team to ramp up the process COGS calculation for a US based retailer to identify the magnitude of costs incurred to the company by various functions. Partha has exemplary skills in Python, R, Advanced Excel and a variety of ML frameworks like Linear Regression, Logistic Regression, Topic Modelling, K-means, Hierarchical Clustering."</p>
+                                <p class="testimonial-quote">"Partha is an excellent team player and has worked on
+                                    cohort of interesting projects in the field of data science. His intuitive planning
+                                    and commitment to deadlines has been one of the biggest asset to our team. He helped
+                                    me and the team to ramp up the process COGS calculation for a US based retailer to
+                                    identify the magnitude of costs incurred to the company by various functions. Partha
+                                    has exemplary skills in Python, R, Advanced Excel and a variety of ML frameworks
+                                    like Linear Regression, Logistic Regression, Topic Modelling, K-means, Hierarchical
+                                    Clustering."</p>
                                 <div class="testimonial-context font-muted">Tanay managed Partha directly</div>
                             </div>
                         </div>
@@ -1044,7 +1289,7 @@
                 </div>
 
                 <!-- Contact Form -->
-                <form id="contact-form" class="glass-element">
+                <form id="contact-form" class="glass-surface">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="John Doe">
