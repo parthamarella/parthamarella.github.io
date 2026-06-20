@@ -293,7 +293,7 @@ section {
     color: var(--accent-blue);
     text-transform: uppercase;
     display: inline-block;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 }
 
 .section-title {
@@ -579,7 +579,6 @@ section {
    ========================================================================== */
 
 #about {
-    padding: 80px 0;
     background: transparent;
 }
 
@@ -587,21 +586,22 @@ section {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 48px;
-    align-items: start;
+    align-items: center; /* Center vertically to act as a slide */
 }
 
 /* Profile image container and hover effects */
 .about-profile-container {
+    grid-column: span 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 32px;
+    margin-bottom: 0px;
     width: 100%;
 }
 
 .profile-image-wrap {
-    width: 220px;
-    height: 220px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     padding: 4px;
     background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
@@ -648,11 +648,11 @@ section {
     line-height: 1.1;
     font-weight: 600;
     letter-spacing: -0.03em;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 }
 
 .about-bio {
-    margin-bottom: 56px;
+    margin-bottom: 32px;
 }
 
 .about-para {
@@ -660,14 +660,14 @@ section {
     line-height: 1.65;
     font-weight: 300;
     color: var(--text-secondary);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     transition: color 0.3s ease;
 }
 
 .about-stats {
     display: flex;
     gap: 40px;
-    padding-top: 32px;
+    padding-top: 24px;
     border-top: 1px solid var(--white-05);
 }
 
@@ -695,11 +695,10 @@ section {
 }
 
 .about-right {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
-    position: sticky;
-    top: 100px;
+    align-items: start;
 }
 
 .about-highlight-card {
@@ -752,14 +751,13 @@ section {
    ========================================================================== */
 
 #experience {
-    padding: 80px 0;
     background: transparent;
 }
 
 .timeline-interactive {
     position: relative;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -770,7 +768,7 @@ section {
     position: relative;
     width: 100%;
     max-width: 900px;
-    height: 440px;
+    height: 420px;
     perspective: 1200px;
     display: flex;
     justify-content: center;
@@ -2559,7 +2557,6 @@ section {
    ========================================================================== */
 
 #education {
-    padding: 80px 0;
     background: transparent;
     position: relative;
 }
@@ -2568,11 +2565,11 @@ section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
-    margin-top: 60px;
+    margin-top: 24px;
 }
 
 .education-card {
-    padding: 40px;
+    padding: 24px 28px;
     position: relative;
     overflow: hidden;
 }
@@ -2609,7 +2606,7 @@ section {
 .edu-focus {
     font-size: 13px;
     color: var(--text-secondary);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     font-weight: 300;
 }
 
@@ -2631,7 +2628,7 @@ section {
     border: 1px solid var(--white-07);
     border-radius: 12px;
     padding: 0 20px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     overflow: hidden;
 }
 
@@ -3211,6 +3208,12 @@ section {
     .sem-demo-arrow {
         transform: rotate(90deg);
         margin: 4px auto;
+    }
+    .about-right {
+        grid-template-columns: 1fr !important;
+    }
+    .about-profile-container {
+        grid-column: span 1 !important;
     }
 }
 
