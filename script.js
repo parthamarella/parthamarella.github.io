@@ -8,6 +8,63 @@ document.addEventListener("DOMContentLoaded", () => {
         lucide.createIcons();
     }
 
+    // Theme Toggle Logic
+    const themeBtn = document.getElementById('theme-toggle');
+    const mobileThemeBtn = document.getElementById('mobile-theme-toggle');
+    const htmlEl = document.documentElement;
+    const header = document.getElementById("site-header");
+
+    function updateHeaderStyle() {
+        if (!header) return;
+        const light = htmlEl.getAttribute('data-theme') === 'light';
+        if (window.scrollY > 50) {
+            header.style.backgroundColor = light ? "rgba(255, 255, 255, 0.25)" : "rgba(10, 10, 15, 0.15)";
+            header.style.border = light ? "1px solid rgba(255, 255, 255, 0.4)" : "1px solid rgba(255, 255, 255, 0.15)";
+            header.style.transform = "translateX(-50%) scale(0.98)";
+            header.style.boxShadow = light ? "0 4px 24px rgba(0, 0, 0, 0.05)" : "0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.05)";
+        } else {
+            header.style.backgroundColor = light ? "rgba(255, 255, 255, 0.15)" : "rgba(20, 20, 25, 0.15)";
+            header.style.border = light ? "1px solid rgba(255, 255, 255, 0.2)" : "1px solid rgba(255, 255, 255, 0.1)";
+            header.style.transform = "translateX(-50%) scale(1)";
+            header.style.boxShadow = light ? "0 2px 16px rgba(0, 0, 0, 0.03)" : "0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02)";
+        }
+    }
+
+    function setTheme(theme) {
+        if (theme === 'light') {
+            htmlEl.setAttribute('data-theme', 'light');
+            document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'inline-block');
+            document.querySelectorAll('.theme-label').forEach(el => el.textContent = 'Dark Mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            htmlEl.removeAttribute('data-theme');
+            document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = 'inline-block');
+            document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.theme-label').forEach(el => el.textContent = 'Light Mode');
+            localStorage.setItem('theme', 'dark');
+        }
+        updateHeaderStyle();
+    }
+
+    // Check system preference or localStorage
+    const savedTheme = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+        setTheme('light');
+    } else {
+        setTheme('dark');
+    }
+
+    const toggleTheme = () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        setTheme(currentTheme === 'light' ? 'dark' : 'light');
+    };
+
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
     // Scroll Spy for Nav Links
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".nav-link:not(.contact-btn)");
@@ -45,20 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Handle Scroll Header floating pill dynamics
-    const header = document.getElementById("site-header");
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-            header.style.backgroundColor = "rgba(10, 10, 15, 0.15)";
-            header.style.border = "1px solid rgba(255, 255, 255, 0.15)";
-            header.style.transform = "translateX(-50%) scale(0.98)";
-            header.style.boxShadow = "0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.05)";
-        } else {
-            header.style.backgroundColor = "rgba(20, 20, 25, 0.15)";
-            header.style.border = "1px solid rgba(255, 255, 255, 0.1)";
-            header.style.transform = "translateX(-50%) scale(1)";
-            header.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02)";
-        }
-    });
+    window.addEventListener("scroll", updateHeaderStyle);
+    updateHeaderStyle();
 
     // Mobile Menu Toggle Logic
     const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
@@ -239,18 +284,23 @@ document.addEventListener("DOMContentLoaded", () => {
         // Section 2 - About Me: Bio paragraph scroll-reveal highlight
         const aboutParas = gsap.utils.toArray(".scroll-reveal-text");
         aboutParas.forEach((para) => {
-            gsap.fromTo(para, 
-                { color: "rgba(161, 161, 170, 0.15)" }, 
-                {
-                    color: "rgba(255, 255, 255, 1)",
-                    scrollTrigger: {
-                        trigger: para,
-                        start: "top 80%",
-                        end: "top 50%",
-                        scrub: true,
+            const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
+            // In light mode, skip the color animation — CSS handles readable text color.
+            // In dark mode, animate from nearly invisible grey to white.
+            if (!isLight()) {
+                gsap.fromTo(para, 
+                    { color: "rgba(161, 161, 170, 0.15)" }, 
+                    {
+                        color: "rgba(255, 255, 255, 1)",
+                        scrollTrigger: {
+                            trigger: para,
+                            start: "top 80%",
+                            end: "top 50%",
+                            scrub: true,
+                        }
                     }
-                }
-            );
+                );
+            }
         });
 
         // About section highlight cards stagger in
