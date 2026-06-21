@@ -299,6 +299,25 @@ section {
         0 32px 80px rgba(0, 0, 0, 0.18);
 }
 
+/* Testimonial cards in dark mode: always fully vivid, no dim default */
+.testimonial-card.glass-surface {
+    background: rgba(28, 28, 38, 0.85);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.10),
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.testimonial-card.glass-surface:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px) scale(1.008);
+    box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+        0 6px 20px rgba(0, 0, 0, 0.35),
+        0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
 /* Section Indicators */
 .section-indicator {
     font-family: var(--font-heading);
@@ -615,8 +634,8 @@ section {
 }
 
 .profile-image-wrap {
-    width: 150px;
-    height: 150px;
+    width: 240px;
+    height: 240px;
     border-radius: 50%;
     padding: 4px;
     background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
@@ -653,7 +672,7 @@ section {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 3.5px solid #020205; /* Clean border space */
+    border: 4px solid var(--bg-primary); /* Dynamically matches theme background */
     display: block;
 }
 
@@ -681,7 +700,7 @@ section {
 
 .about-stats {
     display: flex;
-    gap: 40px;
+    gap: 48px;
     padding-top: 24px;
     border-top: 1px solid var(--white-05);
 }
@@ -689,24 +708,28 @@ section {
 .stat-item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .stat-number {
     font-family: var(--font-heading);
-    font-size: 32px;
-    font-weight: 700;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1;
     letter-spacing: -0.03em;
     background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin-bottom: 4px;
 }
 
 .stat-label {
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
 }
 
 .about-right {
@@ -2345,17 +2368,110 @@ section {
     align-items: center;
     position: relative;
     overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease;
 }
 
+/* Hover lift effect for metric card */
+.metric-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="light"] .metric-card:hover {
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Card background glow based on intent */
+.metric-card.intent-reduction {
+    --card-glow-color: rgba(52, 211, 153, 0.06);
+}
+.metric-card.intent-savings {
+    --card-glow-color: rgba(52, 211, 153, 0.06);
+}
+.metric-card.intent-scale {
+    --card-glow-color: rgba(139, 92, 246, 0.06);
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(150px circle at 50% 50%, var(--card-glow-color, transparent), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.metric-card:hover::before {
+    opacity: 1;
+}
+
+/* Minimalistic Trend Arrows styling */
+.trend-arrow {
+    display: inline-block;
+    margin-right: 4px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trend-arrow.down {
+    color: #34d399; /* Softer, pleasant green */
+}
+
+.trend-arrow.up {
+    color: #34d399; /* Softer, pleasant green */
+}
+
+.intent-scale .trend-arrow.up {
+    color: #a78bfa; /* Softer purple */
+}
+
+/* Micro-animations on hover */
+.metric-card:hover .trend-arrow.down {
+    transform: translateY(2px);
+}
+
+.metric-card:hover .trend-arrow.up {
+    transform: translateY(-2px);
+}
+
+/* Gradient Value texts */
 .metric-value {
-    display: block;
+    display: inline-block;
     font-family: var(--font-heading);
     font-size: clamp(36px, 5vw, 64px);
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
     margin-bottom: 16px;
+    z-index: 1;
+    transition: opacity 0.3s ease;
     color: var(--text-primary);
+}
+
+.metric-value.text-gradient-green {
+    background: linear-gradient(135deg, #a7f3d0 0%, #34d399 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.metric-value.text-gradient-purple {
+    background: linear-gradient(135deg, #c084fc 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .metric-value:hover {
@@ -2367,6 +2483,7 @@ section {
     color: var(--text-secondary);
     line-height: 1.4;
     font-weight: 300;
+    z-index: 1;
 }
 
 /* ==========================================================================
@@ -2519,16 +2636,40 @@ section {
 }
 
 .avatar-initials {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--font-heading);
     font-weight: 600;
-    font-size: 16px;
+    font-size: 20px;
     color: var(--text-primary);
+}
+
+.recommender-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root[data-theme="light"] .recommender-avatar {
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-card:hover .recommender-avatar {
+    transform: scale(1.08);
+    border-color: var(--accent-blue, #0071E3);
+    box-shadow: 0 0 12px rgba(0, 113, 227, 0.3);
+}
+
+:root[data-theme="light"] .testimonial-card:hover .recommender-avatar {
+    box-shadow: 0 0 12px rgba(0, 113, 227, 0.18);
 }
 
 .kh-avatar {
@@ -2554,27 +2695,29 @@ section {
 
 .rec-name {
     font-family: var(--font-heading);
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
     color: var(--text-primary);
 }
 
 .rec-role {
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .rec-company {
-    font-size: 11px;
+    font-size: 12.5px;
     color: var(--text-muted);
+    font-weight: 400;
 }
 
 .testimonial-quote {
-    font-size: 14px;
+    font-size: 15.5px;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     font-style: italic;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 24px;
 }
 
@@ -5014,6 +5157,11 @@ section {
     color: var(--text-primary);
 }
 
+/* Logo contrast correction for light mode */
+:root[data-theme="light"] img[src*="hitachi"] {
+    filter: invert(1) !important;
+}
+
 /* Ambient orbs — vivid and colorful in light mode for dramatic translucency bleed */
 :root[data-theme="light"] .ambient-orb {
     opacity: 0.6;
@@ -5118,8 +5266,33 @@ section {
 }
 
 /* Metric values */
-:root[data-theme="light"] .metric-value {
+:root[data-theme="light"] .metric-value:not(.text-gradient-green):not(.text-gradient-purple) {
     color: var(--text-primary);
+}
+
+:root[data-theme="light"] .metric-value.text-gradient-green {
+    background: linear-gradient(135deg, #2d7a5f 0%, #1e523f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+:root[data-theme="light"] .metric-value.text-gradient-purple {
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+:root[data-theme="light"] .trend-arrow.down,
+:root[data-theme="light"] .trend-arrow.up {
+    color: #2d7a5f; /* Softer forest green */
+}
+
+:root[data-theme="light"] .intent-scale .trend-arrow.up {
+    color: #7c3aed; /* Softer purple */
 }
 
 /* Section indicators */
@@ -5202,12 +5375,24 @@ section {
     color: #ffffff;
 }
 
-/* Testimonial cards */
+/* Testimonial cards - always vivid, no hover-only activation */
 :root[data-theme="light"] .testimonial-card,
 :root[data-theme="light"] .review-card {
-    background: rgba(255, 255, 255, 0.82);
-    border-color: rgba(255, 255, 255, 0.9);
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-color: rgba(0, 0, 0, 0.10) !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
     color: var(--text-primary);
+}
+
+/* Hover - subtle lift only, no color change that implies "activation" */
+:root[data-theme="light"] .testimonial-card:hover,
+:root[data-theme="light"] .review-card:hover {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.09), 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+    transform: translateY(-2px) scale(1.008) !important;
 }
 
 /* Carousel controls in light mode */
@@ -5363,17 +5548,77 @@ section {
    ========================================================================== */
 
 #resume {
-    padding: 80px 0;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
     background: transparent;
     position: relative;
+    overflow: hidden;
+    padding: 0;
 }
 
+/* Make the inner container stretch so the card can fill available space */
+#resume .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px; /* account for fixed nav */
+    padding-bottom: 24px;
+    max-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Tighten the resume section header spacing */
+#resume .section-indicator {
+    margin-bottom: 6px;
+}
+
+#resume .section-title {
+    font-size: clamp(24px, 3.5vw, 38px);
+    margin-bottom: 8px;
+}
+
+#resume .section-subtitle {
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+/* Let resume-card-container stretch to fill remaining vertical space */
+#resume .resume-card-container {
+    margin-top: 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Make the main card stretch */
+#resume .resume-main-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Make the grid stretch to fill the card */
+#resume .resume-grid {
+    flex: 1;
+    min-height: 0;
+}
+
+/* Left column should not overflow */
+#resume .resume-col-left {
+    overflow: hidden;
+}
+
+
 .resume-card-container {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .resume-main-card {
-    padding: 48px;
+    padding: 28px 36px;
     position: relative;
     overflow: hidden;
 }
@@ -5381,14 +5626,14 @@ section {
 .resume-grid {
     display: grid;
     grid-template-columns: 5fr 7fr;
-    gap: 48px;
+    gap: 32px;
 }
 
 /* Left Column Styling */
 .resume-col-left {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 16px;
 }
 
 .resume-header-info {
@@ -5437,7 +5682,7 @@ section {
 .resume-quick-details {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
 }
 
 .resume-quick-details .detail-item {
@@ -5468,7 +5713,7 @@ section {
 .resume-skills-block {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .skills-block-title {
@@ -5526,7 +5771,7 @@ section {
 }
 
 .resume-action-box {
-    margin-top: 10px;
+    margin-top: 4px;
 }
 
 .resume-download-btn {
@@ -5573,12 +5818,14 @@ section {
 .resume-col-right {
     display: flex;
     flex-direction: column;
+    min-height: 0;
 }
 
 .doc-mockup-frame {
     display: flex;
     flex-direction: column;
-    height: 520px;
+    flex: 1;
+    min-height: 0;
     background: #18181c;
     border: 1px solid var(--white-10);
     border-radius: 16px;
