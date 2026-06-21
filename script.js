@@ -353,6 +353,23 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
+        // Section 4.5 - Resume Section Reveal
+        const resumeMainCard = document.querySelector(".resume-main-card");
+        if (resumeMainCard) {
+            gsap.from(resumeMainCard, {
+                y: 60,
+                opacity: 0,
+                scale: 0.98,
+                duration: 1.0,
+                ease: "back.out(1.2)",
+                scrollTrigger: {
+                    trigger: "#resume",
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        }
+
         // Section 5 - Projects Card Reveal (slide up)
         const productCards = gsap.utils.toArray(".product-card");
         productCards.forEach((card) => {
@@ -377,21 +394,119 @@ document.addEventListener("DOMContentLoaded", () => {
             onEnter: () => animateMetrics()
         });
 
-        // Testimonials marquee wrapper slide up
-        const marqueeWrapper = document.querySelector(".testimonials-marquee-wrapper");
-        if (marqueeWrapper) {
-            gsap.from(marqueeWrapper, {
+        // Testimonials Carousel — slide in on scroll
+        const carouselEl = document.getElementById("testimonials-carousel");
+        if (carouselEl) {
+            gsap.from(carouselEl, {
                 y: 50,
                 opacity: 0,
                 duration: 1,
                 scrollTrigger: {
-                    trigger: marqueeWrapper,
+                    trigger: carouselEl,
                     start: "top 90%",
                     toggleActions: "play none none reverse"
                 }
             });
         }
     }
+
+    /* ==========================================================================
+       TESTIMONIALS CAROUSEL CONTROLLER
+       ========================================================================== */
+    (function initTestimonialsCarousel() {
+        const track = document.getElementById("carousel-track");
+        const prevBtn = document.getElementById("carousel-prev");
+        const nextBtn = document.getElementById("carousel-next");
+        const dotsContainer = document.getElementById("carousel-dots");
+        if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
+
+        const cards = track.querySelectorAll(".testimonial-card");
+        const cardsPerPage = window.innerWidth <= 768 ? 1 : 2;
+        const totalPages = Math.ceil(cards.length / cardsPerPage);
+        let currentPage = 0;
+        let autoAdvanceTimer = null;
+
+        // Build dots dynamically (in case card count changes)
+        dotsContainer.innerHTML = "";
+        for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement("button");
+            dot.className = "carousel-dot" + (i === 0 ? " active" : "");
+            dot.setAttribute("data-page", i);
+            dot.setAttribute("aria-label", `Page ${i + 1}`);
+            dotsContainer.appendChild(dot);
+        }
+        const dots = dotsContainer.querySelectorAll(".carousel-dot");
+
+        function goToPage(page) {
+            if (page < 0) page = totalPages - 1;
+            if (page >= totalPages) page = 0;
+            currentPage = page;
+
+            // Scroll track to the correct position
+            const card = cards[currentPage * cardsPerPage];
+            if (card) {
+                track.scrollTo({
+                    left: card.offsetLeft - track.offsetLeft,
+                    behavior: "smooth"
+                });
+            }
+
+            // Update dots
+            dots.forEach((d, i) => {
+                d.classList.toggle("active", i === currentPage);
+            });
+        }
+
+        function resetAutoAdvance() {
+            clearInterval(autoAdvanceTimer);
+            autoAdvanceTimer = setInterval(() => {
+                goToPage(currentPage + 1);
+            }, 60000); // 60 seconds
+        }
+
+        // Arrow clicks
+        prevBtn.addEventListener("click", () => {
+            goToPage(currentPage - 1);
+            resetAutoAdvance();
+        });
+        nextBtn.addEventListener("click", () => {
+            goToPage(currentPage + 1);
+            resetAutoAdvance();
+        });
+
+        // Dot clicks
+        dots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                goToPage(parseInt(dot.getAttribute("data-page")));
+                resetAutoAdvance();
+            });
+        });
+
+        // Detect manual scroll and sync dots
+        let scrollTimeout;
+        track.addEventListener("scroll", () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                // Determine which page is visible based on scroll position
+                const scrollLeft = track.scrollLeft;
+                const trackWidth = track.scrollWidth - track.clientWidth;
+                if (trackWidth > 0) {
+                    const ratio = scrollLeft / trackWidth;
+                    const nearestPage = Math.round(ratio * (totalPages - 1));
+                    if (nearestPage !== currentPage) {
+                        currentPage = nearestPage;
+                        dots.forEach((d, i) => {
+                            d.classList.toggle("active", i === currentPage);
+                        });
+                        resetAutoAdvance();
+                    }
+                }
+            }, 100);
+        });
+
+        // Start auto-advance
+        resetAutoAdvance();
+    })();
 
     /* ==========================================================================
        INTERACTIVE PROJECTS LOGIC
@@ -2030,7 +2145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } 
 
     // 3D Card Tilt Interaction
-    const tiltElements = document.querySelectorAll(".product-card, .education-card, .exp-card, .about-highlight-card");
+    const tiltElements = document.querySelectorAll(".education-card, .exp-card, .about-highlight-card");
     tiltElements.forEach(el => {
         el.classList.add("tilt-target");
         
