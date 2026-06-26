@@ -202,14 +202,16 @@ section {
     scroll-margin-top: 0;
 }
 
-#hero, #about, #experience, #education, #technical-ecosystem, #testimonials {
+#hero, #about, #experience, #education, #resume, #impact, #technical-ecosystem, #testimonials {
     min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 100px;
-    padding-bottom: 40px;
+    padding-top: 90px;
+    padding-bottom: 20px;
     box-sizing: border-box;
 }
 
@@ -332,18 +334,18 @@ section {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: clamp(26px, 4vw, 38px);
     font-weight: 600;
     line-height: 1.15;
     letter-spacing: -0.02em;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .section-subtitle {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--text-secondary);
     max-width: 650px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     font-weight: 300;
 }
 
@@ -619,7 +621,7 @@ section {
 .about-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-    gap: 48px;
+    gap: 28px;
     align-items: center; /* Center vertically to act as a slide */
 }
 
@@ -634,8 +636,8 @@ section {
 }
 
 .profile-image-wrap {
-    width: 240px;
-    height: 240px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     padding: 4px;
     background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
@@ -678,30 +680,30 @@ section {
 
 .about-headline {
     font-family: var(--font-heading);
-    font-size: clamp(36px, 6vw, 56px);
+    font-size: clamp(28px, 4.5vw, 42px);
     line-height: 1.1;
     font-weight: 600;
     letter-spacing: -0.03em;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .about-bio {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 }
 
 .about-para {
-    font-size: clamp(17px, 2.5vw, 20px);
-    line-height: 1.65;
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.5;
     font-weight: 300;
     color: var(--text-secondary);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     transition: color 0.3s ease;
 }
 
 .about-stats {
     display: flex;
-    gap: 48px;
-    padding-top: 24px;
+    gap: 36px;
+    padding-top: 16px;
     border-top: 1px solid var(--white-05);
 }
 
@@ -713,7 +715,7 @@ section {
 
 .stat-number {
     font-family: var(--font-heading);
-    font-size: 52px;
+    font-size: 38px;
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -740,10 +742,10 @@ section {
 }
 
 .about-highlight-card {
-    padding: 20px 24px;
+    padding: 14px 18px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
     transition: var(--transition-smooth);
 }
 
@@ -795,18 +797,18 @@ section {
 .timeline-interactive {
     position: relative;
     width: 100%;
-    margin-top: 24px;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
 }
 
 .timeline-content-area {
     position: relative;
     width: 100%;
     max-width: 900px;
-    height: 420px;
+    height: 350px;
     perspective: 1200px;
     display: flex;
     justify-content: center;
@@ -1023,8 +1025,8 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 40px 24px;
-    gap: 16px;
+    padding: 24px 20px;
+    gap: 10px;
     border-right: 1px solid var(--white-04);
     background: var(--white-01);
 }
@@ -1099,10 +1101,10 @@ section {
 }
 
 .exp-body {
-    padding: 40px 48px;
+    padding: 20px 32px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
 }
 
 .exp-title-row {
@@ -1114,7 +1116,7 @@ section {
 
 .exp-role {
     font-family: var(--font-heading);
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: -0.01em;
     line-height: 1.2;
@@ -1127,9 +1129,9 @@ section {
 }
 
 .exp-desc {
-    font-size: 15px;
+    font-size: 13px;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.45;
     font-weight: 300;
     max-width: 680px;
 }
@@ -1140,14 +1142,14 @@ section {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 .exp-bullets li {
-    font-size: 14px;
+    font-size: 12.5px;
     color: var(--text-secondary);
-    line-height: 1.55;
-    padding-left: 18px;
+    line-height: 1.4;
+    padding-left: 16px;
     position: relative;
     font-weight: 300;
 }
@@ -2348,7 +2350,6 @@ section {
    ========================================================================== */
 
 #impact {
-    padding: 60px 0;
     background: transparent;
 }
 
@@ -2767,12 +2768,12 @@ section {
 .education-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin-top: 24px;
+    gap: 24px;
+    margin-top: 16px;
 }
 
 .education-card {
-    padding: 24px 28px;
+    padding: 18px 22px;
     position: relative;
     overflow: hidden;
 }
@@ -2794,9 +2795,9 @@ section {
 
 .edu-institution {
     font-family: var(--font-heading);
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .edu-degree {
@@ -2823,15 +2824,15 @@ section {
 /* Education logo box — same visual footprint for all three logos */
 .edu-logo-box {
     width: 100%;
-    height: 72px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--white-04);
     border: 1px solid var(--white-07);
     border-radius: 12px;
-    padding: 0 20px;
-    margin-bottom: 16px;
+    padding: 0 16px;
+    margin-bottom: 12px;
     overflow: hidden;
 }
 
@@ -3288,7 +3289,7 @@ section {
         scroll-snap-type: none !important;
     }
 
-    section, #hero, #about, #experience, #education, #technical-ecosystem, #testimonials {
+    section, #hero, #about, #experience, #education, #resume, #impact, #technical-ecosystem, #testimonials {
         scroll-snap-align: none !important;
         height: auto !important;
         min-height: auto !important;
@@ -5548,14 +5549,10 @@ section {
    ========================================================================== */
 
 #resume {
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
     align-items: center;
     background: transparent;
     position: relative;
     overflow: hidden;
-    padding: 0;
 }
 
 /* Make the inner container stretch so the card can fill available space */
@@ -5563,9 +5560,9 @@ section {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: 80px; /* account for fixed nav */
-    padding-bottom: 24px;
-    max-height: 100vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: calc(100vh - 90px);
     box-sizing: border-box;
 }
 
@@ -5618,7 +5615,7 @@ section {
 }
 
 .resume-main-card {
-    padding: 28px 36px;
+    padding: 20px 28px;
     position: relative;
     overflow: hidden;
 }
@@ -5626,14 +5623,14 @@ section {
 .resume-grid {
     display: grid;
     grid-template-columns: 5fr 7fr;
-    gap: 32px;
+    gap: 20px;
 }
 
 /* Left Column Styling */
 .resume-col-left {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
 }
 
 .resume-header-info {
@@ -5643,14 +5640,14 @@ section {
 }
 
 .resume-avatar-initials {
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
     color: #ffffff;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 22px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5659,7 +5656,7 @@ section {
 
 .resume-name {
     font-family: var(--font-heading);
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 600;
     color: var(--text-primary);
     line-height: 1.2;
@@ -5673,8 +5670,8 @@ section {
 }
 
 .resume-summary {
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.45;
     color: var(--text-secondary);
     font-weight: 300;
 }
@@ -5682,15 +5679,15 @@ section {
 .resume-quick-details {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
 .resume-quick-details .detail-item {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     color: var(--text-secondary);
-    font-size: 14px;
+    font-size: 12.5px;
 }
 
 .resume-quick-details .detail-item a {
@@ -5728,13 +5725,13 @@ section {
 .skills-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
 .skill-chip-tag {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
-    padding: 6px 12px;
+    padding: 4px 10px;
     border-radius: 6px;
     border: 1px solid var(--white-10);
     transition: var(--transition-fast);
@@ -5771,7 +5768,7 @@ section {
 }
 
 .resume-action-box {
-    margin-top: 4px;
+    margin-top: 2px;
 }
 
 .resume-download-btn {
@@ -5780,14 +5777,14 @@ section {
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 16px 28px;
+    padding: 12px 24px;
     background: linear-gradient(135deg, var(--accent-blue) 0%, #0056b3 100%);
     color: #ffffff;
     border: none;
     border-radius: 12px;
     font-family: var(--font-heading);
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
     text-decoration: none;
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(0, 113, 227, 0.3);
@@ -5883,7 +5880,7 @@ section {
 
 .doc-mockup-body {
     flex: 1;
-    padding: 24px;
+    padding: 16px;
     overflow-y: auto;
     background: #0e0e11;
     scrollbar-width: thin;
@@ -5907,12 +5904,12 @@ section {
 .paper-resume {
     background: #ffffff;
     color: #1a1a1a;
-    padding: 32px;
+    padding: 20px;
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     font-family: "Times New Roman", Times, serif;
-    font-size: 11px;
-    line-height: 1.4;
+    font-size: 10px;
+    line-height: 1.35;
     min-height: 100%;
 }
 
